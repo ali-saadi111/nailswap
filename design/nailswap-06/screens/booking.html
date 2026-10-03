@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>NailSwap V06 — Booking</title><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet"><style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#6B3F2A}a:hover{color:#2B211C}
+h1,h2,h3,p,ol,ul{margin:0;padding:0}
+ol,ul{list-style:none}
+.row{display:flex;align-items:center}
+.cap{height:20px;font:500 11px/20px 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5A4C43;white-space:nowrap}
+.ph{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.dk{width:1280px;height:800px;border-radius:14px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.scr{position:absolute;left:0;right:0;top:44px;padding:8px 24px 0;display:flex;flex-direction:column}
+.sf{font-family:'DM Serif Display',serif;font-weight:400;color:#2B211C}
+.mut{color:#6F6259}
+.lab{font:400 13px/1.3 'DM Sans',sans-serif;color:#6F6259}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;border:0;background:#6B3F2A;color:#fff;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#58321F;color:#fff}
+.btn.s{height:44px;padding:0 22px;font-size:14px}
+.lnk{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:#6B3F2A;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.lnk.d{color:#2B211C}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#2B211C;cursor:pointer;flex:none}
+.ic{width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.fld{display:block;width:100%;height:46px;padding:0;border:0;border-bottom:1px solid #D9CEC4;border-radius:0;background:transparent;font:400 16px 'DM Sans',sans-serif;color:#2B211C;outline:none}
+.fld:focus,.fld.f{border-bottom:2px solid #6B3F2A}
+.tabs{display:flex;gap:24px}
+.tabs button{height:44px;padding:0;border:0;border-bottom:2px solid transparent;background:none;font:500 15px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tabs button.on{color:#2B211C;border-bottom-color:#2B211C}
+.tg{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:none;font:500 14px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tg::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent}
+.tg.on{color:#6B3F2A}.tg.on::before{background:#6B3F2A}
+.st{display:inline-flex;align-items:center;gap:7px;font:500 13px 'DM Sans',sans-serif;color:#2B211C;white-space:nowrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:none}
+.li{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid #E9E0D7}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#E7CDBE;color:#6B3F2A;font:500 13px 'DM Sans',sans-serif;flex:none}
+.sw{position:relative;width:44px;height:26px;padding:0;border:0;border-radius:999px;background:#D9CEC4;cursor:pointer;flex:none}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F7F3EF}
+.sw.on{background:#6B3F2A}.sw.on::after{left:21px}
+.nl{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex:none;display:inline-block}
+.almond{border-radius:50% 50% 45% 45%/70% 70% 30% 30%}
+.oval{border-radius:50% 50% 46% 46%/58% 58% 42% 42%}
+.square{border-radius:6px 6px 40% 40%/6px 6px 28% 28%}
+.coffin{clip-path:polygon(22% 0,78% 0,100% 100%,0 100%);border-radius:0 0 30% 30%/0 0 20% 20%}
+.stiletto{clip-path:polygon(50% 0,100% 72%,100% 100%,0 100%,0 72%)}
+.tb{position:absolute;left:0;right:0;bottom:0;height:84px;display:flex;padding:0 12px 26px;background:#F7F3EF}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:500 11px/1 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.tab.on{color:#6B3F2A}
+.nv{display:flex;align-items:center;gap:10px;height:38px;font:500 15px 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.nv::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent;flex:none}
+.nv.on{color:#2B211C}.nv.on::before{background:#6B3F2A}
+.th{display:grid;align-items:center;column-gap:16px;height:36px;font:500 12px 'DM Sans',sans-serif;color:#6F6259;border-bottom:1px solid #E9E0D7}
+.tr{display:grid;align-items:center;column-gap:16px;height:52px;font:400 14px 'DM Sans',sans-serif;color:#2B211C;border-bottom:1px solid #EFE8E1}
+.hd{justify-content:space-between;height:44px;margin:0 -12px}
+.sticky{position:absolute;left:24px;right:24px;bottom:30px}
+.tm{height:44px;padding:0;border:0;border-radius:999px;background:none;font:500 15px 'DM Sans',sans-serif;color:#2B211C;cursor:pointer}
+.tm.sel{background:#6B3F2A;color:#fff}
+.tm.na{color:#A3958A;text-decoration:line-through;cursor:default}
+.cd{width:44px;height:56px;padding:0;border:0;border-bottom:1px solid #D9CEC4;border-radius:0;background:transparent;text-align:center;font:500 26px 'DM Sans',sans-serif;color:#2B211C;outline:none}
+.cd.f{border-bottom:2px solid #6B3F2A}
+dl,dd{margin:0}
+.kv{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:40px;font-size:14px;border-bottom:1px solid #E9E0D7}
+.kv:last-child{border-bottom:0}
+.kv dt{color:#6F6259}
+.kv dd{font-weight:500;text-align:right}
+</style></head><body>
+
+<div style="width: 2318px; height: 992px; box-sizing: border-box; padding: 56px; display: flex; gap: 64px; overflow: hidden; background: #E9E1D9; font-family: 'DM Sans', sans-serif; color: #2B211C">
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Booking · 01 — Slot picker</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Back"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<span class="lab" style="padding-right:12px">Step 1 of 3</span>
+</header>
+<h1 class="sf" style="font-size:34px;line-height:1.1;margin-top:8px">Choose a time</h1>
+<div class="row" style="gap:14px;margin-top:14px">
+<span class="row" aria-hidden="true" style="gap:3px;align-items:flex-end;flex:none"><span class="nl almond" style="width:11px;height:15px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:11px;height:18px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:11px;height:15px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span></span>
+<div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600">Gel-X + Chrome Glaze</div><div class="lab" style="margin-top:2px">Lumière Nail Bar · 90 min · $55</div></div>
+<a href="#" class="lnk" style="font-size:14px">Edit</a>
+</div>
+<div class="row" role="radiogroup" aria-label="Staff" style="gap:16px;margin-top:12px">
+<span class="lab" style="width:40px">With</span>
+<button type="button" class="tg " role="radio" aria-checked="false">Any</button><button type="button" class="tg on" role="radio" aria-checked="true">Maya</button><button type="button" class="tg " role="radio" aria-checked="false">Rana</button><button type="button" class="tg " role="radio" aria-checked="false">Jad</button><button type="button" class="tg " role="radio" aria-checked="false">Lea</button>
+</div>
+<div class="row" style="justify-content:space-between;margin:16px -12px 0 0">
+<h2 style="font:600 15px 'DM Sans',sans-serif">October 2026 <span class="lab" style="font-size:14px">· 6–12 Oct</span></h2>
+<div class="row">
+<button type="button" class="ib" aria-label="Previous week"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" class="ib" aria-label="Next week"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+</div>
+<div role="radiogroup" aria-label="Day, week of 6 October" style="display:grid;grid-template-columns:repeat(7,1fr);margin:4px -6px 0">
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="false" aria-label="Tuesday 6 October" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6F6259">Tue</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#2B211C;font:500 16px 'DM Sans',sans-serif;text-decoration:none">6</span>
+</button>
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="false" aria-label="Wednesday 7 October" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6F6259">Wed</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#2B211C;font:500 16px 'DM Sans',sans-serif;text-decoration:none">7</span>
+</button>
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="false" aria-label="Thursday 8 October" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6F6259">Thu</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#2B211C;font:500 16px 'DM Sans',sans-serif;text-decoration:none">8</span>
+</button>
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="false" aria-label="Friday 9 October" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6F6259">Fri</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#2B211C;font:500 16px 'DM Sans',sans-serif;text-decoration:none">9</span>
+</button>
+
+<button type="button" role="radio" aria-checked="true" aria-disabled="false" aria-label="Saturday 10 October, selected" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6B3F2A">Sat</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#6B3F2A;color:#FFFFFF;font:500 16px 'DM Sans',sans-serif;text-decoration:none">10</span>
+</button>
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="false" aria-label="Sunday 11 October" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#6F6259">Sun</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#2B211C;font:500 16px 'DM Sans',sans-serif;text-decoration:none">11</span>
+</button>
+
+<button type="button" role="radio" aria-checked="false" aria-disabled="true" aria-label="Monday 12 October, closed" style="display:flex;flex-direction:column;align-items:center;gap:6px;height:70px;padding:0;border:0;background:none;cursor:pointer">
+<span style="font:500 12px 'DM Sans',sans-serif;color:#A3958A">Mon</span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:transparent;color:#A3958A;font:500 16px 'DM Sans',sans-serif;text-decoration:line-through">12</span>
+</button>
+
+</div>
+<div class="lab" style="margin-top:20px">Sat 10 Oct · with Maya</div>
+<div style="display:flex;flex-direction:column;gap:6px;margin:6px -8px 0 0">
+
+<div class="row">
+<span style="width:88px;font-size:14px;color:#6F6259;flex:none">Morning</span>
+<div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+<button type="button" class="tm na" aria-pressed="false" aria-disabled="true" aria-label="10:00, taken">10:00</button><button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="10:45, available">10:45</button><button type="button" class="tm na" aria-pressed="false" aria-disabled="true" aria-label="11:30, taken">11:30</button><button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="12:00, available">12:00</button>
+</div>
+</div>
+
+<div class="row">
+<span style="width:88px;font-size:14px;color:#6F6259;flex:none">Afternoon</span>
+<div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+<button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="13:00, available">13:00</button><button type="button" class="tm sel" aria-pressed="true" aria-disabled="false" aria-label="14:30, selected">14:30</button><button type="button" class="tm na" aria-pressed="false" aria-disabled="true" aria-label="15:15, taken">15:15</button><button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="16:00, available">16:00</button>
+</div>
+</div>
+
+<div class="row">
+<span style="width:88px;font-size:14px;color:#6F6259;flex:none">Evening</span>
+<div style="flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+<button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="17:00, available">17:00</button><button type="button" class="tm na" aria-pressed="false" aria-disabled="true" aria-label="17:45, taken">17:45</button><button type="button" class="tm " aria-pressed="false" aria-disabled="false" aria-label="18:30, available">18:30</button>
+</div>
+</div>
+
+</div>
+</div>
+<div class="sticky">
+<div class="row" style="justify-content:space-between;margin-bottom:14px"><b style="font-size:15px;font-weight:600">Sat 10 Oct · 14:30–16:00</b><span class="lab" style="font-size:14px">90 min · $55</span></div>
+<button type="button" class="btn" style="width:100%">Continue</button>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Booking · 02 — OTP sign-in</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Back"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<span class="lab" style="padding-right:12px">Step 2 of 3</span>
+</header>
+<h1 class="sf" style="font-size:34px;line-height:1.1;margin-top:8px">Confirm with your phone</h1>
+<p class="lab" style="font-size:15px;line-height:22px;margin-top:8px">We'll text you a 6-digit code. No password, nothing to set up.</p>
+<label class="lab" for="tel" style="margin-top:28px">Mobile number</label>
+<div class="row" style="gap:16px">
+<div style="position:relative;width:96px;flex:none">
+<select class="fld" aria-label="Country code" style="appearance:none;-webkit-appearance:none;padding-right:22px;cursor:pointer"><option>LB +961</option><option>AE +971</option><option>FR +33</option></select>
+<svg class="ic mut" style="position:absolute;right:0;top:14px;width:18px;height:18px;pointer-events:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 9l6 6 6-6"></path></svg>
+</div>
+<input class="fld" id="tel" type="tel" value="71 234 567" readonly="" style="flex: 1 1 0%; width: auto; min-width: 0px;">
+</div>
+<div class="row" role="status" style="gap:8px;min-height:44px;margin-top:8px;font-size:14px;color:#3F5C3C">
+<svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+<span style="flex:1">Code sent to +961 71 234 567</span>
+<button type="button" class="lnk" style="font-size:14px">Edit</button>
+</div>
+<div class="lab" id="codelbl" style="margin-top:20px">Enter the code</div>
+<div class="row" role="group" aria-labelledby="codelbl" style="justify-content:space-between;margin-top:4px">
+<input class="cd" value="4" readonly="" aria-label="Digit 1" inputmode="numeric" style="">
+<input class="cd" value="8" readonly="" aria-label="Digit 2" inputmode="numeric" style="">
+<input class="cd" value="2" readonly="" aria-label="Digit 3" inputmode="numeric" style="">
+<input class="cd" value="7" readonly="" aria-label="Digit 4" inputmode="numeric" style="">
+<span style="position:relative;display:inline-flex"><input class="cd f" value="" readonly="" aria-label="Digit 5" inputmode="numeric" style=""><span style="position:absolute;left:21px;top:15px;width:2px;height:26px;border-radius:2px;background:#6B3F2A"></span></span>
+<input class="cd" value="" readonly="" aria-label="Digit 6" inputmode="numeric" style="">
+</div>
+<div class="row" style="justify-content:space-between;margin-top:12px">
+<span class="lab" style="font-size:14px">Resend code in <b style="color:#2B211C;font-weight:600">0:42</b></span>
+<a href="#" class="lnk" style="font-size:14px">Use email instead</a>
+</div>
+<div class="row lab" style="gap:10px;margin-top:20px;align-items:flex-start">
+<svg class="ic" style="width:18px;height:18px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3 2"></path></svg>
+<span style="line-height:19px">Holding <b style="color:#2B211C;font-weight:600">Sat 10 Oct, 14:30</b> for 9:12 · Lumière · Gel-X + Chrome Glaze</span>
+</div>
+</div>
+<div class="sticky" style="bottom:24px">
+<button type="button" class="btn" style="width:100%">Verify and book</button>
+<p class="lab" style="font-size:12px;text-align:center;margin-top:12px">By continuing you accept the <a href="#">Terms</a> and <a href="#">Privacy</a> notice.</p>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Booking · 03 — Confirmation</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd" style="justify-content:flex-end">
+<button type="button" class="ib" aria-label="Close"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button>
+</header>
+<svg class="ic" style="width:34px;height:34px;color:#5F7F5C;margin-top:4px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+<h1 class="sf" style="font-size:34px;line-height:1.1;margin-top:12px">You're booked, Nour</h1>
+<p class="lab" style="font-size:15px;margin-top:6px">Lumière has confirmed your appointment.</p>
+<p class="lab" style="margin-top:6px">Booking ref <b style="color:#2B211C;font-weight:600;letter-spacing:.06em">NS-4F7K2</b></p>
+<dl style="margin-top:20px">
+<div class="kv"><dt>Salon</dt><dd>Lumière Nail Bar</dd></div>
+<div class="kv"><dt>Service</dt><dd>Gel-X extensions</dd></div>
+<div class="kv"><dt>Design</dt><dd class="row" style="gap:7px"><span class="nl almond" style="width:10px;height:14px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span>Chrome Glaze · Almond</dd></div>
+<div class="kv"><dt>With</dt><dd>Maya K.</dd></div>
+<div class="kv"><dt>When</dt><dd>Sat 10 Oct · 14:30–16:00</dd></div>
+<div class="kv"><dt>Duration</dt><dd>90 min</dd></div>
+<div class="kv"><dt>Price</dt><dd>$55 · pay at the salon</dd></div>
+<div class="kv"><dt>Address</dt><dd>Armenia St, Mar Mikhael, Beirut</dd></div>
+</dl>
+<div class="row" style="gap:28px;margin-top:8px">
+<button type="button" class="lnk"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z M4 10h16 M8 3v4 M16 3v4 M12 13v5 M9.5 15.5h5"></path></svg>Add to calendar</button>
+<a href="#" class="lnk"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 11l18-8-8 18-2-8z"></path></svg>Directions</a>
+</div>
+<div class="row lab" style="gap:10px;margin-top:8px;align-items:flex-start">
+<svg class="ic" style="width:18px;height:18px;color:#6B3F2A;margin-top:1px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 5h16v11H9l-5 4z M8 9.5h8 M8 12.5h5"></path></svg>
+<span style="line-height:19px">We've texted a manage link to +961 71 234 567. Reschedule or cancel from it, no sign-in needed.</span>
+</div>
+</div>
+<div class="sticky">
+<a href="#" class="btn" style="width:100%">View my bookings</a>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Booking · 04 — Manage (token)</div>
+<div class="ph">
+<div class="scr">
+<header class="row" style="justify-content:space-between;height:44px">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C" aria-label="NailSwap home"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<span class="row lab" style="gap:6px;font-size:12px"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 11h12v10H6z M8 11V8a4 4 0 0 1 8 0v3"></path></svg>nailswap.app/b/4f7k2-…</span>
+</header>
+<h1 class="sf" style="font-size:30px;line-height:1.1;margin-top:12px">Hi Nour, here's your booking</h1>
+<p class="lab" style="margin-top:6px">Opened from your SMS link · no sign-in needed</p>
+<div class="row" style="justify-content:space-between;margin-top:20px">
+<span class="st"><span class="dot" style="background:#5F7F5C"></span>Confirmed</span>
+<span class="lab" style="font-size:12px;letter-spacing:.06em">NS-4F7K2</span>
+</div>
+<div class="row" style="gap:14px;margin-top:10px;align-items:flex-start">
+<span class="row" aria-hidden="true" style="gap:3px;align-items:flex-end;flex:none;margin-top:4px"><span class="nl almond" style="width:10px;height:14px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:10px;height:17px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:10px;height:14px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span></span>
+<div style="flex:1;min-width:0">
+<div style="font-size:16px;font-weight:600">Gel-X + Chrome Glaze</div>
+<div style="font-size:14px;margin-top:3px">Sat 10 Oct · 14:30–16:00 · Maya K.</div>
+<div class="lab" style="margin-top:3px">Lumière Nail Bar · Armenia St, Mar Mikhael</div>
+</div>
+</div>
+<div class="tabs" style="margin-top:12px">
+<button type="button" class="on" aria-expanded="true">Reschedule</button>
+<button type="button">Cancel</button>
+</div>
+<div class="lab" style="margin-top:14px">Pick a new time · same service</div>
+<div role="radiogroup" aria-label="Alternative times" style="margin-top:2px">
+
+<label class="li" style="gap:12px;min-height:46px;border-bottom-color:#E9E0D7;cursor:pointer">
+
+<input type="radio" name="alt" style="width: 18px; height: 18px; margin: 0px; accent-color: rgb(107, 63, 42); flex: 0 0 auto;">
+<span style="flex:1;font-size:15px;font-weight:400;color:#2B211C">Sat 10 Oct · 17:00</span>
+<span class="lab">Maya K.</span>
+</label>
+
+<label class="li" style="gap:12px;min-height:46px;border-bottom-color:#E9E0D7;cursor:pointer">
+<input type="radio" name="alt" checked="" style="width: 18px; height: 18px; margin: 0px; accent-color: rgb(107, 63, 42); flex: 0 0 auto;">
+
+<span style="flex:1;font-size:15px;font-weight:600;color:#6B3F2A">Sun 11 Oct · 11:00</span>
+<span class="lab">Maya K.</span>
+</label>
+
+<label class="li" style="gap:12px;min-height:46px;border-bottom-color:#E9E0D7;cursor:pointer">
+
+<input type="radio" name="alt" style="width: 18px; height: 18px; margin: 0px; accent-color: rgb(107, 63, 42); flex: 0 0 auto;">
+<span style="flex:1;font-size:15px;font-weight:400;color:#2B211C">Sun 11 Oct · 15:30</span>
+<span class="lab">Rana S.</span>
+</label>
+
+<label class="li" style="gap:12px;min-height:46px;border-bottom-color:transparent;cursor:pointer">
+
+<input type="radio" name="alt" style="width: 18px; height: 18px; margin: 0px; accent-color: rgb(107, 63, 42); flex: 0 0 auto;">
+<span style="flex:1;font-size:15px;font-weight:400;color:#2B211C">Tue 13 Oct · 14:30</span>
+<span class="lab">Maya K.</span>
+</label>
+
+</div>
+<button type="button" class="btn" style="width:100%;margin-top:14px">Confirm new time</button>
+<p class="lab" style="line-height:19px;margin-top:14px">Free cancellation until Fri 9 Oct, 14:30 (24 hours before). After that, Lumière may charge 50% of the service.</p>
+<button type="button" class="lnk" style="align-self:flex-start;color:#8E3324;font-size:14px">Cancel booking</button>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Booking · 05 — Review</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Close"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button>
+<span class="lab" style="padding-right:12px">Sat 10 Oct · Maya K.</span>
+</header>
+<h1 class="sf" style="font-size:30px;line-height:1.1;margin-top:8px">How was your visit to Lumière?</h1>
+<p class="lab" style="font-size:14px;margin-top:6px">Gel-X extensions + Chrome Glaze</p>
+<div class="row" role="radiogroup" aria-label="Rating" style="margin:12px 0 0 -7px">
+<button type="button" class="ib" role="radio" aria-checked="false" aria-label="1 star" style="color:#6B3F2A"><svg style="width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg></button><button type="button" class="ib" role="radio" aria-checked="false" aria-label="2 stars" style="color:#6B3F2A"><svg style="width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg></button><button type="button" class="ib" role="radio" aria-checked="false" aria-label="3 stars" style="color:#6B3F2A"><svg style="width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg></button><button type="button" class="ib" role="radio" aria-checked="false" aria-label="4 stars" style="color:#6B3F2A"><svg style="width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg></button><button type="button" class="ib" role="radio" aria-checked="true" aria-label="5 stars" style="color:#6B3F2A"><svg style="width:30px;height:30px" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg></button>
+<span style="font-size:15px;font-weight:600;margin-left:8px">Loved it</span>
+</div>
+<div class="lab" style="margin-top:16px">What stood out?</div>
+<div style="display:flex;flex-wrap:wrap;column-gap:22px">
+<button type="button" class="tg on" aria-pressed="true">On time</button><button type="button" class="tg on" aria-pressed="true">Clean</button><button type="button" class="tg " aria-pressed="false">Long-lasting</button><button type="button" class="tg on" aria-pressed="true">Matches try-on</button><button type="button" class="tg " aria-pressed="false">Friendly</button><button type="button" class="tg " aria-pressed="false">Great value</button>
+</div>
+<label class="lab" for="rv" style="margin-top:14px">Your review</label>
+<textarea id="rv" readonly="" style="display: block; width: 100%; height: 82px; padding: 8px 0px; border-width: 0px 0px 1px; border-top-style: initial; border-right-style: initial; border-left-style: initial; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; border-bottom-style: solid; border-bottom-color: rgb(217, 206, 196); border-radius: 0px; background: transparent; font: 400 15px / 22px &quot;DM Sans&quot;, sans-serif; color: rgb(43, 33, 28); resize: none; outline: none;">Maya nailed the chrome almond. It looks exactly like my try-on, and the studio was spotless. Back in four weeks!</textarea>
+<div class="lab" style="font-size:12px;text-align:right;margin-top:6px">112 / 500</div>
+<div class="row" style="gap:14px;margin-top:6px">
+<span class="av" role="img" aria-label="Your photo" style="width:52px;height:52px;align-items:flex-end;gap:2px;padding-bottom:12px"><span class="nl almond" style="width:9px;height:13px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:9px;height:15px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:9px;height:13px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span></span>
+<button type="button" class="lnk"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 5v14 M5 12h14"></path></svg>Add photos</button>
+<span class="lab" style="margin-left:auto">[Your photo] · 1 of 4</span>
+</div>
+<div class="row" style="gap:16px;min-height:56px;margin-top:10px">
+<div style="flex:1"><div style="font-size:15px;font-weight:500">Show my look on the salon page</div><div class="lab" style="margin-top:2px">With your first name only</div></div>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Show my look on the salon page"></button>
+</div>
+</div>
+<div class="sticky">
+<button type="button" class="btn" style="width:100%">Submit review</button>
+</div>
+</div>
+</section>
+
+</div>
+</body></html>

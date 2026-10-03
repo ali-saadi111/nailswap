@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>NailSwap V06 — Try-on</title><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet"><style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#6B3F2A}a:hover{color:#2B211C}
+h1,h2,h3,p,ol,ul{margin:0;padding:0}
+ol,ul{list-style:none}
+.row{display:flex;align-items:center}
+.cap{height:20px;font:500 11px/20px 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5A4C43;white-space:nowrap}
+.ph{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.dk{width:1280px;height:800px;border-radius:14px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.scr{position:absolute;left:0;right:0;top:44px;padding:8px 24px 0;display:flex;flex-direction:column}
+.sf{font-family:'DM Serif Display',serif;font-weight:400;color:#2B211C}
+.mut{color:#6F6259}
+.lab{font:400 13px/1.3 'DM Sans',sans-serif;color:#6F6259}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;border:0;background:#6B3F2A;color:#fff;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#58321F;color:#fff}
+.btn.s{height:44px;padding:0 22px;font-size:14px}
+.lnk{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:#6B3F2A;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.lnk.d{color:#2B211C}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#2B211C;cursor:pointer;flex:none}
+.ic{width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.fld{display:block;width:100%;height:46px;padding:0;border:0;border-bottom:1px solid #D9CEC4;border-radius:0;background:transparent;font:400 16px 'DM Sans',sans-serif;color:#2B211C;outline:none}
+.fld:focus,.fld.f{border-bottom:2px solid #6B3F2A}
+.tabs{display:flex;gap:24px}
+.tabs button{height:44px;padding:0;border:0;border-bottom:2px solid transparent;background:none;font:500 15px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tabs button.on{color:#2B211C;border-bottom-color:#2B211C}
+.tg{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:none;font:500 14px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tg::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent}
+.tg.on{color:#6B3F2A}.tg.on::before{background:#6B3F2A}
+.st{display:inline-flex;align-items:center;gap:7px;font:500 13px 'DM Sans',sans-serif;color:#2B211C;white-space:nowrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:none}
+.li{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid #E9E0D7}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#E7CDBE;color:#6B3F2A;font:500 13px 'DM Sans',sans-serif;flex:none}
+.sw{position:relative;width:44px;height:26px;padding:0;border:0;border-radius:999px;background:#D9CEC4;cursor:pointer;flex:none}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F7F3EF}
+.sw.on{background:#6B3F2A}.sw.on::after{left:21px}
+.nl{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex:none;display:inline-block}
+.almond{border-radius:50% 50% 45% 45%/70% 70% 30% 30%}
+.oval{border-radius:50% 50% 46% 46%/58% 58% 42% 42%}
+.square{border-radius:6px 6px 40% 40%/6px 6px 28% 28%}
+.coffin{clip-path:polygon(22% 0,78% 0,100% 100%,0 100%);border-radius:0 0 30% 30%/0 0 20% 20%}
+.stiletto{clip-path:polygon(50% 0,100% 72%,100% 100%,0 100%,0 72%)}
+.tb{position:absolute;left:0;right:0;bottom:0;height:84px;display:flex;padding:0 12px 26px;background:#F7F3EF}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:500 11px/1 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.tab.on{color:#6B3F2A}
+.nv{display:flex;align-items:center;gap:10px;height:38px;font:500 15px 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.nv::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent;flex:none}
+.nv.on{color:#2B211C}.nv.on::before{background:#6B3F2A}
+.th{display:grid;align-items:center;column-gap:16px;height:36px;font:500 12px 'DM Sans',sans-serif;color:#6F6259;border-bottom:1px solid #E9E0D7}
+.tr{display:grid;align-items:center;column-gap:16px;height:52px;font:400 14px 'DM Sans',sans-serif;color:#2B211C;border-bottom:1px solid #EFE8E1}
+.hd{justify-content:space-between;height:44px;margin:0 -12px;position:relative}
+.media{position:relative;border-radius:24px;overflow:hidden;flex:none}
+.hand{position:absolute;overflow:visible}
+.plab{position:absolute;font:500 10px/1 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.sticky{position:absolute;left:24px;right:24px;bottom:30px}
+</style></head><body>
+
+<div style="width: 1864px; height: 992px; box-sizing: border-box; padding: 56px; display: flex; gap: 64px; overflow: hidden; background: #E9E1D9; font-family: 'DM Sans', sans-serif; color: #2B211C">
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Try-on · 01 — Live AR</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Close try-on"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button>
+<div class="tabs" role="tablist" aria-label="Try-on mode" style="position:absolute;left:50%;top:0;transform:translateX(-50%)">
+<button type="button" class="on" role="tab" aria-selected="true">Live AR</button>
+<button type="button" role="tab" aria-selected="false">AI photo</button>
+</div>
+<div class="row">
+<button type="button" class="ib" aria-label="Flash off"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M13 3L5 14h6l-1 7 8-11h-6z"></path></svg></button>
+<button type="button" class="ib" aria-label="Flip camera"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 8h3l2-3h6l2 3h3v11H4z M9 13a3 3 0 0 1 5.4-1.8 M15 13a3 3 0 0 1-5.4 1.8 M14.6 9.5v1.9h-1.9 M9.4 16.5v-1.9h1.9"></path></svg></button>
+</div>
+</header>
+<div class="media" style="height:396px;margin:8px -8px 0;background:#3B2F29">
+<svg class="hand" style="left:31px;top:106px" viewBox="-70 50 370 380" width="296" height="304" aria-hidden="true">
+<defs><linearGradient id="cgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"></stop><stop offset=".35" stop-color="#b9bcc6"></stop><stop offset=".5" stop-color="#ffffff"></stop><stop offset=".7" stop-color="#9da1ad"></stop><stop offset="1" stop-color="#e9eaee"></stop></linearGradient></defs>
+<g fill="#E3BFA8"><rect x="58" y="110" width="44" height="190" rx="22" transform="rotate(-8 80 300)"></rect><rect x="108" y="60" width="46" height="230" rx="23" transform="rotate(-2 131 290)"></rect><rect x="160" y="70" width="44" height="220" rx="22" transform="rotate(4 182 290)"></rect><rect x="208" y="120" width="40" height="180" rx="20" transform="rotate(10 228 300)"></rect><rect x="10" y="230" width="44" height="140" rx="22" transform="rotate(-38 32 360)"></rect><rect x="60" y="250" width="190" height="170" rx="60"></rect></g>
+<g fill="url(#cgA)" stroke="rgba(0,0,0,.12)" stroke-width="1"><rect x="66" y="116" width="28" height="42" rx="14" transform="rotate(-8 80 300)"></rect><rect x="116" y="66" width="30" height="44" rx="15" transform="rotate(-2 131 290)"></rect><rect x="168" y="76" width="28" height="44" rx="14" transform="rotate(4 182 290)"></rect><rect x="214" y="126" width="26" height="40" rx="13" transform="rotate(10 228 300)"></rect><rect x="18" y="236" width="28" height="38" rx="14" transform="rotate(-38 32 360)"></rect></g>
+<path d="M37 120V112H45 M69 112H77V120 M77 158V166H69 M45 166H37V158 M104 69V61H112 M136 61H144V69 M144 107V115H136 M112 115H104V107 M175 79V71H183 M207 71H215V79 M215 117V125H207 M183 125H175V117 M234 129V121H242 M266 121H274V129 M274 167V175H266 M242 175H234V167 M-53 258V250H-45 M-21 250H-13V258 M-13 296V304H-21 M-45 304H-53V296" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".85"></path>
+</svg>
+<span class="st" role="status" style="position:absolute;left:20px;top:18px;color:#F7F3EF"><span class="dot" style="background:#9CC09A"></span>5/5 nails tracked</span>
+<span class="plab" style="right:20px;top:23px;color:#E7CDBE">[Live camera]</span>
+</div>
+<div class="row" role="radiogroup" aria-label="Nail shape" style="gap:14px;margin-top:8px">
+<span class="lab" style="width:56px">Shape</span>
+<button type="button" class="tg on" role="radio" aria-checked="true">Almond</button><button type="button" class="tg " role="radio" aria-checked="false">Oval</button><button type="button" class="tg " role="radio" aria-checked="false">Square</button><button type="button" class="tg " role="radio" aria-checked="false">Coffin</button>
+</div>
+<div class="row" role="radiogroup" aria-label="Nail length" style="gap:14px">
+<span class="lab" style="width:56px">Length</span>
+<button type="button" class="tg " role="radio" aria-checked="false">Short</button><button type="button" class="tg on" role="radio" aria-checked="true">Medium</button><button type="button" class="tg " role="radio" aria-checked="false">Long</button>
+</div>
+<div class="row" style="justify-content:space-between;margin-top:4px">
+<span style="font-size:15px;font-weight:600">Chrome Glaze <span class="lab" style="font-weight:400">· designs at Lumière</span></span>
+<a href="#" class="lnk" style="font-size:14px">All 24</a>
+</div>
+<div class="row" role="listbox" aria-label="Designs" style="justify-content:space-between;margin:2px -10px 0;align-items:flex-start">
+
+<button type="button" role="option" aria-selected="true" aria-label="Chrome Glaze" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span>
+<span class="dot" style="width:5px;height:5px;background:#6B3F2A"></span>
+</button>
+
+<button type="button" role="option" aria-selected="false" aria-label="Milky French" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span>
+<span class="dot" style="width:5px;height:5px;background:transparent"></span>
+</button>
+
+<button type="button" role="option" aria-selected="false" aria-label="Cat-Eye Velvet" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span>
+<span class="dot" style="width:5px;height:5px;background:transparent"></span>
+</button>
+
+<button type="button" role="option" aria-selected="false" aria-label="Cherry Cola" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span>
+<span class="dot" style="width:5px;height:5px;background:transparent"></span>
+</button>
+
+<button type="button" role="option" aria-selected="false" aria-label="Aura Blush" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:radial-gradient(circle at 50% 55%,#ff8fb1 0%,#f7d6e3 55%,#fbeef3 100%)"></span>
+<span class="dot" style="width:5px;height:5px;background:transparent"></span>
+</button>
+
+<button type="button" role="option" aria-selected="false" aria-label="Tortoiseshell" style="width:44px;height:52px;padding:0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:9px">
+<span class="nl almond" style="width:24px;height:35px;background:radial-gradient(circle at 30% 30%,#3b1f0e 0 18%,transparent 19%),radial-gradient(circle at 70% 62%,#5a2e12 0 15%,transparent 16%),#b5651d"></span>
+<span class="dot" style="width:5px;height:5px;background:transparent"></span>
+</button>
+
+</div>
+</div>
+<div class="sticky row" style="justify-content:space-between">
+<button type="button" class="lnk" style="width:112px;justify-content:flex-start"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 4h12v17l-6-4-6 4z"></path></svg>Save look</button>
+<button type="button" aria-label="Capture look" style="width:68px;height:68px;padding:0;border:0;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 2px #6B3F2A;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none"><span style="width:54px;height:54px;border-radius:50%;background:#6B3F2A"></span></button>
+<a href="#" class="lnk" style="width:112px;justify-content:flex-end">Book this<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Try-on · 02 — AI photo</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Back"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<div class="tabs" role="tablist" aria-label="Try-on mode" style="position:absolute;left:50%;top:0;transform:translateX(-50%)">
+<button type="button" role="tab" aria-selected="false">Live AR</button>
+<button type="button" class="on" role="tab" aria-selected="true">AI photo</button>
+</div>
+<span style="width:44px"></span>
+</header>
+<ol class="row" aria-label="Steps" style="gap:12px;height:44px;margin-top:4px;font-size:14px;font-weight:500">
+<li class="row" style="gap:6px"><svg class="ic" style="width:16px;height:16px;color:#5F7F5C" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Photo</li>
+<li class="row" aria-hidden="true"><svg class="ic" style="width:14px;height:14px;color:#A99B90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 6l6 6-6 6"></path></svg></li>
+<li class="row" style="gap:6px"><svg class="ic" style="width:16px;height:16px;color:#5F7F5C" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Design</li>
+<li class="row" aria-hidden="true"><svg class="ic" style="width:14px;height:14px;color:#A99B90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 6l6 6-6 6"></path></svg></li>
+<li class="row" aria-current="step" style="gap:7px;color:#6B3F2A;font-weight:600"><span class="dot" style="background:#6B3F2A"></span>Generate</li>
+</ol>
+<div class="media" style="height:320px;margin-top:4px;background:#B39886">
+<svg class="hand" style="left:23px;top:34px" viewBox="-70 50 370 380" width="296" height="304" aria-hidden="true">
+<g fill="#E3BFA8"><rect x="58" y="110" width="44" height="190" rx="22" transform="rotate(-8 80 300)"></rect><rect x="108" y="60" width="46" height="230" rx="23" transform="rotate(-2 131 290)"></rect><rect x="160" y="70" width="44" height="220" rx="22" transform="rotate(4 182 290)"></rect><rect x="208" y="120" width="40" height="180" rx="20" transform="rotate(10 228 300)"></rect><rect x="10" y="230" width="44" height="140" rx="22" transform="rotate(-38 32 360)"></rect><rect x="60" y="250" width="190" height="170" rx="60"></rect></g>
+<g fill="#EFD3C4" stroke="rgba(0,0,0,.1)" stroke-width="1"><rect x="66" y="116" width="28" height="42" rx="14" transform="rotate(-8 80 300)"></rect><rect x="116" y="66" width="30" height="44" rx="15" transform="rotate(-2 131 290)"></rect><rect x="168" y="76" width="28" height="44" rx="14" transform="rotate(4 182 290)"></rect><rect x="214" y="126" width="26" height="40" rx="13" transform="rotate(10 228 300)"></rect><rect x="18" y="236" width="28" height="38" rx="14" transform="rotate(-38 32 360)"></rect></g>
+</svg>
+<span class="plab" style="left:18px;top:20px;color:#3D2A20">[Your hand photo · IMG_2041]</span>
+</div>
+<div class="row" style="gap:8px;min-height:44px;margin-top:4px;font-size:13px;color:#3F5C3C">
+<svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+<span style="flex:1">Flat hand, good light, all nails visible</span>
+<button type="button" class="lnk" style="font-size:14px"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 8h3l2-3h6l2 3h3v11H4z M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path></svg>Retake</button>
+</div>
+<div class="li" style="min-height:64px">
+<span class="row" aria-hidden="true" style="gap:3px;align-items:flex-end;width:44px;flex:none"><span class="nl almond" style="width:12px;height:17px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:12px;height:20px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:12px;height:17px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span></span>
+<div style="flex:1;min-width:0"><div style="font-size:16px;font-weight:600">Chrome Glaze</div><div class="lab" style="margin-top:2px">Almond · medium · Lumière Nail Bar</div></div>
+<button type="button" class="lnk" style="font-size:14px">Change</button>
+</div>
+<label class="row" style="gap:14px;min-height:60px;margin-top:6px;cursor:pointer">
+<input type="checkbox" checked="" style="width: 20px; height: 20px; margin: 0px; accent-color: rgb(107, 63, 42); flex: 0 0 auto;">
+<span><span style="display:block;font-size:15px;font-weight:500">Delete my photo after 24 hours</span><span class="lab" style="display:block;margin-top:2px">Unless you save the look. We never use it to train models.</span></span>
+</label>
+</div>
+<div class="sticky">
+<div class="lab" style="text-align:center;margin-bottom:12px">Free · usually ready in about 20 seconds</div>
+<button type="button" class="btn" style="width:100%"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Generate my look</button>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Try-on · 03 — Job progress</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Minimise"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 9l6 6 6-6"></path></svg></button>
+<span class="row lab" style="gap:6px;padding-right:12px"><svg class="ic" style="width:15px;height:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 11h12v10H6z M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Processed privately</span>
+</header>
+<div class="media" style="height:200px;margin-top:8px;background:#B39886">
+<svg class="hand" style="left:23px;top:12px" viewBox="-70 50 370 380" width="296" height="304" aria-hidden="true">
+<defs><linearGradient id="cgJ" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"></stop><stop offset=".35" stop-color="#b9bcc6"></stop><stop offset=".5" stop-color="#ffffff"></stop><stop offset=".7" stop-color="#9da1ad"></stop><stop offset="1" stop-color="#e9eaee"></stop></linearGradient></defs>
+<g fill="#E3BFA8"><rect x="58" y="110" width="44" height="190" rx="22" transform="rotate(-8 80 300)"></rect><rect x="108" y="60" width="46" height="230" rx="23" transform="rotate(-2 131 290)"></rect><rect x="160" y="70" width="44" height="220" rx="22" transform="rotate(4 182 290)"></rect><rect x="208" y="120" width="40" height="180" rx="20" transform="rotate(10 228 300)"></rect><rect x="10" y="230" width="44" height="140" rx="22" transform="rotate(-38 32 360)"></rect><rect x="60" y="250" width="190" height="170" rx="60"></rect></g>
+<g fill="#EFD3C4" stroke="rgba(0,0,0,.1)" stroke-width="1"><rect x="168" y="76" width="28" height="44" rx="14" transform="rotate(4 182 290)"></rect><rect x="214" y="126" width="26" height="40" rx="13" transform="rotate(10 228 300)"></rect></g>
+<g fill="url(#cgJ)" stroke="rgba(0,0,0,.12)" stroke-width="1"><rect x="66" y="116" width="28" height="42" rx="14" transform="rotate(-8 80 300)"></rect><rect x="116" y="66" width="30" height="44" rx="15" transform="rotate(-2 131 290)"></rect><rect x="18" y="236" width="28" height="38" rx="14" transform="rotate(-38 32 360)"></rect></g>
+<g fill="#FFFFFF" stroke="#5F7F5C" stroke-width="2.5"><circle cx="57" cy="139" r="5"></circle><circle cx="124" cy="88" r="5"></circle><circle cx="195" cy="98" r="5"></circle><circle cx="254" cy="148" r="5"></circle><circle cx="-33" cy="277" r="5"></circle></g>
+</svg>
+<div aria-hidden="true" style="position:absolute;left:0;right:0;top:92px;height:2px;background:rgba(255,255,255,.85)"></div>
+<span class="plab" style="right:18px;top:18px;color:#3D2A20">[Your hand photo]</span>
+</div>
+<div class="row" style="justify-content:space-between;margin-top:24px">
+<h1 class="sf" style="font-size:30px;line-height:1.1">Creating your look</h1>
+<span class="st" role="status"><span class="dot" style="background:#5F7F5C;box-shadow:0 0 0 3px rgba(95,127,92,.22)"></span>Live</span>
+</div>
+<div class="row" style="justify-content:space-between;align-items:baseline;margin-top:14px">
+<span class="sf" style="font-size:44px;line-height:1">62%</span>
+<span class="lab">0:14 elapsed · about 0:09 left</span>
+</div>
+<div role="progressbar" aria-label="Generating your look" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" style="position:relative;height:3px;margin-top:14px;border-radius:3px;background:#E9E0D7"><span style="position:absolute;left:0;top:0;width:62%;height:3px;border-radius:3px;background:#6B3F2A"></span></div>
+<ol aria-label="Progress steps" style="margin-top:14px">
+
+<li class="row" style="gap:14px;height:42px">
+<span class="row" style="width:18px;justify-content:center;flex:none">
+<svg class="ic" style="width:18px;height:18px;color:#5F7F5C" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+
+
+</span>
+<span style="flex:1;font-size:15px;font-weight:400;color:#2B211C">Uploaded</span>
+<span class="lab">0:01</span>
+</li>
+
+<li class="row" style="gap:14px;height:42px">
+<span class="row" style="width:18px;justify-content:center;flex:none">
+<svg class="ic" style="width:18px;height:18px;color:#5F7F5C" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+
+
+</span>
+<span style="flex:1;font-size:15px;font-weight:400;color:#2B211C">Detecting nails</span>
+<span class="lab">5 of 5 · 0:06</span>
+</li>
+
+<li class="row" style="gap:14px;height:42px">
+<span class="row" style="width:18px;justify-content:center;flex:none">
+
+<span class="dot" style="width:9px;height:9px;background:#6B3F2A;box-shadow:0 0 0 4px rgba(107,63,42,.16)"></span>
+
+</span>
+<span style="flex:1;font-size:15px;font-weight:600;color:#6B3F2A">Applying Chrome Glaze</span>
+<span class="lab">In progress</span>
+</li>
+
+<li class="row" style="gap:14px;height:42px">
+<span class="row" style="width:18px;justify-content:center;flex:none">
+
+
+<span class="dot" style="width:9px;height:9px;box-shadow:inset 0 0 0 1.5px #A99B90"></span>
+</span>
+<span style="flex:1;font-size:15px;font-weight:400;color:#6F6259">Finishing</span>
+<span class="lab">Next</span>
+</li>
+
+</ol>
+<div class="lab" style="font-size:12px;margin-top:6px;letter-spacing:.02em">Job job_8c21 · Chrome Glaze · Almond · medium</div>
+<div class="row" style="gap:12px;min-height:52px;margin-top:10px">
+<svg class="ic" style="color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z M10 21h4"></path></svg>
+<span style="flex:1;font-size:15px">Notify me when ready</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Notify me when ready"></button>
+</div>
+</div>
+<div class="sticky row" style="justify-content:center">
+<button type="button" class="lnk d">Cancel</button>
+</div>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:390px">
+<div class="cap">06 · Try-on · 04 — Result &amp; save look</div>
+<div class="ph">
+<div class="scr">
+<header class="row hd">
+<button type="button" class="ib" aria-label="Close"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button>
+<button type="button" class="ib" aria-label="Share look"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 3v12 M7 8l5-5 5 5 M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path></svg></button>
+</header>
+<div class="media" style="height:296px;margin-top:8px;background:#B39886">
+<svg class="hand" style="left:23px;top:18px" viewBox="-70 50 370 380" width="296" height="304" aria-hidden="true">
+<defs><linearGradient id="cgR" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"></stop><stop offset=".35" stop-color="#b9bcc6"></stop><stop offset=".5" stop-color="#ffffff"></stop><stop offset=".7" stop-color="#9da1ad"></stop><stop offset="1" stop-color="#e9eaee"></stop></linearGradient></defs>
+<g fill="#E3BFA8"><rect x="58" y="110" width="44" height="190" rx="22" transform="rotate(-8 80 300)"></rect><rect x="108" y="60" width="46" height="230" rx="23" transform="rotate(-2 131 290)"></rect><rect x="160" y="70" width="44" height="220" rx="22" transform="rotate(4 182 290)"></rect><rect x="208" y="120" width="40" height="180" rx="20" transform="rotate(10 228 300)"></rect><rect x="10" y="230" width="44" height="140" rx="22" transform="rotate(-38 32 360)"></rect><rect x="60" y="250" width="190" height="170" rx="60"></rect></g>
+<g fill="url(#cgR)" stroke="rgba(0,0,0,.12)" stroke-width="1"><rect x="66" y="116" width="28" height="42" rx="14" transform="rotate(-8 80 300)"></rect><rect x="116" y="66" width="30" height="44" rx="15" transform="rotate(-2 131 290)"></rect><rect x="168" y="76" width="28" height="44" rx="14" transform="rotate(4 182 290)"></rect><rect x="214" y="126" width="26" height="40" rx="13" transform="rotate(10 228 300)"></rect><rect x="18" y="236" width="28" height="38" rx="14" transform="rotate(-38 32 360)"></rect></g>
+</svg>
+<div style="position:absolute;left:0;top:0;bottom:0;width:171px;overflow:hidden;background:#B39886">
+<svg class="hand" style="left:23px;top:18px" viewBox="-70 50 370 380" width="296" height="304" aria-hidden="true">
+<g fill="#E3BFA8"><rect x="58" y="110" width="44" height="190" rx="22" transform="rotate(-8 80 300)"></rect><rect x="108" y="60" width="46" height="230" rx="23" transform="rotate(-2 131 290)"></rect><rect x="160" y="70" width="44" height="220" rx="22" transform="rotate(4 182 290)"></rect><rect x="208" y="120" width="40" height="180" rx="20" transform="rotate(10 228 300)"></rect><rect x="10" y="230" width="44" height="140" rx="22" transform="rotate(-38 32 360)"></rect><rect x="60" y="250" width="190" height="170" rx="60"></rect></g>
+<g fill="#EFD3C4" stroke="rgba(0,0,0,.1)" stroke-width="1"><rect x="66" y="116" width="28" height="42" rx="14" transform="rotate(-8 80 300)"></rect><rect x="116" y="66" width="30" height="44" rx="15" transform="rotate(-2 131 290)"></rect><rect x="168" y="76" width="28" height="44" rx="14" transform="rotate(4 182 290)"></rect><rect x="214" y="126" width="26" height="40" rx="13" transform="rotate(10 228 300)"></rect><rect x="18" y="236" width="28" height="38" rx="14" transform="rotate(-38 32 360)"></rect></g>
+</svg>
+<span class="plab" style="left:18px;top:20px;color:#3D2A20">[Result photo]</span>
+</div>
+<div aria-hidden="true" style="position:absolute;left:170px;top:0;bottom:0;width:2px;background:#F7F3EF"></div>
+<button type="button" aria-label="Drag to compare before and after" style="position:absolute;left:149px;top:126px;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:#F7F3EF;color:#6B3F2A;display:inline-flex;align-items:center;justify-content:center;cursor:ew-resize"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 7l-5 5 5 5 M15 7l5 5-5 5"></path></svg></button>
+</div>
+<div class="row lab" style="justify-content:space-between;margin-top:10px"><span>Before</span><span>After · Chrome Glaze</span></div>
+<h1 class="sf" style="font-size:30px;line-height:1.1;margin-top:20px">Your look is ready</h1>
+<p class="lab" style="font-size:14px;margin-top:4px">Chrome Glaze · Almond · medium length</p>
+<label class="lab" for="lookname" style="margin-top:20px">Look name</label>
+<input class="fld" id="lookname" value="Chrome almond for Saturday" readonly="" style="">
+<label class="lab" for="coll" style="margin-top:20px">Collection</label>
+<div style="position:relative">
+<select class="fld" id="coll" style="appearance:none;-webkit-appearance:none;padding-right:28px;cursor:pointer"><option>Weekend plans</option><option>Wedding season</option><option>Everyday</option></select>
+<svg class="ic mut" style="position:absolute;right:0;top:13px;pointer-events:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 9l6 6 6-6"></path></svg>
+</div>
+</div>
+<div class="sticky">
+<div class="row" style="justify-content:space-between;margin-bottom:6px">
+<a href="#" class="lnk">Book this at Lumière<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></a>
+<button type="button" class="lnk d">Try another</button>
+</div>
+<button type="button" class="btn" style="width:100%"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 4h12v17l-6-4-6 4z"></path></svg>Save look</button>
+</div>
+</div>
+</section>
+
+</div>
+</body></html>

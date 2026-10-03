@@ -1,0 +1,9 @@
+allowBuilds:
+  sharp: true
+  esbuild: true
+  supabase: true
+  "@sentry/cli": true
+  unrs-resolver: false
+  "@parcel/watcher": false
+  "@swc/core": false
+  protobufjs: false

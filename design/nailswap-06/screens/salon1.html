@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>NailSwap V06 — Salon dashboard 1</title><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet"><style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#6B3F2A}a:hover{color:#2B211C}
+h1,h2,h3,p,ol,ul{margin:0;padding:0}
+ol,ul{list-style:none}
+.row{display:flex;align-items:center}
+.cap{height:20px;font:500 11px/20px 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5A4C43;white-space:nowrap}
+.ph{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.dk{width:1280px;height:800px;border-radius:14px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.scr{position:absolute;left:0;right:0;top:44px;padding:8px 24px 0;display:flex;flex-direction:column}
+.sf{font-family:'DM Serif Display',serif;font-weight:400;color:#2B211C}
+.mut{color:#6F6259}
+.lab{font:400 13px/1.3 'DM Sans',sans-serif;color:#6F6259}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;border:0;background:#6B3F2A;color:#fff;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#58321F;color:#fff}
+.btn.s{height:44px;padding:0 22px;font-size:14px}
+.lnk{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:#6B3F2A;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.lnk.d{color:#2B211C}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#2B211C;cursor:pointer;flex:none}
+.ic{width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.fld{display:block;width:100%;height:46px;padding:0;border:0;border-bottom:1px solid #D9CEC4;border-radius:0;background:transparent;font:400 16px 'DM Sans',sans-serif;color:#2B211C;outline:none}
+.fld:focus,.fld.f{border-bottom:2px solid #6B3F2A}
+.tabs{display:flex;gap:24px}
+.tabs button{height:44px;padding:0;border:0;border-bottom:2px solid transparent;background:none;font:500 15px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tabs button.on{color:#2B211C;border-bottom-color:#2B211C}
+.tg{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:none;font:500 14px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tg::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent}
+.tg.on{color:#6B3F2A}.tg.on::before{background:#6B3F2A}
+.st{display:inline-flex;align-items:center;gap:7px;font:500 13px 'DM Sans',sans-serif;color:#2B211C;white-space:nowrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:none}
+.li{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid #E9E0D7}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#E7CDBE;color:#6B3F2A;font:500 13px 'DM Sans',sans-serif;flex:none}
+.sw{position:relative;width:44px;height:26px;padding:0;border:0;border-radius:999px;background:#D9CEC4;cursor:pointer;flex:none}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F7F3EF}
+.sw.on{background:#6B3F2A}.sw.on::after{left:21px}
+.nl{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex:none;display:inline-block}
+.almond{border-radius:50% 50% 45% 45%/70% 70% 30% 30%}
+.oval{border-radius:50% 50% 46% 46%/58% 58% 42% 42%}
+.square{border-radius:6px 6px 40% 40%/6px 6px 28% 28%}
+.coffin{clip-path:polygon(22% 0,78% 0,100% 100%,0 100%);border-radius:0 0 30% 30%/0 0 20% 20%}
+.stiletto{clip-path:polygon(50% 0,100% 72%,100% 100%,0 100%,0 72%)}
+.tb{position:absolute;left:0;right:0;bottom:0;height:84px;display:flex;padding:0 12px 26px;background:#F7F3EF}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:500 11px/1 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.tab.on{color:#6B3F2A}
+.nv{display:flex;align-items:center;gap:10px;height:38px;font:500 15px 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.nv::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent;flex:none}
+.nv.on{color:#2B211C}.nv.on::before{background:#6B3F2A}
+.th{display:grid;align-items:center;column-gap:16px;height:36px;font:500 12px 'DM Sans',sans-serif;color:#6F6259;border-bottom:1px solid #E9E0D7}
+.tr{display:grid;align-items:center;column-gap:16px;height:52px;font:400 14px 'DM Sans',sans-serif;color:#2B211C;border-bottom:1px solid #EFE8E1}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.sh{font-family:'DM Serif Display',serif;font-weight:400;font-size:22px;line-height:1.2;color:#2B211C}
+.k{font-family:'DM Serif Display',serif;font-weight:400;font-size:40px;line-height:1;color:#2B211C}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sel{position:relative}.sel select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:24px}
+.sel .ic{position:absolute;right:0;top:14px;width:18px;height:18px;color:#6F6259;pointer-events:none}
+.ap{position:absolute;left:0;right:0;border-radius:10px;overflow:hidden;font:400 12px/16px 'DM Sans',sans-serif;color:#2B211C;text-decoration:none}
+.pn{min-width:32px;height:44px;padding:0 4px;border:0;border-bottom:2px solid transparent;background:none;font:500 14px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer}
+.pn.on{color:#2B211C;border-bottom-color:#2B211C}
+</style></head><body>
+
+<div style="width: 6768px; height: 948px; box-sizing: border-box; padding: 56px; display: flex; gap: 64px; overflow: hidden; background: #E9E1D9; font-family: 'DM Sans', sans-serif; color: #2B211C">
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Salon · 01 — Onboarding wizard</div>
+<div class="dk">
+<nav aria-label="Setup steps" style="position:absolute;left:0;top:0;bottom:0;width:240px;padding:36px 24px 32px 40px;display:flex;flex-direction:column">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<div class="lab" style="margin-top:36px">Set up Lumière Nail Bar · about 10 min</div>
+<ol style="margin-top:20px;display:flex;flex-direction:column;gap:20px">
+
+<li class="row" aria-current="false" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6F6259"><svg class="ic" role="img" aria-label="Done" style="width:18px;height:18px;margin-top:1px;color:#5F7F5C" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:500;color:#2B211C">Salon details</span><span class="lab" style="display:block;margin-top:2px">Name, phone, logo</span></span>
+</li>
+
+<li class="row" aria-current="step" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6B3F2A">2</span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:700;color:#2B211C">Location and hours</span><span class="lab" style="display:block;margin-top:2px">Address, map, weekly hours</span></span>
+</li>
+
+<li class="row" aria-current="false" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6F6259">3</span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:500;color:#6F6259">Services</span><span class="lab" style="display:block;margin-top:2px">6 suggested to start</span></span>
+</li>
+
+<li class="row" aria-current="false" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6F6259">4</span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:500;color:#6F6259">Designs</span><span class="lab" style="display:block;margin-top:2px">Upload photos or pick polishes</span></span>
+</li>
+
+<li class="row" aria-current="false" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6F6259">5</span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:500;color:#6F6259">Staff</span><span class="lab" style="display:block;margin-top:2px">Invite your team</span></span>
+</li>
+
+<li class="row" aria-current="false" style="gap:12px;align-items:flex-start">
+<span style="width:18px;flex:none;font:700 14px/20px 'DM Sans',sans-serif;color:#6F6259">6</span>
+<span><span style="display:block;font-size:15px;line-height:20px;font-weight:500;color:#6F6259">Go live</span><span class="lab" style="display:block;margin-top:2px">Publish your page and QR</span></span>
+</li>
+
+</ol>
+<div style="margin-top:auto">
+<div style="font-size:14px;font-weight:500">Want a hand?</div>
+<p class="lab" style="margin-top:4px;line-height:1.45">Book a free 15-minute setup call. We'll import your designs with you.</p>
+<a href="#" class="lnk" style="font-size:14px">Pick a time</a>
+</div>
+</nav>
+<main style="position:absolute;left:240px;right:0;top:0;bottom:0;padding:36px 48px 0 24px;display:flex;flex-direction:column">
+<header class="row" style="justify-content:space-between;align-items:flex-end;gap:24px">
+<div><div class="lab">Step 2 · Location and hours</div><h1 class="sf" style="font-size:38px;line-height:1.1;margin-top:4px">Where can clients find you?</h1></div>
+<div class="row" style="gap:24px">
+<span class="row" style="gap:12px"><span class="lab">Step 2 of 6</span><span role="progressbar" aria-label="Setup progress" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2" style="display:block;width:120px;height:4px;border-radius:4px;background:#E9E0D7"><span style="display:block;width:33%;height:4px;border-radius:4px;background:#6B3F2A"></span></span></span>
+<a href="#" class="lnk">Save and exit</a>
+</div>
+</header>
+<p class="mut" style="font-size:15px;margin-top:8px">Shown on your salon page and in the directions clients get after booking.</p>
+<div class="row" style="gap:56px;align-items:flex-start;margin-top:28px">
+<div style="flex:1.1;min-width:0">
+<h2 class="sh">Address</h2>
+<label class="lab" for="ob-st" style="display:block;margin-top:14px">Street and building</label>
+<input class="fld" id="ob-st" value="Armenia St, Bldg 14, ground floor" readonly="" style="">
+<div class="row" style="gap:32px;margin-top:24px">
+<div style="flex:1"><label class="lab" for="ob-ar">Area</label><div class="sel"><select class="fld" id="ob-ar"><option>Mar Mikhael</option><option>Gemmayzeh</option><option>Achrafieh</option></select><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></div></div>
+<div style="flex:1"><label class="lab" for="ob-ci">City</label><input class="fld" id="ob-ci" value="Beirut" readonly="" style=""></div>
+</div>
+<div role="img" aria-label="Map of Armenia St, Mar Mikhael, with the salon pin" style="position:relative;height:150px;margin-top:24px;border-radius:24px;overflow:hidden;background:#EDE3DA">
+<span style="position:absolute;left:-20px;top:84px;width:560px;height:10px;background:#F7F3EF;transform:rotate(-7deg)"></span>
+<span style="position:absolute;left:300px;top:-30px;width:9px;height:220px;background:#F7F3EF;transform:rotate(16deg)"></span>
+<span style="position:absolute;left:22px;top:20px;font:500 10px/1 'DM Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6B3F2A">[Map]</span>
+<span class="row" style="position:absolute;left:196px;top:36px;gap:6px;font:500 13px 'DM Sans',sans-serif;color:#2B211C"><svg style="width:28px;height:32px" viewBox="0 0 24 24" fill="#6B3F2A" stroke="#F7F3EF" stroke-width="1.5" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path></svg>Lumière · Armenia St</span>
+</div>
+<div class="row" style="justify-content:space-between;gap:16px;margin-top:2px"><span class="lab">Drag the pin to your door so directions land right.</span><button type="button" class="lnk" style="font-size:14px"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"></path></svg>Use my location</button></div>
+<label class="lab" for="ob-sl" style="display:block;margin-top:20px">Your page link</label>
+<div class="row" style="height:46px;border-bottom:2px solid #5F7F5C">
+<span class="mut" style="font-size:16px">https://</span>
+<input class="fld" id="ob-sl" value="lumiere" readonly="" style="flex: 1 1 0%; width: auto; min-width: 0px; border: 0px; font-weight: 500; padding-left: 2px;">
+<span class="mut" style="font-size:16px">.nailswap.app</span>
+</div>
+<div class="st" style="margin-top:10px;color:#3F5C3C"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Available · lumiere.nailswap.app is yours</div>
+</div>
+<div style="flex:1;min-width:0">
+<div class="row" style="justify-content:space-between"><h2 class="sh">Weekly hours</h2><a href="#" class="lnk" style="font-size:14px">Copy Tuesday to all</a></div>
+<div style="margin-top:4px">
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Monday</span>
+<button type="button" class="sw " role="switch" aria-checked="false" aria-label="Monday closed"></button>
+
+<span class="mut" style="margin-left:auto;font-size:15px">Closed all day</span>
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Tuesday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Tuesday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Tuesday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Wednesday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Wednesday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Wednesday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Thursday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Thursday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Thursday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Friday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Friday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Friday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Saturday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Saturday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Saturday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+<div class="li" style="min-height:52px">
+<span style="width:96px;font-size:15px;font-weight:500">Sunday</span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Sunday open"></button>
+<button type="button" class="lnk d" style="margin-left:auto;font-size:15px;font-weight:400" aria-label="Edit Sunday hours, 10:00 to 20:00">10:00 – 20:00<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+
+</div>
+
+</div>
+<p class="row lab" style="gap:8px;margin-top:16px"><svg class="ic" style="width:16px;height:16px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v6 M12 7.5h.01"></path></svg>Holidays and one-off closures go in Calendar later.</p>
+</div>
+</div>
+<div class="row" style="position:absolute;left:24px;right:48px;bottom:32px;gap:24px">
+<a href="#" class="lnk d"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Back</a>
+<span class="lab" style="margin-left:auto">Next: Services</span>
+<button type="button" class="btn s">Save and continue</button>
+</div>
+</main>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Salon · 02 — Catalog</div>
+<div class="dk">
+<nav aria-label="Salon" style="position:absolute;left:0;top:0;bottom:0;width:240px;padding:36px 24px 32px 40px;display:flex;flex-direction:column">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<button type="button" class="lnk d" style="margin-top:28px;justify-content:flex-start;font-size:15px" aria-haspopup="listbox">Lumière Nail Bar <svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="lab" style="margin-top:-6px">Pro · <a href="#" style="text-decoration:none">lumiere.nailswap.app</a></div>
+<div style="margin-top:20px"><a href="#" class="nv " aria-current="false">Overview</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Operations</div><a href="#" class="nv " aria-current="false">Calendar</a><a href="#" class="nv " aria-current="false">Bookings<span class="mut" style="margin-left:auto;font-size:13px">4</span></a><a href="#" class="nv " aria-current="false">Clients</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Business</div><a href="#" class="nv " aria-current="false">Analytics</a><a href="#" class="nv " aria-current="false">Marketing</a><a href="#" class="nv " aria-current="false">Billing</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Setup</div><a href="#" class="nv on" aria-current="page">Catalog</a><a href="#" class="nv " aria-current="false">Staff</a><a href="#" class="nv " aria-current="false">Settings</a></div>
+</nav>
+<main style="position:absolute;left:240px;right:0;top:0;bottom:0;padding:36px 48px 0 24px;display:flex;flex-direction:column">
+<header class="row" style="justify-content:space-between;align-items:flex-end;gap:24px">
+<div><div class="lab">Lumière Nail Bar</div><h1 class="sf" style="font-size:38px;line-height:1.1;margin-top:4px">Catalog</h1></div>
+<div class="row" style="gap:24px">
+<label class="row" style="gap:8px;width:220px;border-bottom:1px solid #D9CEC4"><svg class="ic mut" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z M20 20l-3.5-3.5"></path></svg><span class="vh">Search catalog</span><input class="fld" placeholder="Search designs" style="border: 0px; height: 44px; font-size: 15px;"></label>
+<button type="button" class="btn s"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>Add design</button>
+</div>
+</header>
+<div class="row" style="flex:1;min-height:0;align-items:stretch;gap:32px;margin-top:16px">
+<div style="flex:1;min-width:0">
+<div class="tabs" role="tablist" aria-label="Catalog sections"><button type="button" class="on" role="tab" aria-selected="true">Designs · 11</button><button type="button" role="tab" aria-selected="false">Polishes · 38</button><button type="button" role="tab" aria-selected="false">Services · 6</button></div>
+<div class="row" style="gap:20px;margin-top:4px"><button type="button" class="tg on" aria-pressed="true">All</button><button type="button" class="tg" aria-pressed="false">Published · 8</button><button type="button" class="tg" aria-pressed="false">Drafts · 3</button><button type="button" class="tg" aria-pressed="false">AR-ready</button></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);column-gap:20px;row-gap:26px;margin-top:16px">
+
+<a href="#" aria-current="true" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl almond" style="width:24px;height:32px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:24px;height:35px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl almond" style="width:24px;height:30px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:700;color:#6B3F2A">Chrome Glaze</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>1,204<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl oval" style="width:24px;height:32px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span><span class="nl oval" style="width:24px;height:35px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span><span class="nl oval" style="width:24px;height:30px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Milky French</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>986<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl almond" style="width:24px;height:32px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span><span class="nl almond" style="width:24px;height:35px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span><span class="nl almond" style="width:24px;height:30px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Cat-Eye Velvet</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>741<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl square" style="width:24px;height:32px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span><span class="nl square" style="width:24px;height:35px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span><span class="nl square" style="width:24px;height:30px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Cherry Cola</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>652<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl oval" style="width:24px;height:32px;background:radial-gradient(circle at 50% 55%,#ff8fb1 0%,#f7d6e3 55%,#fbeef3 100%)"></span><span class="nl oval" style="width:24px;height:35px;background:radial-gradient(circle at 50% 55%,#ff8fb1 0%,#f7d6e3 55%,#fbeef3 100%)"></span><span class="nl oval" style="width:24px;height:30px;background:radial-gradient(circle at 50% 55%,#ff8fb1 0%,#f7d6e3 55%,#fbeef3 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Aura Blush</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>510<span class="vh"> try-ons</span></span></span>
+
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl coffin" style="width:24px;height:32px;background:radial-gradient(circle at 30% 30%,#3b1f0e 0 18%,transparent 19%),radial-gradient(circle at 70% 62%,#5a2e12 0 15%,transparent 16%),#b5651d"></span><span class="nl coffin" style="width:24px;height:35px;background:radial-gradient(circle at 30% 30%,#3b1f0e 0 18%,transparent 19%),radial-gradient(circle at 70% 62%,#5a2e12 0 15%,transparent 16%),#b5651d"></span><span class="nl coffin" style="width:24px;height:30px;background:radial-gradient(circle at 30% 30%,#3b1f0e 0 18%,transparent 19%),radial-gradient(circle at 70% 62%,#5a2e12 0 15%,transparent 16%),#b5651d"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Tortoiseshell</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>388<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl square" style="width:24px;height:32px;background:linear-gradient(to bottom,#1b1b1b 0 10%,#f3d9cf 10% 100%)"></span><span class="nl square" style="width:24px;height:35px;background:linear-gradient(to bottom,#1b1b1b 0 10%,#f3d9cf 10% 100%)"></span><span class="nl square" style="width:24px;height:30px;background:linear-gradient(to bottom,#1b1b1b 0 10%,#f3d9cf 10% 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Micro French</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>344<span class="vh"> try-ons</span></span></span>
+
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl coffin" style="width:24px;height:32px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span><span class="nl coffin" style="width:24px;height:35px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span><span class="nl coffin" style="width:24px;height:30px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Gold Leaf Tips</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Published</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>297<span class="vh"> try-ons</span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl oval" style="width:24px;height:32px;background:linear-gradient(180deg,#d9c7f0,#a98bd6)"></span><span class="nl oval" style="width:24px;height:35px;background:linear-gradient(180deg,#d9c7f0,#a98bd6)"></span><span class="nl oval" style="width:24px;height:30px;background:linear-gradient(180deg,#d9c7f0,#a98bd6)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Lavender Haze</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:transparent;box-shadow:inset 0 0 0 1px #6F6259"></span>Draft</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>Not live<span class="vh"></span></span></span>
+
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl square" style="width:24px;height:32px;background:#3a2620"></span><span class="nl square" style="width:24px;height:35px;background:#3a2620"></span><span class="nl square" style="width:24px;height:30px;background:#3a2620"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Espresso Matte</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:transparent;box-shadow:inset 0 0 0 1px #6F6259"></span>Draft</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>Not live<span class="vh"></span></span></span>
+<span class="row" style="gap:4px;margin-top:4px;font-size:12px;font-weight:500;color:#6B3F2A"><svg class="ic" style="width:13px;height:13px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>AR-ready</span>
+</a>
+
+<a href="#" aria-current="false" style="display:flex;flex-direction:column;min-width:0;text-decoration:none;color:#2B211C">
+<span class="row" style="gap:6px;align-items:flex-end;height:42px"><span class="nl almond" style="width:24px;height:32px;background:linear-gradient(180deg,#f6e7dd,#d7ad95)"></span><span class="nl almond" style="width:24px;height:35px;background:linear-gradient(180deg,#f6e7dd,#d7ad95)"></span><span class="nl almond" style="width:24px;height:30px;background:linear-gradient(180deg,#f6e7dd,#d7ad95)"></span></span>
+<span class="ell" style="margin-top:12px;font-size:14px;line-height:18px;font-weight:500;color:#2B211C">Nude Ombre</span>
+<span class="row" style="justify-content:space-between;gap:8px;margin-top:6px"><span class="st" style="font-size:12px"><span class="dot" style="background:transparent;box-shadow:inset 0 0 0 1px #6F6259"></span>Draft</span><span class="row mut" style="gap:4px;font-size:12px"><svg class="ic" style="width:14px;height:14px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11 M11 10V4.5a1.5 1.5 0 0 1 3 0V11 M14 10.5V6a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6 7-2.5 0-4-1.2-5.5-3.5L4 14a1.5 1.5 0 0 1 2.5-1.6L8 14"></path></svg>Not live<span class="vh"></span></span></span>
+
+</a>
+
+<button type="button" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:2px;padding:0 0 4px;border:0;background:none;cursor:pointer;text-align:left;font:500 14px 'DM Sans',sans-serif;color:#6B3F2A"><span class="row" style="gap:6px;min-height:28px"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>New design</span><span class="lab">Upload a photo or start from a polish</span></button>
+</div>
+</div>
+<aside aria-label="Design editor" style="width:360px;flex:none;border-left:1px solid #E9E0D7;padding:4px 0 32px 32px;display:flex;flex-direction:column">
+<div class="row" style="justify-content:space-between;align-items:flex-start">
+<div><div class="lab">Edit design</div><h2 class="sf" style="font-size:28px;line-height:1.1;margin-top:4px">Chrome Glaze</h2></div>
+<button type="button" class="ib" aria-label="Close editor" style="margin:-6px -10px 0 0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"></path></svg></button>
+</div>
+<div class="lab" style="margin-top:24px">Shapes offered · 3 of 5</div>
+<div class="row" style="justify-content:space-between;margin-top:10px">
+<button type="button" aria-pressed="true" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:72px;min-width:44px;padding:0;border:0;background:none;cursor:pointer;font:500 12px 'DM Sans',sans-serif;color:#6B3F2A"><span class="nl almond" style="width:24px;height:36px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%);opacity:1"></span>Almond</button><button type="button" aria-pressed="true" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:72px;min-width:44px;padding:0;border:0;background:none;cursor:pointer;font:500 12px 'DM Sans',sans-serif;color:#6B3F2A"><span class="nl oval" style="width:24px;height:34px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%);opacity:1"></span>Oval</button><button type="button" aria-pressed="false" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:72px;min-width:44px;padding:0;border:0;background:none;cursor:pointer;font:500 12px 'DM Sans',sans-serif;color:#6F6259"><span class="nl square" style="width:24px;height:32px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%);opacity:.3"></span>Square</button><button type="button" aria-pressed="true" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:72px;min-width:44px;padding:0;border:0;background:none;cursor:pointer;font:500 12px 'DM Sans',sans-serif;color:#6B3F2A"><span class="nl coffin" style="width:24px;height:38px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%);opacity:1"></span>Coffin</button><button type="button" aria-pressed="false" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:72px;min-width:44px;padding:0;border:0;background:none;cursor:pointer;font:500 12px 'DM Sans',sans-serif;color:#6F6259"><span class="nl stiletto" style="width:24px;height:40px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%);opacity:.3"></span>Stiletto</button>
+</div>
+<label class="lab" for="ed-n" style="display:block;margin-top:24px">Name</label>
+<input class="fld" id="ed-n" value="Chrome Glaze" readonly="" style="">
+<div class="row" style="gap:24px;margin-top:24px">
+<div style="flex:1"><label class="lab" for="ed-p">Add-on price</label><input class="fld" id="ed-p" value="+$10" readonly="" style=""></div>
+<div style="flex:1"><label class="lab" for="ed-t">Extra time</label><div class="sel"><select class="fld" id="ed-t"><option>+15 min</option><option>None</option><option>+30 min</option></select><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></div></div>
+</div>
+<div class="lab" style="margin-top:24px">AR texture</div>
+<div class="row" style="gap:14px;margin-top:8px">
+<span class="nl almond" style="width:24px;height:34px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:14px;font-weight:500">chrome-glaze-ar.png</span><span class="lab" style="display:block;margin-top:2px">2048 × 2048 · tested on 5 shapes</span></span>
+<button type="button" class="lnk" style="font-size:14px"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 16V4 M7 9l5-5 5 5 M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"></path></svg>Replace</button>
+</div>
+<div class="row" style="gap:16px;margin-top:20px">
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:500">Visible on salon page</span><span class="lab" style="display:block;margin-top:2px">Clients can try it on and book it</span></span>
+<button type="button" class="sw on" role="switch" aria-checked="true" aria-label="Visible on salon page"></button>
+</div>
+<div class="row" style="margin-top:auto;gap:24px">
+<button type="button" class="lnk" style="color:#8E3324">Delete</button>
+<button type="button" class="lnk d" style="margin-left:auto">Preview</button>
+<button type="button" class="lnk">Save changes</button>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Salon · 03 — Staff</div>
+<div class="dk">
+<nav aria-label="Salon" style="position:absolute;left:0;top:0;bottom:0;width:240px;padding:36px 24px 32px 40px;display:flex;flex-direction:column">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<button type="button" class="lnk d" style="margin-top:28px;justify-content:flex-start;font-size:15px" aria-haspopup="listbox">Lumière Nail Bar <svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="lab" style="margin-top:-6px">Pro · <a href="#" style="text-decoration:none">lumiere.nailswap.app</a></div>
+<div style="margin-top:20px"><a href="#" class="nv " aria-current="false">Overview</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Operations</div><a href="#" class="nv " aria-current="false">Calendar</a><a href="#" class="nv " aria-current="false">Bookings<span class="mut" style="margin-left:auto;font-size:13px">4</span></a><a href="#" class="nv " aria-current="false">Clients</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Business</div><a href="#" class="nv " aria-current="false">Analytics</a><a href="#" class="nv " aria-current="false">Marketing</a><a href="#" class="nv " aria-current="false">Billing</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Setup</div><a href="#" class="nv " aria-current="false">Catalog</a><a href="#" class="nv on" aria-current="page">Staff</a><a href="#" class="nv " aria-current="false">Settings</a></div>
+</nav>
+<main style="position:absolute;left:240px;right:0;top:0;bottom:0;padding:36px 48px 0 24px;display:flex;flex-direction:column">
+<header class="row" style="justify-content:space-between;align-items:flex-end;gap:24px">
+<div><div class="lab">Lumière Nail Bar · 4 people</div><h1 class="sf" style="font-size:38px;line-height:1.1;margin-top:4px">Staff</h1></div>
+<div class="row" style="gap:24px">
+<a href="#" class="lnk">Roles and permissions</a>
+<button type="button" class="btn s"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>Invite staff</button>
+</div>
+</header>
+<div class="row" style="gap:56px;align-items:flex-start;margin-top:24px">
+<div><div class="k">104 h</div><div class="lab" style="margin-top:6px">Booked this week</div><div style="font-size:13px;margin-top:2px;color:#6F6259">of 136 h scheduled</div></div><div><div class="k">4.9</div><div class="lab" style="margin-top:6px">Average rating</div><div style="font-size:13px;margin-top:2px;color:#6F6259">from 212 reviews</div></div><div><div class="k">41%</div><div class="lab" style="margin-top:6px">Bookings from try-on</div><div style="font-size:13px;margin-top:2px;color:#3F5C3C">+6 pts vs September</div></div>
+</div>
+<div style="margin-top:28px">
+<div class="th" style="grid-template-columns:200px 150px 1fr 110px 64px 100px 44px"><span>Member</span><span>Working days</span><span>Services</span><span>This week</span><span>Rating</span><span>Status</span><span></span></div>
+
+<div class="tr" style="grid-template-columns:200px 150px 1fr 110px 64px 100px 44px;height:56px">
+<span class="row" style="gap:12px"><span class="av" style="width:36px;height:36px">MK</span><span><span style="display:block;font-size:15px;font-weight:500">Maya K.</span><span class="lab" style="display:block;margin-top:1px">Senior nail tech</span></span></span>
+<span class="row" role="img" aria-label="Works Tue, Wed, Thu, Fri, Sat" style="gap:8px;font-size:13px"><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">M</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">W</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">F</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">S</span></span>
+<span class="mut ell">Gel-X, BIAB, Chrome</span>
+<span>36 / 40 h<span class="mut">· 90%</span></span>
+<span class="row" style="gap:4px"><svg class="ic" style="width:14px;height:14px;color:#6B3F2A" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg>4.9</span>
+<span class="st"><span class="dot" style="background:#5F7F5C"></span>Active</span>
+<button type="button" class="ib" aria-label="More actions for Maya K."><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:200px 150px 1fr 110px 64px 100px 44px;height:56px">
+<span class="row" style="gap:12px"><span class="av" style="width:36px;height:36px">RS</span><span><span style="display:block;font-size:15px;font-weight:500">Rana S.</span><span class="lab" style="display:block;margin-top:1px">Nail artist</span></span></span>
+<span class="row" role="img" aria-label="Works Wed, Fri, Sat, Sun" style="gap:8px;font-size:13px"><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">M</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">W</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">F</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span></span>
+<span class="mut ell">Nail art, Gel-X, Cat-eye</span>
+<span>30 / 32 h<span class="mut">· 94%</span></span>
+<span class="row" style="gap:4px"><svg class="ic" style="width:14px;height:14px;color:#6B3F2A" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg>5.0</span>
+<span class="st"><span class="dot" style="background:#5F7F5C"></span>Active</span>
+<button type="button" class="ib" aria-label="More actions for Rana S."><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:200px 150px 1fr 110px 64px 100px 44px;height:56px">
+<span class="row" style="gap:12px"><span class="av" style="width:36px;height:36px">JH</span><span><span style="display:block;font-size:15px;font-weight:500">Jad H.</span><span class="lab" style="display:block;margin-top:1px">Nail tech</span></span></span>
+<span class="row" role="img" aria-label="Works Tue, Wed, Thu, Sat, Sun" style="gap:8px;font-size:13px"><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">M</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">W</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">T</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">F</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span></span>
+<span class="mut ell">Gel manicure, Pedicure</span>
+<span>28 / 40 h<span class="mut">· 70%</span></span>
+<span class="row" style="gap:4px"><svg class="ic" style="width:14px;height:14px;color:#6B3F2A" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg>4.8</span>
+<span class="st"><span class="dot" style="background:#5F7F5C"></span>Active</span>
+<button type="button" class="ib" aria-label="More actions for Jad H."><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:200px 150px 1fr 110px 64px 100px 44px;height:56px">
+<span class="row" style="gap:12px"><span class="av" style="width:36px;height:36px">LM</span><span><span style="display:block;font-size:15px;font-weight:500">Lea M.</span><span class="lab" style="display:block;margin-top:1px">Junior tech</span></span></span>
+<span class="row" role="img" aria-label="Works Thu, Fri, Sat" style="gap:8px;font-size:13px"><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">M</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">T</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">W</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">T</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">F</span><span style="width:10px;text-align:center;color:#2B211C;font-weight:700">S</span><span style="width:10px;text-align:center;color:#8C7D72;font-weight:400">S</span></span>
+<span class="mut ell">Gel manicure, Removal</span>
+<span>10 / 24 h<span class="mut">· 42%</span></span>
+<span class="row" style="gap:4px"><svg class="ic" style="width:14px;height:14px;color:#6B3F2A" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"></path></svg>New</span>
+<span class="st"><span class="dot" style="background:#C49A74"></span>Training</span>
+<button type="button" class="ib" aria-label="More actions for Lea M."><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+</div>
+<div class="row" style="justify-content:space-between;margin-top:24px"><h2 class="sh">This week's hours <span class="lab" style="font-size:14px;margin-left:6px">Tue 6 – Mon 12 Oct</span></h2><a href="#" class="lnk" style="font-size:14px">Edit shifts</a></div>
+<div class="th" style="grid-template-columns:200px repeat(7,1fr)"><span></span><span>Tue 6</span><span>Wed 7</span><span>Thu 8</span><span>Fri 9</span><span>Sat 10</span><span>Sun 11</span><span>Mon 12</span></div>
+<div class="tr" style="grid-template-columns:200px repeat(7,1fr);height:36px"><span style="font-weight:500">Maya K.</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">12–20</span><span style="color:#2B211C">12–20</span><span style="color:#2B211C">10–18</span><span style="color:#8C7D72">Off</span><span style="color:#8C7D72">Closed</span></div><div class="tr" style="grid-template-columns:200px repeat(7,1fr);height:36px"><span style="font-weight:500">Rana S.</span><span style="color:#8C7D72">Off</span><span style="color:#2B211C">12–20</span><span style="color:#8C7D72">Off</span><span style="color:#2B211C">12–20</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">10–18</span><span style="color:#8C7D72">Closed</span></div><div class="tr" style="grid-template-columns:200px repeat(7,1fr);height:36px"><span style="font-weight:500">Jad H.</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">10–18</span><span style="color:#8C7D72">Off</span><span style="color:#2B211C">10–18</span><span style="color:#2B211C">10–18</span><span style="color:#8C7D72">Closed</span></div><div class="tr" style="grid-template-columns:200px repeat(7,1fr);height:36px"><span style="font-weight:500">Lea M.</span><span style="color:#8C7D72">Off</span><span style="color:#8C7D72">Off</span><span style="color:#2B211C">12–20</span><span style="color:#2B211C">12–20</span><span style="color:#2B211C">10–18</span><span style="color:#8C7D72">Off</span><span style="color:#8C7D72">Closed</span></div>
+</main>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Salon · 04 — Calendar</div>
+<div class="dk">
+<nav aria-label="Salon" style="position:absolute;left:0;top:0;bottom:0;width:240px;padding:36px 24px 32px 40px;display:flex;flex-direction:column">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<button type="button" class="lnk d" style="margin-top:28px;justify-content:flex-start;font-size:15px" aria-haspopup="listbox">Lumière Nail Bar <svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="lab" style="margin-top:-6px">Pro · <a href="#" style="text-decoration:none">lumiere.nailswap.app</a></div>
+<div style="margin-top:20px"><a href="#" class="nv " aria-current="false">Overview</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Operations</div><a href="#" class="nv on" aria-current="page">Calendar</a><a href="#" class="nv " aria-current="false">Bookings<span class="mut" style="margin-left:auto;font-size:13px">4</span></a><a href="#" class="nv " aria-current="false">Clients</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Business</div><a href="#" class="nv " aria-current="false">Analytics</a><a href="#" class="nv " aria-current="false">Marketing</a><a href="#" class="nv " aria-current="false">Billing</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Setup</div><a href="#" class="nv " aria-current="false">Catalog</a><a href="#" class="nv " aria-current="false">Staff</a><a href="#" class="nv " aria-current="false">Settings</a></div>
+</nav>
+<main style="position:absolute;left:240px;right:0;top:0;bottom:0;padding:36px 48px 0 24px;display:flex;flex-direction:column">
+<header class="row" style="justify-content:space-between;align-items:flex-end;gap:24px">
+<div><div class="lab">Lumière Nail Bar · 21 bookings today · 4 pending</div><h1 class="sf" style="font-size:38px;line-height:1.1;margin-top:4px">Calendar</h1></div>
+<div class="row" style="gap:12px">
+<button type="button" class="ib" aria-label="Search bookings"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z M20 20l-3.5-3.5"></path></svg></button>
+<button type="button" class="btn s"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>New booking</button>
+</div>
+</header>
+<div class="row" style="margin-top:18px">
+<button type="button" class="ib" aria-label="Previous day" style="margin-left:-12px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" class="lnk d" style="font-size:14px;padding:0 4px">Today</button>
+<button type="button" class="ib" aria-label="Next day"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+<h2 class="sf" style="font-size:26px;line-height:1;margin-left:8px">Saturday, 10 October</h2>
+<div class="row" style="margin-left:auto;gap:20px">
+<span class="st"><span class="dot" style="background:#5F7F5C"></span>Confirmed</span>
+<span class="st"><span class="dot" style="background:#C49A74"></span>Pending</span>
+<span class="st"><span class="dot" style="background:#6B3F2A"></span>Checked-in</span>
+<button type="button" class="lnk d" style="font-size:14px;margin-left:8px" aria-haspopup="listbox">All staff<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="tabs" role="tablist" aria-label="Calendar view" style="gap:20px"><button type="button" class="on" role="tab" aria-selected="true">Day</button><button type="button" role="tab" aria-selected="false">Week</button></div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:56px repeat(4,1fr);column-gap:8px;align-items:center;height:44px;margin-top:10px">
+<span></span>
+<div class="row" style="gap:10px"><span class="av" style="width:28px;height:28px;font-size:11px">MK</span><span><span style="display:block;font-size:14px;font-weight:500">Maya K.</span><span class="lab" style="display:block;font-size:12px">6 bookings · 6.5 h</span></span></div><div class="row" style="gap:10px"><span class="av" style="width:28px;height:28px;font-size:11px">RS</span><span><span style="display:block;font-size:14px;font-weight:500">Rana S.</span><span class="lab" style="display:block;font-size:12px">5 bookings · 5.8 h</span></span></div><div class="row" style="gap:10px"><span class="av" style="width:28px;height:28px;font-size:11px">JH</span><span><span style="display:block;font-size:14px;font-weight:500">Jad H.</span><span class="lab" style="display:block;font-size:12px">6 bookings · 4.8 h</span></span></div><div class="row" style="gap:10px"><span class="av" style="width:28px;height:28px;font-size:11px">LM</span><span><span style="display:block;font-size:14px;font-weight:500">Lea M.</span><span class="lab" style="display:block;font-size:12px">4 bookings · 2.6 h</span></span></div>
+</div>
+<div style="position:relative;height:536px;margin-top:12px">
+<div aria-hidden="true" style="position:absolute;left:56px;right:0;top:0;height:521px;background-image:repeating-linear-gradient(to bottom,#E9E0D7 0 1px,transparent 1px 52px)"></div>
+<span class="lab" style="position:absolute;left:0;top:-8px;font-size:12px">10:00</span><span class="lab" style="position:absolute;left:0;top:44px;font-size:12px">11:00</span><span class="lab" style="position:absolute;left:0;top:96px;font-size:12px">12:00</span><span class="lab" style="position:absolute;left:0;top:148px;font-size:12px">13:00</span><span class="lab" style="position:absolute;left:0;top:200px;font-size:12px">14:00</span><span class="lab" style="position:absolute;left:0;top:252px;font-size:12px">15:00</span><span class="lab" style="position:absolute;left:0;top:304px;font-size:12px">16:00</span><span class="lab" style="position:absolute;left:0;top:356px;font-size:12px">17:00</span><span class="lab" style="position:absolute;left:0;top:408px;font-size:12px">18:00</span><span class="lab" style="position:absolute;left:0;top:460px;font-size:12px">19:00</span><span class="lab" style="position:absolute;left:0;top:512px;font-size:12px">20:00</span>
+<div style="position:absolute;left:64px;right:0;top:0;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);column-gap:8px">
+<div style="position:relative"><a href="#" class="ap" style="top:2px;height:48px;background:#EFE3DA;padding:3px 10px" aria-label="Lina R., Gel manicure · Milky French, 10:00 to 11:00, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Lina R.</b><span style="color:#5A4C43">10:00–11:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Milky French</span></a><a href="#" class="ap" style="top:67px;height:48px;background:#EFE3DA;padding:3px 10px" aria-label="Hiba S., BIAB overlay · Aura Blush, 11:15 to 12:15, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Hiba S.</b><span style="color:#5A4C43">11:15–12:15</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">BIAB overlay · Aura Blush</span></a><a href="#" class="ap" style="top:145px;height:74px;background:#EFE3DA;padding:8px 10px" aria-label="Sara M., Gel-X · Cat-Eye Velvet, 12:45 to 14:15, Checked-in"><span class="ell" style="display:block;font-size:13px;font-weight:700">Sara M.</span><span class="ell" style="display:block">Gel-X · Cat-Eye Velvet</span><span class="row" style="gap:6px;margin-top:2px;color:#5A4C43;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span>12:45–14:15 · Checked-in</span></a><a href="#" class="ap" style="top:236px;height:74px;background:#E3EADF;padding:8px 10px" aria-label="Nour Haddad, Gel-X · Chrome Glaze, 14:30 to 16:00, Confirmed"><span class="ell" style="display:block;font-size:13px;font-weight:700">Nour Haddad</span><span class="ell" style="display:block">Gel-X · Chrome Glaze</span><span class="row" style="gap:6px;margin-top:2px;color:#5A4C43;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span>14:30–16:00 · Confirmed</span></a><a href="#" class="ap" style="top:327px;height:35px;background:#F1E9E2;padding:3px 10px" aria-label="Dana K., Gel manicure · Cherry Cola, 16:15 to 17:00, Pending"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#C49A74"></span><b style="font-weight:700">Dana K.</b><span style="color:#5A4C43">16:15–17:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Cherry Cola</span></a><a href="#" class="ap" style="top:379px;height:35px;background:#E3EADF;padding:3px 10px" aria-label="Lara M., Gel manicure · Milky French, 17:15 to 18:00, Confirmed"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span><b style="font-weight:700">Lara M.</b><span style="color:#5A4C43">17:15–18:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Milky French</span></a></div><div style="position:relative"><a href="#" class="ap" style="top:28px;height:74px;background:#EFE3DA;padding:8px 10px" aria-label="Yara K., Gel-X · Gold Leaf Tips, 10:30 to 12:00, Checked-in"><span class="ell" style="display:block;font-size:13px;font-weight:700">Yara K.</span><span class="ell" style="display:block">Gel-X · Gold Leaf Tips</span><span class="row" style="gap:6px;margin-top:2px;color:#5A4C43;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span>10:30–12:00 · Checked-in</span></a><a href="#" class="ap" style="top:132px;height:48px;background:#EFE3DA;padding:3px 10px" aria-label="Celine A., Nail art · Tortoiseshell, 12:30 to 13:30, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Celine A.</b><span style="color:#5A4C43">12:30–13:30</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Nail art · Tortoiseshell</span></a><a href="#" class="ap" style="top:210px;height:48px;background:#E3EADF;padding:3px 10px" aria-label="Joelle B., BIAB · Micro French, 14:00 to 15:00, Confirmed"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span><b style="font-weight:700">Joelle B.</b><span style="color:#5A4C43">14:00–15:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">BIAB · Micro French</span></a><a href="#" class="ap" style="top:288px;height:74px;background:#E3EADF;padding:8px 10px" aria-label="Rasha M., Gel-X · Chrome Glaze, 15:30 to 17:00, Confirmed"><span class="ell" style="display:block;font-size:13px;font-weight:700">Rasha M.</span><span class="ell" style="display:block">Gel-X · Chrome Glaze</span><span class="row" style="gap:6px;margin-top:2px;color:#5A4C43;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span>15:30–17:00 · Confirmed</span></a><a href="#" class="ap" style="top:366px;height:35px;background:#F1E9E2;padding:3px 10px" aria-label="Lynn T., Gel manicure · Lavender Haze, 17:00 to 17:45, Pending"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#C49A74"></span><b style="font-weight:700">Lynn T.</b><span style="color:#5A4C43">17:00–17:45</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Lavender Haze</span></a></div><div style="position:relative"><a href="#" class="ap" style="top:2px;height:48px;background:#EFE3DA;padding:3px 10px" aria-label="Mira H., Gel pedicure, 10:00 to 11:00, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Mira H.</b><span style="color:#5A4C43">10:00–11:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel pedicure</span></a><a href="#" class="ap" style="top:80px;height:35px;background:#EFE3DA;padding:3px 10px" aria-label="Tala F., Gel manicure · Espresso Matte, 11:30 to 12:15, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Tala F.</b><span style="color:#5A4C43">11:30–12:15</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Espresso Matte</span></a><a href="#" class="ap" style="top:158px;height:48px;background:#EFE3DA;padding:3px 10px" aria-label="Rita N., Gel pedicure, 13:00 to 14:00, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Rita N.</b><span style="color:#5A4C43">13:00–14:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel pedicure</span></a><a href="#" class="ap" style="top:262px;height:35px;background:#E3EADF;padding:3px 10px" aria-label="Zeina D., Gel manicure · Milky French, 15:00 to 15:45, Confirmed"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span><b style="font-weight:700">Zeina D.</b><span style="color:#5A4C43">15:00–15:45</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Milky French</span></a><a href="#" class="ap" style="top:314px;height:13px;background:#F1E9E2;padding:0 10px" aria-label="Walk-in, Soak-off removal, 16:00 to 16:20, Pending"><span class="row" style="gap:6px;font-size:11px;line-height:13px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#C49A74"></span>16:00–16:20 Walk-in · Soak-off removal</span></a><a href="#" class="ap" style="top:366px;height:48px;background:#E3EADF;padding:3px 10px" aria-label="Nadine G., Gel pedicure, 17:00 to 18:00, Confirmed"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span><b style="font-weight:700">Nadine G.</b><span style="color:#5A4C43">17:00–18:00</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel pedicure</span></a></div><div style="position:relative"><a href="#" class="ap" style="top:106px;height:35px;background:#EFE3DA;padding:3px 10px" aria-label="Perla S., Gel manicure, 12:00 to 12:45, Checked-in"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#6B3F2A"></span><b style="font-weight:700">Perla S.</b><span style="color:#5A4C43">12:00–12:45</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure</span></a><a href="#" class="ap" style="top:210px;height:13px;background:#E3EADF;padding:0 10px" aria-label="Maria C., Soak-off removal, 14:00 to 14:20, Confirmed"><span class="row" style="gap:6px;font-size:11px;line-height:13px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span>14:00–14:20 Maria C. · Soak-off removal</span></a><a href="#" class="ap" style="top:262px;height:35px;background:#F1E9E2;padding:3px 10px" aria-label="Hala R., Gel manicure · Aura Blush, 15:00 to 15:45, Pending"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#C49A74"></span><b style="font-weight:700">Hala R.</b><span style="color:#5A4C43">15:00–15:45</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Aura Blush</span></a><a href="#" class="ap" style="top:366px;height:35px;background:#E3EADF;padding:3px 10px" aria-label="Noura J., Gel manicure · Cherry Cola, 17:00 to 17:45, Confirmed"><span class="row" style="gap:6px;line-height:15px;white-space:nowrap"><span class="dot" style="width:6px;height:6px;background:#5F7F5C"></span><b style="font-weight:700">Noura J.</b><span style="color:#5A4C43">17:00–17:45</span></span><span class="ell" style="display:block;line-height:15px;padding-left:12px">Gel manicure · Cherry Cola</span></a></div>
+</div>
+<div aria-hidden="true" style="position:absolute;left:56px;right:0;top:173px;height:1px;background:#6B3F2A"></div>
+<span style="position:absolute;left:0;top:166px;font:500 12px/16px 'DM Sans',sans-serif;color:#6B3F2A">13:20</span>
+</div>
+</main>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Salon · 05 — Bookings</div>
+<div class="dk">
+<nav aria-label="Salon" style="position:absolute;left:0;top:0;bottom:0;width:240px;padding:36px 24px 32px 40px;display:flex;flex-direction:column">
+<a href="#" class="row" style="gap:8px;text-decoration:none;color:#2B211C"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span></a>
+<button type="button" class="lnk d" style="margin-top:28px;justify-content:flex-start;font-size:15px" aria-haspopup="listbox">Lumière Nail Bar <svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<div class="lab" style="margin-top:-6px">Pro · <a href="#" style="text-decoration:none">lumiere.nailswap.app</a></div>
+<div style="margin-top:20px"><a href="#" class="nv " aria-current="false">Overview</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Operations</div><a href="#" class="nv " aria-current="false">Calendar</a><a href="#" class="nv on" aria-current="page">Bookings<span class="mut" style="margin-left:auto;font-size:13px">4</span></a><a href="#" class="nv " aria-current="false">Clients</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Business</div><a href="#" class="nv " aria-current="false">Analytics</a><a href="#" class="nv " aria-current="false">Marketing</a><a href="#" class="nv " aria-current="false">Billing</a><div class="lab" style="margin-top:20px;margin-bottom:2px">Setup</div><a href="#" class="nv " aria-current="false">Catalog</a><a href="#" class="nv " aria-current="false">Staff</a><a href="#" class="nv " aria-current="false">Settings</a></div>
+</nav>
+<main style="position:absolute;left:240px;right:0;top:0;bottom:0;padding:36px 48px 0 24px;display:flex;flex-direction:column">
+<header class="row" style="justify-content:space-between;align-items:flex-end;gap:24px">
+<div><div class="lab">Lumière Nail Bar · 214 in the last 30 days</div><h1 class="sf" style="font-size:38px;line-height:1.1;margin-top:4px">Bookings</h1></div>
+<div class="row" style="gap:24px">
+<a href="#" class="lnk"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 4v12 M7 11l5 5 5-5 M4 20h16"></path></svg>Export CSV</a>
+<button type="button" class="btn s"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>New booking</button>
+</div>
+</header>
+<div class="row" style="justify-content:space-between;gap:24px;margin-top:16px">
+<div class="tabs" role="tablist" aria-label="Booking status"><button type="button" class="on" role="tab" aria-selected="true">All · 214</button><button type="button" role="tab" aria-selected="false">Upcoming · 38</button><button type="button" role="tab" aria-selected="false">Pending · 4</button><button type="button" role="tab" aria-selected="false">Cancelled · 6</button></div>
+<label class="row" style="gap:8px;width:280px;border-bottom:1px solid #D9CEC4"><svg class="ic mut" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14z M20 20l-3.5-3.5"></path></svg><span class="vh">Search bookings</span><input class="fld" placeholder="Search name, ref or phone" style="border: 0px; height: 44px; font-size: 15px;"></label>
+</div>
+<div class="row" style="gap:28px;margin-top:4px">
+<button type="button" class="lnk d" style="font-size:14px;font-weight:400" aria-haspopup="listbox"><span class="mut">Status</span>All<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="lnk d" style="font-size:14px;font-weight:400" aria-haspopup="dialog"><svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z M4 10h16 M8 3v4 M16 3v4"></path></svg>1 – 31 Oct 2026<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="lnk d" style="font-size:14px;font-weight:400" aria-haspopup="listbox"><span class="mut">Staff</span>All staff<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="lnk d" style="font-size:14px;font-weight:400" aria-haspopup="listbox"><span class="mut">Source</span>All sources<svg class="ic mut" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+<button type="button" class="lnk" style="font-size:14px">Clear filters</button>
+<span class="lab" style="margin-left:auto">Newest first</span>
+</div>
+<div style="margin-top:12px">
+<div class="th" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px"><span>Ref</span><span>Client</span><span>Service · design</span><span>Staff</span><span>Date / time</span><span>Source</span><span>Status</span><span style="text-align:right">Amount</span><span></span></div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-4F7K2</span>
+<span class="ell" style="font-weight:500">Nour Haddad</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel-X extensions</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span>Chrome Glaze</span></span>
+<span>Maya K.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">14:30–16:00</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Try-on</span>
+<span class="st"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Confirmed</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$55</span>
+<button type="button" class="ib" aria-label="Actions for NS-4F7K2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-8J2QD</span>
+<span class="ell" style="font-weight:500">Dana Khoury</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel manicure</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span>Cherry Cola</span></span>
+<span>Maya K.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">16:15–17:00</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18"></path></svg>Salon page</span>
+<span class="st"><span class="dot" style="background:#C49A74;box-shadow:none"></span>Pending</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$25</span>
+<button type="button" class="ib" aria-label="Actions for NS-8J2QD"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-3MX9A</span>
+<span class="ell" style="font-weight:500">Rasha Mansour</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel-X extensions</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span>Chrome Glaze</span></span>
+<span>Rana S.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">15:30–17:00</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 4h6v6H4z M14 4h6v6h-6z M4 14h6v6H4z M14 14h2v2h-2z M18 18h2v2h-2z M14 18h2 M18 14h2"></path></svg>QR</span>
+<span class="st"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Confirmed</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$55</span>
+<button type="button" class="ib" aria-label="Actions for NS-3MX9A"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-7TR4E</span>
+<span class="ell" style="font-weight:500">Zeina Daher</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel manicure</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span>Milky French</span></span>
+<span>Jad H.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">15:00–15:45</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Try-on</span>
+<span class="st"><span class="dot" style="background:#5F7F5C;box-shadow:none"></span>Confirmed</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$30</span>
+<button type="button" class="ib" aria-label="Actions for NS-7TR4E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-2KW8P</span>
+<span class="ell" style="font-weight:500">Lynn Tabet</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel manicure</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(180deg,#d9c7f0,#a98bd6)"></span>Lavender Haze</span></span>
+<span>Rana S.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">17:00–17:45</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18"></path></svg>Salon page</span>
+<span class="st"><span class="dot" style="background:#C49A74;box-shadow:none"></span>Pending</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$25</span>
+<button type="button" class="ib" aria-label="Actions for NS-2KW8P"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-9PL3C</span>
+<span class="ell" style="font-weight:500">Sara Moussa</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel-X extensions</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span>Cat-Eye Velvet</span></span>
+<span>Maya K.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">12:45–14:15</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Try-on</span>
+<span class="st"><span class="dot" style="background:#6B3F2A;box-shadow:none"></span>Checked-in</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$57</span>
+<button type="button" class="ib" aria-label="Actions for NS-9PL3C"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-6CH7T</span>
+<span class="ell" style="font-weight:500">Yara Karam</span>
+<span style="min-width:0"><span class="ell" style="display:block">Gel-X extensions</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span>Gold Leaf Tips</span></span>
+<span>Rana S.</span>
+<span><span style="display:block">Sat 10 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">10:30–12:00</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Try-on</span>
+<span class="st"><span class="dot" style="background:#A39385;box-shadow:none"></span>Completed</span>
+<span style="text-align:right;font-weight:500;color:#2B211C;text-decoration:none">$57</span>
+<button type="button" class="ib" aria-label="Actions for NS-6CH7T"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="tr" style="grid-template-columns:84px 140px 1fr 70px 112px 100px 100px 56px 44px;column-gap:12px">
+<span class="mut" style="font-size:13px;letter-spacing:.03em">NS-4DN2W</span>
+<span class="ell" style="font-weight:500">Carla Saab</span>
+<span style="min-width:0"><span class="ell" style="display:block">BIAB overlay</span><span class="row mut" style="gap:6px;font-size:12px;margin-top:2px"><span class="nl almond" style="width:8px;height:11px;background:linear-gradient(to bottom,#1b1b1b 0 10%,#f3d9cf 10% 100%)"></span>Micro French</span></span>
+<span>Rana S.</span>
+<span><span style="display:block">Fri 9 Oct</span><span class="mut" style="display:block;font-size:12px;margin-top:2px">18:00–19:00</span></span>
+<span class="row" style="gap:6px"><svg class="ic" style="width:15px;height:15px;color:#6B3F2A" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>Try-on</span>
+<span class="st"><span class="dot" style="background:transparent;box-shadow:inset 0 0 0 1px #6F6259"></span>Cancelled</span>
+<span style="text-align:right;font-weight:500;color:#6F6259;text-decoration:line-through">$35</span>
+<button type="button" class="ib" aria-label="Actions for NS-4DN2W"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h.01 M12 12h.01 M19 12h.01"></path></svg></button>
+</div>
+
+<div class="row" style="justify-content:space-between;margin-top:8px">
+<span class="lab">Showing 1–8 of 214</span>
+<nav class="row" aria-label="Pagination" style="gap:6px">
+<button type="button" class="ib" aria-label="Previous page"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+<button type="button" class="pn on" aria-current="page">1</button><button type="button" class="pn">2</button><button type="button" class="pn">3</button><span class="mut" style="padding:0 4px">…</span><button type="button" class="pn">27</button>
+<button type="button" class="ib" aria-label="Next page"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+</nav>
+</div>
+</div>
+</main>
+</div>
+</section>
+</div>
+</body></html>

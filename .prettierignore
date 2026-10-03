@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+public/models
+pnpm-lock.yaml
+src/lib/supabase/database.types.ts
+supabase/.temp

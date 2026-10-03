@@ -1,0 +1,14 @@
+.env*
+.git
+.next
+node_modules
+tryon-eval
+test-results
+playwright-report
+coverage
+design
+docs
+scripts/assets
+scripts/server
+public/models
+*.tsbuildinfo

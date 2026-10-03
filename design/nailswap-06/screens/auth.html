@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>NailSwap V06 — Auth</title><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap" rel="stylesheet"><style>
+body{margin:0}
+*{box-sizing:border-box}
+a{color:#6B3F2A}a:hover{color:#2B211C}
+h1,h2,h3,p,ol,ul{margin:0;padding:0}
+ol,ul{list-style:none}
+.row{display:flex;align-items:center}
+.cap{height:20px;font:500 11px/20px 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#5A4C43;white-space:nowrap}
+.ph{width:390px;height:844px;border-radius:44px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.dk{width:1280px;height:800px;border-radius:14px;overflow:hidden;position:relative;background:#F7F3EF;box-shadow:0 0 0 1px #DCD1C6;flex:none}
+.scr{position:absolute;left:0;right:0;top:44px;padding:8px 24px 0;display:flex;flex-direction:column}
+.sf{font-family:'DM Serif Display',serif;font-weight:400;color:#2B211C}
+.mut{color:#6F6259}
+.lab{font:400 13px/1.3 'DM Sans',sans-serif;color:#6F6259}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;border:0;background:#6B3F2A;color:#fff;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#58321F;color:#fff}
+.btn.s{height:44px;padding:0 22px;font-size:14px}
+.lnk{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0;border:0;background:none;color:#6B3F2A;font:500 15px/1 'DM Sans',sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}
+.lnk.d{color:#2B211C}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#2B211C;cursor:pointer;flex:none}
+.ic{width:20px;height:20px;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.fld{display:block;width:100%;height:46px;padding:0;border:0;border-bottom:1px solid #D9CEC4;border-radius:0;background:transparent;font:400 16px 'DM Sans',sans-serif;color:#2B211C;outline:none}
+.fld:focus,.fld.f{border-bottom:2px solid #6B3F2A}
+.tabs{display:flex;gap:24px}
+.tabs button{height:44px;padding:0;border:0;border-bottom:2px solid transparent;background:none;font:500 15px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tabs button.on{color:#2B211C;border-bottom-color:#2B211C}
+.tg{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:none;font:500 14px 'DM Sans',sans-serif;color:#6F6259;cursor:pointer;white-space:nowrap}
+.tg::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent}
+.tg.on{color:#6B3F2A}.tg.on::before{background:#6B3F2A}
+.st{display:inline-flex;align-items:center;gap:7px;font:500 13px 'DM Sans',sans-serif;color:#2B211C;white-space:nowrap}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:none}
+.li{display:flex;align-items:center;gap:14px;min-height:56px;border-bottom:1px solid #E9E0D7}
+.av{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#E7CDBE;color:#6B3F2A;font:500 13px 'DM Sans',sans-serif;flex:none}
+.sw{position:relative;width:44px;height:26px;padding:0;border:0;border-radius:999px;background:#D9CEC4;cursor:pointer;flex:none}
+.sw::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#F7F3EF}
+.sw.on{background:#6B3F2A}.sw.on::after{left:21px}
+.nl{box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);flex:none;display:inline-block}
+.almond{border-radius:50% 50% 45% 45%/70% 70% 30% 30%}
+.oval{border-radius:50% 50% 46% 46%/58% 58% 42% 42%}
+.square{border-radius:6px 6px 40% 40%/6px 6px 28% 28%}
+.coffin{clip-path:polygon(22% 0,78% 0,100% 100%,0 100%);border-radius:0 0 30% 30%/0 0 20% 20%}
+.stiletto{clip-path:polygon(50% 0,100% 72%,100% 100%,0 100%,0 72%)}
+.tb{position:absolute;left:0;right:0;bottom:0;height:84px;display:flex;padding:0 12px 26px;background:#F7F3EF}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font:500 11px/1 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.tab.on{color:#6B3F2A}
+.nv{display:flex;align-items:center;gap:10px;height:38px;font:500 15px 'DM Sans',sans-serif;color:#6F6259;text-decoration:none}
+.nv::before{content:'';width:6px;height:6px;border-radius:50%;background:transparent;flex:none}
+.nv.on{color:#2B211C}.nv.on::before{background:#6B3F2A}
+.th{display:grid;align-items:center;column-gap:16px;height:36px;font:500 12px 'DM Sans',sans-serif;color:#6F6259;border-bottom:1px solid #E9E0D7}
+.tr{display:grid;align-items:center;column-gap:16px;height:52px;font:400 14px 'DM Sans',sans-serif;color:#2B211C;border-bottom:1px solid #EFE8E1}
+.col{position:absolute;left:450px;width:380px;display:flex;flex-direction:column}
+.wm{position:absolute;left:48px;top:36px;gap:8px;text-decoration:none;color:#2B211C}
+.foot{position:absolute;left:0;right:0;bottom:24px;justify-content:center;gap:24px;font-size:13px;color:#6F6259}
+.foot a{color:#6F6259;text-decoration:none}
+</style></head><body>
+
+<div style="width: 2736px; height: 948px; box-sizing: border-box; padding: 56px; display: flex; gap: 64px; overflow: hidden; background: #E9E1D9; font-family: 'DM Sans', sans-serif; color: #2B211C">
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Auth · 01 — Login</div>
+<div class="dk">
+<a href="#" class="row wm"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span><span class="mut" style="font-size:15px;margin-left:2px">for salons</span></a>
+<main class="col" style="top:104px">
+<div class="row" style="gap:8px;align-items:flex-end" aria-hidden="true"><span class="nl almond" style="width:20px;height:28px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl oval" style="width:20px;height:32px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span><span class="nl coffin" style="width:20px;height:35px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span><span class="nl almond" style="width:20px;height:32px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span><span class="nl square" style="width:20px;height:28px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span></div>
+<h1 class="sf" style="font-size:44px;line-height:1.05;margin-top:24px">Sign in</h1>
+<p class="mut" style="font-size:15px;margin-top:8px">For salon owners and NailSwap admins.</p>
+<p class="row" role="status" style="gap:8px;margin-top:14px;font-size:14px;color:#6F6259"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 11v6 M12 7.5h.01"></path></svg><span>Sign in to continue to <span style="color:#6B3F2A;font-weight:500">/dashboard/calendar</span></span></p>
+<label class="lab" for="em" style="margin-top:32px">Email</label>
+<input class="fld" id="em" type="email" value="rima@lumierenails.com" readonly="" style="">
+<label class="lab" for="pw" style="margin-top:24px">Password</label>
+<div style="position:relative"><input class="fld f" id="pw" type="password" value="lumiere-2026" readonly="" style="padding-right: 44px;"><button type="button" class="ib" aria-label="Show password" style="position:absolute;right:-10px;top:1px;color:#6F6259"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path></svg></button></div>
+<div class="row" style="justify-content:space-between;margin-top:10px"><label class="row" style="gap:10px;font-size:14px;cursor:pointer"><input type="checkbox" checked="" style="width: 18px; height: 18px; margin: 0px; accent-color: rgb(107, 63, 42);">Keep me signed in</label><a href="#" class="lnk" style="font-size:14px">Forgot password?</a></div>
+<button type="button" class="btn s" style="width:100%;margin-top:20px">Sign in</button>
+<div class="row" style="justify-content:center;gap:32px;margin-top:12px"><button type="button" class="lnk d" style="font-size:14px"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 6h18v12H3z M3 7l9 6 9-6"></path></svg>Email me a link</button><button type="button" class="lnk d" style="font-size:14px"><svg class="ic" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 1-2.3-5.6 M20.5 12H12.5"></path></svg>Continue with Google</button></div>
+<p class="mut" style="font-size:14px;margin-top:20px;text-align:center">New salon? <a href="#" style="font-weight:500">Apply to join</a></p>
+</main>
+<footer class="row foot"><span>© 2026 NailSwap</span><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Status</a><a href="#">Help</a></footer>
+</div>
+</section>
+
+<section style="display:flex; flex-direction:column; gap:16px; width:1280px">
+<div class="cap">06 · Auth · 02 — Logged out</div>
+<div class="dk">
+<a href="#" class="row wm"><span class="nl almond" style="width:12px;height:17px;background:#6B3F2A"></span><span class="sf" style="font-size:22px;line-height:1">NailSwap</span><span class="mut" style="font-size:15px;margin-left:2px">for salons</span></a>
+<main class="col" style="top:196px;align-items:center;text-align:center">
+<div class="row" style="gap:8px;align-items:flex-end" aria-hidden="true"><span class="nl almond" style="width:20px;height:28px;background:linear-gradient(135deg,#f4f4f6 0%,#b9bcc6 35%,#ffffff 50%,#9da1ad 70%,#e9eaee 100%)"></span><span class="nl oval" style="width:20px;height:32px;background:linear-gradient(to bottom,#ffffff 0 24%,#f6dcd4 24% 100%)"></span><span class="nl coffin" style="width:20px;height:35px;background:linear-gradient(160deg,#8e0f24,#4a0612)"></span><span class="nl almond" style="width:20px;height:32px;background:linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)"></span><span class="nl square" style="width:20px;height:28px;background:linear-gradient(to bottom,#d4af37 0 22%,#f2e6dc 22% 100%)"></span></div>
+<h1 class="sf" style="font-size:44px;line-height:1.05;margin-top:28px">You're signed out</h1>
+<p class="mut" style="font-size:16px;line-height:24px;margin-top:12px;max-width:340px">Your session ended on this device. Other devices you use stay signed in.</p>
+<p class="row mut" style="gap:8px;font-size:13px;margin-top:16px"><svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M5 6h14v9H5z M3 18h18"></path></svg>Chrome on macOS · signed out at 18:42</p>
+<a href="#" class="btn s" style="width:100%;margin-top:36px">Sign in again</a>
+<a href="#" class="lnk" style="margin-top:12px">Go to nailswap.app</a>
+<p class="lab" style="margin-top:20px">On a shared computer? Close this window too.</p>
+</main>
+<footer class="row foot"><span>© 2026 NailSwap</span><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Status</a><a href="#">Help</a></footer>
+</div>
+</section>
+
+</div>
+</body></html>

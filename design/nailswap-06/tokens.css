@@ -1,0 +1,129 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   NailSwap · 06 Nude Clinic (simplified) — design tokens
+   Drop-in values for src/app/globals.css. Variable names match the ones the
+   app already uses, so existing utilities (bg-background, text-muted,
+   border-border, bg-accent …) pick up the new look automatically.
+   See DESIGN.md §0 for how to apply, §2 for what each token is for.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Ground — everything sits on ONE warm ground. 06 has no raised cards,
+     so --surface equals --background on purpose. */
+  --background: #f7f3ef;
+  --surface: #f7f3ef;
+  --surface-2: #efe8e1;      /* quiet fill: skeletons, hovered rows, off-hours, media placeholders */
+  --overlay: #fbf8f5;        /* ONLY dialogs, bottom sheets, menus, toasts */
+
+  /* Text */
+  --foreground: #2b211c;     /* 14.2:1 on ground */
+  --muted: #6f6259;          /* labels, meta, secondary text — 5.3:1 on ground */
+  --muted-2: #8a7c72;        /* placeholders and disabled only — 3.7:1, never body text */
+
+  /* Lines — the only separators */
+  --border: #e9e0d7;         /* hairline between list / table rows */
+  --border-strong: #d9cec4;  /* underline of form fields, off switch track */
+
+  /* Accent — cocoa is the platform default. A salon's public page may set
+     --accent at runtime; it must keep ≥ 4.5:1 with --accent-contrast. */
+  --accent: #6b3f2a;         /* primary button, links, selected states — 8.9:1 with white, 8.0:1 on ground */
+  --accent-hover: #58321f;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e7cdbe;    /* nude — avatars, placeholder art, selected tint */
+  --nude: #e7cdbe;
+
+  /* Status (dot + label, never colour alone) */
+  --success: #4f6d4c;        /* sage — confirmed, paid, healthy — 5.3:1 on ground */
+  --success-soft: #dde7da;   /* calendar block tint for confirmed */
+  --pending: #c49a74;        /* dot only (new / pending) — not for text */
+  --pending-soft: #efe3da;   /* calendar block tint for new / pending */
+  --warning: #8c5a24;        /* warning TEXT — 5.3:1 on ground */
+  --danger: #a33a2c;         /* destructive links, failed, no-show — 5.9:1 on ground */
+  --info: #3f5f7a;
+
+  /* Shape */
+  --radius: 1rem;            /* overlays (dialog, menu, toast) */
+  --radius-media: 1.5rem;    /* camera view, before/after, poster preview, map */
+  --radius-block: 0.625rem;  /* calendar blocks, chart bar tops use 4px */
+  /* pills (buttons, selected time) = rounded-full; avatars = circles */
+
+  /* Elevation — none on the page. Only overlays float. */
+  --shadow-sm: none;
+  --shadow: none;
+  --shadow-lg: 0 24px 48px -16px rgb(43 33 28 / 0.22), 0 2px 6px rgb(43 33 28 / 0.06);
+}
+
+/* Dark mode — DERIVED from the light palette, not yet designed on the canvas.
+   Keep it, but review before shipping dark mode. */
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --background: #1b1613;
+    --surface: #1b1613;
+    --surface-2: #241e1a;
+    --overlay: #2a231f;
+    --foreground: #f3ece6;
+    --muted: #b3a69c;
+    --muted-2: #8c7f76;
+    --border: #342b26;
+    --border-strong: #4a3f38;
+    --accent: #c48a68;
+    --accent-hover: #d39b79;
+    --accent-contrast: #1b1613;
+    --accent-soft: #4a362b;
+    --nude: #4a362b;
+    --success: #8fb08b;
+    --success-soft: #2c3529;
+    --pending: #c49a74;
+    --pending-soft: #3a2e26;
+    --warning: #d9a46a;
+    --danger: #e07a6b;
+    --info: #8fb0cc;
+    --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.5);
+  }
+}
+:root[data-theme="dark"] {
+  --background: #1b1613;
+  --surface: #1b1613;
+  --surface-2: #241e1a;
+  --overlay: #2a231f;
+  --foreground: #f3ece6;
+  --muted: #b3a69c;
+  --muted-2: #8c7f76;
+  --border: #342b26;
+  --border-strong: #4a3f38;
+  --accent: #c48a68;
+  --accent-hover: #d39b79;
+  --accent-contrast: #1b1613;
+  --accent-soft: #4a362b;
+  --nude: #4a362b;
+  --success: #8fb08b;
+  --success-soft: #2c3529;
+  --pending: #c49a74;
+  --pending-soft: #3a2e26;
+  --warning: #d9a46a;
+  --danger: #e07a6b;
+  --info: #8fb0cc;
+  --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.5);
+}
+
+/* Add these to the existing `@theme inline { … }` block in globals.css
+   (keep the ones already there). */
+@theme inline {
+  --color-overlay: var(--overlay);
+  --color-accent-hover: var(--accent-hover);
+  --color-nude: var(--nude);
+  --color-success-soft: var(--success-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
+  --radius-media: var(--radius-media);
+  --radius-block: var(--radius-block);
+}
+
+/* Nail shapes — for swatches (width : height ≈ 0.68). Put in @layer components. */
+@layer components {
+  .nail { display: inline-block; flex: none; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08); }
+  .nail-almond { border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%; }
+  .nail-oval { border-radius: 50% 50% 46% 46% / 58% 58% 42% 42%; }
+  .nail-square { border-radius: 6px 6px 40% 40% / 6px 6px 28% 28%; }
+  .nail-coffin { clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%); border-radius: 0 0 30% 30% / 0 0 20% 20%; }
+  .nail-stiletto { clip-path: polygon(50% 0, 100% 72%, 100% 100%, 0 100%, 0 72%); }
+}

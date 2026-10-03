@@ -56,6 +56,3 @@ __pycache__/
 *.py[cod]
 /NailSwap-Server-Setup*/
 /NailSwap-Server-Setup*.tar.gz
-
-.vercel
-.env*

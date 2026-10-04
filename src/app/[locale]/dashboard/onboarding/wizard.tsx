@@ -426,7 +426,7 @@ export function Wizard({
 
   return (
     <div className="lg:grid lg:grid-cols-[300px_minmax(0,1fr)] lg:gap-12">
-      <aside className="mb-8 lg:mb-0">
+      <aside className="dashboard-card mb-8 lg:mb-0">
         <div className="text-muted text-[15px] leading-6">
           {salon ? td("setupFor", { name: salon.name }) : t("subtitle")}
         </div>
@@ -465,7 +465,7 @@ export function Wizard({
         </ol>
       </aside>
 
-      <section className="min-w-0">
+      <section className="dashboard-card min-w-0">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="text-muted text-[15px]">
@@ -492,7 +492,7 @@ export function Wizard({
           </div>
         </div>
 
-        <div className="mt-10 max-w-[760px]">
+        <div className="dashboard-card mt-6 max-w-[760px]">
           {step === 0 && (
             <div className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
@@ -647,7 +647,7 @@ export function Wizard({
           )}
 
           {step === 1 && (
-            <div className="grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
               <div>
                 <h2 className="font-display text-2xl">{t("address")}</h2>
                 <div className="mt-5 space-y-6">
@@ -686,7 +686,10 @@ export function Wizard({
                   </div>
                   <div>
                     <div className="text-muted text-[13px]">{td("pageLink")}</div>
-                    <div className="border-border-strong flex h-12 items-center border-b text-base" dir="ltr">
+                    <div
+                      className="bg-background flex min-h-12 items-center rounded-2xl px-4 py-3 text-base break-all"
+                      dir="ltr"
+                    >
                       <span className="text-muted">https://</span>
                       <span className="font-medium">{salon?.slug}</span>
                       <span className="text-muted ms-auto">.nailswap.app</span>
@@ -770,7 +773,7 @@ export function Wizard({
           )}
 
           {step === 2 && (
-            <div>
+            <div className="dashboard-table">
               <div className="table-head grid-cols-[1fr_120px_100px_100px_44px] px-0">
                 <span>{t("servicesTitle")}</span>
                 <span>{td("type")}</span>
@@ -782,7 +785,7 @@ export function Wizard({
                 <div
                   key={s.key}
                   className={cn(
-                    "border-border grid min-h-14 grid-cols-[1fr_120px_100px_100px_44px] items-center gap-x-4 border-b py-1",
+                    "border-border grid min-h-14 min-w-[640px] grid-cols-[1fr_120px_100px_100px_44px] items-center gap-x-4 border-b py-1",
                     !s.on && "opacity-50",
                   )}
                 >
@@ -1024,7 +1027,10 @@ export function Wizard({
 
           {step === 5 && salon && (
             <div className="max-w-[520px]">
-              <div className="border-border-strong flex h-12 items-center border-b text-base" dir="ltr">
+              <div
+                className="bg-background flex min-h-12 items-center rounded-2xl px-4 py-3 text-base break-all"
+                dir="ltr"
+              >
                 <span className="font-medium">{publicUrl ?? `${salon.slug}.nailswap.app`}</span>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-8">

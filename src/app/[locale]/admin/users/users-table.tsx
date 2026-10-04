@@ -39,25 +39,25 @@ export function UsersTable({ rows }: { rows: Row[] }) {
         title={ta("users")}
         actions={
           <label className="relative inline-flex items-center">
-            <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+            <Search className="text-muted pointer-events-none absolute start-3.5 size-5" strokeWidth={1.75} />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={ta("searchSalonsUsers")}
-              className="field h-11 w-72 ps-7 text-base"
+              className="field h-11 w-72 ps-10 text-base"
               aria-label={tc("search")}
             />
           </label>
         }
       />
-      <div className="flex flex-wrap gap-x-6">
+      <div className="flex flex-wrap gap-2">
         {(["all", "client", "salon", "admin"] as const).map((k) => (
           <FilterToggle key={k} pressed={kind === k} onClick={() => setKind(k)}>
             {k === "all" ? tc("all") : ta(`user_${k}` as never)}
           </FilterToggle>
         ))}
       </div>
-      <div className="mt-2 overflow-x-auto">
+      <div className="dashboard-table mt-2">
         <div className="min-w-[860px]">
           <div className="table-head grid-cols-[minmax(220px,1.5fr)_minmax(180px,1fr)_minmax(200px,1.3fr)_90px_70px_110px]">
             <span>{ta("user")}</span>
@@ -70,7 +70,7 @@ export function UsersTable({ rows }: { rows: Row[] }) {
           {list.map((r) => (
             <div
               key={r.id}
-              className="table-row h-auto min-h-16 grid-cols-[minmax(220px,1.5fr)_minmax(180px,1fr)_minmax(200px,1.3fr)_90px_70px_110px] py-2"
+              className="data-row h-auto min-h-16 grid-cols-[minmax(220px,1.5fr)_minmax(180px,1fr)_minmax(200px,1.3fr)_90px_70px_110px] py-2"
             >
               <span className="flex items-center gap-3">
                 <Avatar name={r.name ?? r.phone ?? "?"} size={40} />

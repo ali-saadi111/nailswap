@@ -82,18 +82,18 @@ export function ApprovalsView({
         title={ta("approvals")}
         actions={
           <label className="relative inline-flex items-center">
-            <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+            <Search className="text-muted pointer-events-none absolute start-3.5 size-5" strokeWidth={1.75} />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={ta("searchApplications")}
-              className="field h-11 w-72 ps-7 text-base"
+              className="field h-11 w-72 ps-10 text-base"
               aria-label={tc("search")}
             />
           </label>
         }
       />
-      <div className={cn("grid grid-cols-1 gap-12", selected && "xl:grid-cols-[minmax(0,1fr)_420px]")}>
+      <div className={cn("grid grid-cols-1 gap-6", selected && "xl:grid-cols-[minmax(0,1fr)_420px]")}>
         <div className="min-w-0">
           <Tabs
             value={tab}
@@ -104,7 +104,7 @@ export function ApprovalsView({
             ]}
           />
           {tab === "apps" && (
-            <div className="mt-4 overflow-x-auto">
+            <div className="dashboard-table dashboard-table mt-4">
               <div className="table-head grid-cols-[minmax(200px,1.6fr)_110px_90px_80px_140px]">
                 <span>{ta("salon")}</span>
                 <span>{ta("submitted")}</span>
@@ -121,7 +121,7 @@ export function ApprovalsView({
                     type="button"
                     onClick={() => setSelectedId(a.id)}
                     className={cn(
-                      "table-row h-auto min-h-[80px] w-full grid-cols-[minmax(200px,1.6fr)_110px_90px_80px_140px] py-2 text-start",
+                      "data-row h-auto min-h-[80px] w-full grid-cols-[minmax(200px,1.6fr)_110px_90px_80px_140px] py-2 text-start",
                       active && "bg-surface-2",
                     )}
                   >
@@ -196,7 +196,7 @@ export function ApprovalsView({
         </div>
 
         {selected && (
-          <aside className="border-border xl:border-s xl:ps-10">
+          <aside className="dashboard-card xl:ps-10">
             <div className="text-muted text-[15px]">
               {ta("appliedOn", {
                 date: fmtDay(selected.createdAt, locale, undefined, { day: "numeric", month: "short" }),

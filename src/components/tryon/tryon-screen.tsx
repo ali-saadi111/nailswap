@@ -210,7 +210,11 @@ export function TryonScreen({
       <TrackView salonId={contextSalonId} designId={look.designId} payload={{ screen: "tryon" }} />
       <PhoneHeader
         leading={<CloseButton href={closeHref} label={t("close")} />}
-        center={<span className="text-sm font-semibold">{t("aiPhoto")}</span>}
+        center={
+          <span className="bg-surface inline-flex h-9 items-center rounded-full px-4 text-sm font-bold">
+            {t("aiPhoto")}
+          </span>
+        }
       />
 
       {stage === "photo" && (

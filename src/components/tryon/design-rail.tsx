@@ -5,7 +5,7 @@ import { Nail, fillForDesign, fillForPolish } from "@/components/nails/nail";
 import { cn } from "@/lib/utils";
 import type { TryonDesign, TryonPolish } from "./types";
 
-/** Row of nails with a small cocoa dot under the selected one (DESIGN.md §6 Try-on). */
+/** Row of nails with a small rose dot under the selected one (Blush DESIGN.md §6 Try-on). */
 export function DesignRail({
   designs,
   polishes,

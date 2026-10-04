@@ -92,7 +92,7 @@ export function ProfileForm({ salon, initialHours }: { salon: Salon; initialHour
         }
       />
       <form onSubmit={save} className="mt-6 max-w-3xl space-y-8">
-        <section className="space-y-5">
+        <section className="dashboard-card space-y-5">
           <h2 className="text-xl font-semibold">{t("about")}</h2>
           <div>
             <Label htmlFor="salon-name">{t("name")}</Label>
@@ -159,7 +159,7 @@ export function ProfileForm({ salon, initialHours }: { salon: Salon; initialHour
             </details>
           </div>
         </section>
-        <section>
+        <section className="dashboard-card">
           <h2 className="text-xl font-semibold">{t("hours")}</h2>
           <p className="text-muted mt-1 text-sm">{salon.timezone}</p>
           <div className="mt-4 space-y-2">
@@ -190,7 +190,7 @@ export function ProfileForm({ salon, initialHours }: { salon: Salon; initialHour
                           values.map((v, i) => (i === index ? { ...v, open_time: e.target.value } : v)),
                         )
                       }
-                      className="border-border h-11 rounded-lg border bg-white px-2"
+                      className="field h-11 w-auto min-w-0 rounded-2xl px-3"
                     />
                     <span>–</span>
                     <input
@@ -203,7 +203,7 @@ export function ProfileForm({ salon, initialHours }: { salon: Salon; initialHour
                           values.map((v, i) => (i === index ? { ...v, close_time: e.target.value } : v)),
                         )
                       }
-                      className="border-border h-11 rounded-lg border bg-white px-2"
+                      className="field h-11 w-auto min-w-0 rounded-2xl px-3"
                     />
                   </div>
                 ) : (

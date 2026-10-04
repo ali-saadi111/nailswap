@@ -4,17 +4,19 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 /**
- * 06 Nude Clinic buttons (DESIGN.md §4–5).
- * `primary` is the one cocoa pill per view. Every other variant renders as a text link so that
- * existing call sites keep compiling while the page loses its boxes.
+ * Blush Immersive buttons (design/blush/DESIGN.md §4).
+ * - `primary`   rose-clay pill — the main action of a view.
+ * - `secondary` soft surface pill (paired with a primary, e.g. "Try on" next to "Book").
+ * - `outline`   ink-outlined pill for neutral actions.
+ * - `ghost` / `link` / `danger` stay text buttons so dense screens (dashboard tables) keep working.
  */
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "danger" | "link";
 export type ButtonSize = "sm" | "md" | "lg" | "icon";
 
 const pillSizes: Record<ButtonSize, string> = {
   sm: "h-9 px-4 text-sm",
-  md: "h-11 px-5.5 text-sm",
-  lg: "h-13 px-7 text-[15px]",
+  md: "h-11 px-5 text-sm",
+  lg: "min-h-14 px-7 py-3 text-base whitespace-normal text-center",
   icon: "size-11",
 };
 
@@ -25,10 +27,14 @@ const linkSizes: Record<ButtonSize, string> = {
   icon: "size-11",
 };
 
-const linkTone: Record<Exclude<ButtonVariant, "primary">, string> = {
-  secondary: "text-accent hover:text-foreground",
+const pillTone: Record<"primary" | "secondary" | "outline", string> = {
+  primary: "bg-accent text-accent-contrast hover:bg-accent-hover",
+  secondary: "bg-surface text-foreground hover:text-accent shadow-sm",
+  outline: "bg-transparent text-foreground shadow-[inset_0_0_0_1.5px_var(--foreground)] hover:bg-surface",
+};
+
+const linkTone: Record<"ghost" | "danger" | "link", string> = {
   link: "text-accent hover:text-foreground",
-  outline: "text-foreground hover:text-accent",
   ghost: "text-foreground hover:text-accent",
   danger: "text-danger hover:text-foreground",
 };
@@ -39,15 +45,9 @@ export function buttonClasses(
   className?: string,
 ) {
   const base =
-    "inline-flex items-center justify-center gap-2 font-medium whitespace-nowrap select-none transition-colors duration-150 disabled:pointer-events-none disabled:opacity-60";
-  if (variant === "primary") {
-    return cn(
-      base,
-      "bg-accent text-accent-contrast hover:bg-accent-hover rounded-full",
-      pillSizes[size],
-      size === "icon" && "rounded-full",
-      className,
-    );
+    "inline-flex items-center justify-center gap-2 font-bold whitespace-nowrap select-none transition-colors duration-150 disabled:pointer-events-none disabled:opacity-60";
+  if (variant === "primary" || variant === "secondary" || variant === "outline") {
+    return cn(base, "rounded-full", pillTone[variant], pillSizes[size], className);
   }
   return cn(
     base,
@@ -130,7 +130,11 @@ export function ButtonLink({
 /** Bare 20px icon in a 44px hit area. Always pass `aria-label`. */
 export const IconButton = React.forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & { "aria-label": string; tone?: "default" | "muted" }
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    "aria-label": string;
+    /** `surface` / `glass` render a round chip (headers, over imagery); `default` / `muted` are bare. */
+    tone?: "default" | "muted" | "surface" | "glass";
+  }
 >(function IconButton({ className, tone = "default", type = "button", ...props }, ref) {
   return (
     <button
@@ -139,6 +143,8 @@ export const IconButton = React.forwardRef<
       className={cn(
         "hover:text-accent inline-flex size-11 shrink-0 items-center justify-center bg-transparent transition-colors disabled:opacity-50 [&>svg]:size-5",
         tone === "muted" ? "text-muted" : "text-foreground",
+        tone === "surface" && "bg-surface rounded-full shadow-sm",
+        tone === "glass" && "glass rounded-full",
         className,
       )}
       {...props}

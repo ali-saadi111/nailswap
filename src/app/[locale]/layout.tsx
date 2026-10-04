@@ -2,21 +2,23 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Urbanist } from "next/font/google";
 import { routing, isRtl } from "@/i18n/routing";
 import { publicEnv } from "@/lib/env";
 import { Toaster } from "@/components/ui/toaster";
 import "../globals.css";
 
-const dmSans = DM_Sans({
+/** Blush Immersive: one family — Urbanist (variable). `--font-display` aliases it in globals.css. */
+const urbanist = Urbanist({
   subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
   display: "swap",
 });
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-display",
+
+const arabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic",
   display: "swap",
 });
 
@@ -48,8 +50,8 @@ export async function generateMetadata({
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f3ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#1b1613" },
+    { media: "(prefers-color-scheme: light)", color: "#f6eae6" },
+    { media: "(prefers-color-scheme: dark)", color: "#1d1514" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -71,7 +73,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={isRtl(locale) ? "rtl" : "ltr"}
-      className={`${dmSans.variable} ${dmSerif.variable}`}
+      className={`${urbanist.variable} ${arabic.variable}`}
       suppressHydrationWarning
     >
       <body>

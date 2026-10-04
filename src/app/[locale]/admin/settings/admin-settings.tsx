@@ -92,8 +92,8 @@ export function AdminSettings({
         title={tc("settings")}
         actions={<Button onClick={() => setNewOpen(true)}>{t("newAnnouncement")}</Button>}
       />
-      <div className="grid grid-cols-1 gap-x-16 gap-y-14 xl:grid-cols-2">
-        <section>
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <section className="dashboard-card">
           <h2 className="font-display text-[28px] leading-none">{t("flags")}</h2>
           <div className="mt-4">
             {flags.map((f) => (
@@ -109,7 +109,7 @@ export function AdminSettings({
           </div>
 
           <h2 className="font-display mt-14 text-[28px] leading-none">{tb("plans")}</h2>
-          <div className="mt-4 overflow-x-auto">
+          <div className="dashboard-table dashboard-table mt-4">
             <div className="table-head grid-cols-[1fr_100px_120px_90px_90px]">
               <span>{ta("plan")}</span>
               <span>{tc("price")}</span>
@@ -118,7 +118,7 @@ export function AdminSettings({
               <span>{tc("status")}</span>
             </div>
             {plans.map((p) => (
-              <div key={p.code} className="table-row h-13 grid-cols-[1fr_100px_120px_90px_90px]">
+              <div key={p.code} className="data-row h-13 grid-cols-[1fr_100px_120px_90px_90px]">
                 <span className="text-[15px] font-medium">{p.name}</span>
                 <span className="tabular-nums">{money(p.price_usd, "USD", locale)}</span>
                 <span className="tabular-nums">{p.ai_quota_monthly}</span>
@@ -129,7 +129,7 @@ export function AdminSettings({
           </div>
         </section>
 
-        <section>
+        <section className="dashboard-card">
           <h2 className="font-display text-[28px] leading-none">{t("announcements")}</h2>
           <ul className="mt-4">
             {announcements.map((a) => {

@@ -1,0 +1,16 @@
+{
+  "typecheck": "passed",
+  "lint": {
+    "errors": 0,
+    "warnings": 3,
+    "scope": "Existing cached Supabase hello example under .vercel"
+  },
+  "diffCheck": "passed",
+  "devServer": "http://127.0.0.1:3002/en",
+  "finalHttp": {
+    "home": 200,
+    "privacy": 200,
+    "removedFixture": 404
+  },
+  "committed": false
+}

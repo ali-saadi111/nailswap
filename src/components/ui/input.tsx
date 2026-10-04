@@ -2,9 +2,9 @@ import * as React from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-/** Underline field (DESIGN.md §4): label above, 1px underline, 2px cocoa underline on focus. */
+/** Filled field (Blush DESIGN.md §4): label above, surface fill, 16px corners, rose border on focus. */
 export const inputClasses =
-  "field h-12 w-full border-0 border-b border-border-strong bg-transparent px-0 text-base text-foreground placeholder:text-muted-2 focus:border-b-2 focus:border-accent focus-visible:outline-none disabled:opacity-60";
+  "field h-12 w-full rounded-2xl border border-transparent bg-surface px-4 text-base text-foreground placeholder:text-muted-2 focus:border-accent focus-visible:outline-none disabled:opacity-60";
 
 export const Input = React.forwardRef<
   HTMLInputElement,
@@ -50,7 +50,7 @@ export const Select = React.forwardRef<
         aria-invalid={invalid || undefined}
         className={cn(
           inputClasses,
-          "cursor-pointer appearance-none pe-7",
+          "cursor-pointer appearance-none pe-10",
           invalid && "border-danger",
           className,
         )}
@@ -60,7 +60,7 @@ export const Select = React.forwardRef<
       </select>
       <ChevronDown
         aria-hidden
-        className="text-muted pointer-events-none absolute end-0 top-1/2 size-[18px] -translate-y-1/2"
+        className="text-muted pointer-events-none absolute end-4 top-1/2 size-[18px] -translate-y-1/2"
       />
     </span>
   );
@@ -74,7 +74,10 @@ export function Label({
 }: React.LabelHTMLAttributes<HTMLLabelElement> & { hint?: string }) {
   return (
     <label
-      className={cn("text-muted mb-1 flex items-baseline justify-between gap-2 text-[13px]", className)}
+      className={cn(
+        "text-muted mb-1.5 flex items-baseline justify-between gap-2 text-[13px] font-semibold",
+        className,
+      )}
       {...props}
     >
       <span>{children}</span>
@@ -115,7 +118,7 @@ export function Field({
   );
 }
 
-/** 44×26 switch; off = strong border colour, on = cocoa; thumb = ground; mirrored in RTL. */
+/** 44×26 switch; off = strong border colour, on = rose; thumb = surface; mirrored in RTL. */
 export function Switch({
   checked,
   onChange,
@@ -148,7 +151,7 @@ export function Switch({
     >
       <span
         className={cn(
-          "bg-background pointer-events-none block size-5 rounded-full transition-transform",
+          "bg-surface pointer-events-none block size-5 rounded-full shadow-sm transition-transform",
           checked ? "translate-x-[21px] rtl:-translate-x-[21px]" : "translate-x-[3px] rtl:-translate-x-[3px]",
         )}
       />

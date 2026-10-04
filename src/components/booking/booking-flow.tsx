@@ -139,7 +139,7 @@ export function BookingFlow({
           )
         }
         trailing={
-          <span className="text-muted pe-3 text-[13px]">
+          <span className="bg-surface inline-flex h-9 items-center rounded-full px-3.5 text-[13px] font-bold">
             {t("stepOf", { step: stepNo, total: totalSteps })}
           </span>
         }
@@ -149,10 +149,12 @@ export function BookingFlow({
         <>
           <h1 className="font-display mt-2 text-[34px] leading-[1.1]">{t("chooseService")}</h1>
           {design && (
-            <div className="mt-3.5 flex items-center gap-3.5">
-              <NailGroup shape={design.shape} fill={fillForDesign(design)} size={11} gap={3} />
+            <div className="bg-surface mt-4 flex items-center gap-3.5 rounded-[24px] p-3.5">
+              <span className="bg-accent-soft inline-flex size-12 shrink-0 items-end justify-center rounded-full pb-2.5">
+                <NailGroup shape={design.shape} fill={fillForDesign(design)} size={9} gap={2} />
+              </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[15px] font-semibold">{design.name}</div>
+                <div className="text-[15px] font-extrabold">{design.name}</div>
                 <div className="text-muted mt-0.5 text-[13px]">
                   {design.priceAddon > 0 ? `+${money(design.priceAddon, salon.currency, locale)}` : ""}
                   {design.durationAddonMin > 0 ? ` · +${design.durationAddonMin} min` : ""}
@@ -160,7 +162,7 @@ export function BookingFlow({
               </div>
             </div>
           )}
-          <div className="mt-4">
+          <div className="bg-surface mt-4 rounded-[26px] px-4">
             {eligibleServices.map((s) => (
               <button
                 key={s.id}
@@ -169,11 +171,13 @@ export function BookingFlow({
                   setServiceId(s.id);
                   setStep("time");
                 }}
-                className="border-border hover:text-accent flex min-h-14 w-full items-center gap-3 border-b py-2 text-start"
+                className="border-border hover:text-accent flex min-h-[62px] w-full items-center gap-3 border-b py-2 text-start last:border-b-0"
               >
-                <span className="flex-1 text-[15px]">{s.name}</span>
-                <span className="text-muted text-[13px]">{durationLabel(s.durationMin, locale)}</span>
-                <span className="w-14 text-end text-[15px] font-semibold">
+                <span className="flex-1 text-[15px] font-bold">{s.name}</span>
+                <span className="text-muted text-[13px] font-semibold">
+                  {durationLabel(s.durationMin, locale)}
+                </span>
+                <span className="w-14 text-end text-[15px] font-extrabold">
                   {money(s.price, salon.currency, locale)}
                 </span>
               </button>
@@ -185,12 +189,14 @@ export function BookingFlow({
       {step === "time" && service && (
         <>
           <h1 className="font-display mt-2 text-[34px] leading-[1.1]">{t("chooseTime")}</h1>
-          <div className="mt-3.5 flex items-center gap-3.5">
+          <div className="bg-surface mt-4 flex items-center gap-3.5 rounded-[24px] p-3.5">
             {design ? (
-              <NailGroup shape={design.shape} fill={fillForDesign(design)} size={11} gap={3} />
+              <span className="bg-accent-soft inline-flex size-12 shrink-0 items-end justify-center rounded-full pb-2.5">
+                <NailGroup shape={design.shape} fill={fillForDesign(design)} size={9} gap={2} />
+              </span>
             ) : null}
             <div className="min-w-0 flex-1">
-              <div className="truncate text-[15px] font-semibold">{title}</div>
+              <div className="truncate text-[15px] font-extrabold">{title}</div>
               <div className="text-muted mt-0.5 text-[13px]">
                 {salon.name} · {durationLabel(durationMin, locale)} · {money(total, salon.currency, locale)}
               </div>
@@ -198,7 +204,7 @@ export function BookingFlow({
             <button
               type="button"
               onClick={() => setStep("service")}
-              className="text-accent hover:text-foreground text-sm font-medium"
+              className="text-accent hover:text-foreground min-h-11 px-1 text-sm font-bold"
             >
               {t("edit")}
             </button>
@@ -228,11 +234,11 @@ export function BookingFlow({
             summary={
               slot ? (
                 <>
-                  <b className="text-[15px] font-semibold" dir="ltr">
+                  <b className="text-[15px] font-extrabold" dir="ltr">
                     {fmtDay(slot.startsAt, locale, salon.timezone)} ·{" "}
                     {fmtTimeRange(slot.startsAt, slot.endsAt, locale, salon.timezone)}
                   </b>
-                  <span className="text-muted text-sm">
+                  <span className="text-muted text-sm font-semibold">
                     {t("summaryLine", {
                       duration: durationLabel(durationMin, locale),
                       price: money(total, salon.currency, locale),
@@ -350,7 +356,12 @@ function HoldLine({
   const t = useTranslations("ui.booking");
   const locale = useLocale();
   return (
-    <p className={cn("text-muted mt-5 flex items-start gap-2.5 text-[13px] leading-[19px]", className)}>
+    <p
+      className={cn(
+        "bg-surface text-muted mt-5 flex items-start gap-2.5 rounded-2xl p-3.5 text-[13px] leading-[19px]",
+        className,
+      )}
+    >
       <Clock className="text-accent mt-px size-[18px] shrink-0" strokeWidth={1.75} />
       <span>
         {t.rich("holding", {

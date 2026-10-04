@@ -1,0 +1,10 @@
+{
+  "drawer": true,
+  "tableScroll": true,
+  "bookingStep": true,
+  "trySheet": true,
+  "rtlPublicLayouts": 7,
+  "errors": [
+    "Invalid or unexpected token"
+  ]
+}

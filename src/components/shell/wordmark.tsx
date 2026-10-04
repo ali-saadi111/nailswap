@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { Nail } from "@/components/nails/nail";
 import { cn } from "@/lib/utils";
 
-/** Small cocoa almond nail + "NailSwap" in DM Serif Display. */
+/** Small rose almond nail + "NailSwap" in Urbanist 800. */
 export function Wordmark({
   suffix,
   href = "/",

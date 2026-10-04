@@ -4,7 +4,7 @@ import * as React from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
-/** Six digits, each over its own 40px underline; the focused one gets the 2px cocoa underline. */
+/** Six digits, each in its own filled box; the focused one gets a rose border. */
 export function OtpInput({
   value,
   onChange,
@@ -83,8 +83,8 @@ export function OtpInput({
           aria-label={t("digit", { n: i + 1 })}
           aria-invalid={invalid || undefined}
           className={cn(
-            "h-14 w-11 border-0 border-b bg-transparent text-center text-[26px] font-medium focus:border-b-2 focus-visible:outline-none disabled:opacity-60",
-            invalid ? "border-danger" : "border-border-strong focus:border-accent",
+            "bg-surface h-14 w-11 rounded-2xl border text-center text-[24px] font-extrabold focus-visible:outline-none disabled:opacity-60",
+            invalid ? "border-danger" : "focus:border-accent border-transparent",
           )}
         />
       ))}

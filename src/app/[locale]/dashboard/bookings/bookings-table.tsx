@@ -213,7 +213,7 @@ export function BookingsTable({
           ]}
         />
         <label className="relative inline-flex items-center">
-          <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+          <Search className="text-muted pointer-events-none absolute start-3.5 size-5" strokeWidth={1.75} />
           <input
             value={search}
             onChange={(e) => {
@@ -221,7 +221,7 @@ export function BookingsTable({
               setPage(1);
             }}
             placeholder={t("search")}
-            className="field h-11 w-64 ps-7 text-sm"
+            className="field h-11 w-64 ps-10 text-sm"
             aria-label={t("search")}
           />
         </label>
@@ -276,7 +276,7 @@ export function BookingsTable({
         <span className="text-muted ms-auto">{td("newestFirst")}</span>
       </div>
 
-      <div className="mt-4 overflow-x-auto">
+      <div className="dashboard-table mt-4">
         <div className="min-w-[980px]">
           <div className={cn("table-head", COLS)}>
             <span>{td("ref")}</span>
@@ -290,7 +290,7 @@ export function BookingsTable({
             <span />
           </div>
           {visible.map((b) => (
-            <div key={b.id} className={cn("table-row h-auto min-h-[72px] py-2", COLS)}>
+            <div key={b.id} className={cn("data-row h-auto min-h-[72px] py-2", COLS)}>
               <Link
                 href={`/dashboard/bookings/${b.id}`}
                 className="text-muted hover:text-accent text-sm tracking-wide"

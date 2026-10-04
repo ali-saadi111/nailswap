@@ -46,18 +46,18 @@ export function SalonsTable({ rows }: { rows: Row[] }) {
         title={t("salons")}
         actions={
           <label className="relative inline-flex items-center">
-            <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+            <Search className="text-muted pointer-events-none absolute start-3.5 size-5" strokeWidth={1.75} />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={ta("searchSalonsUsers")}
-              className="field h-11 w-72 ps-7 text-base"
+              className="field h-11 w-72 ps-10 text-base"
               aria-label={tc("search")}
             />
           </label>
         }
       />
-      <div className="flex flex-wrap gap-x-6">
+      <div className="flex flex-wrap gap-2">
         {(["all", "active", "pending", "suspended"] as const).map((s) => (
           <FilterToggle key={s} pressed={status === s} onClick={() => setStatus(s)}>
             {s === "all" ? tc("all") : ta(`status_${s}` as never)}
@@ -68,7 +68,7 @@ export function SalonsTable({ rows }: { rows: Row[] }) {
           </FilterToggle>
         ))}
       </div>
-      <div className="mt-2 overflow-x-auto">
+      <div className="dashboard-table mt-2">
         <div className="min-w-[960px]">
           <div className="table-head grid-cols-[minmax(220px,1.6fr)_minmax(140px,1fr)_90px_110px_110px_90px_130px]">
             <span>{ta("salon")}</span>
@@ -84,7 +84,7 @@ export function SalonsTable({ rows }: { rows: Row[] }) {
               key={r.id}
               type="button"
               onClick={() => setOpen(r)}
-              className="table-row h-auto min-h-16 w-full grid-cols-[minmax(220px,1.6fr)_minmax(140px,1fr)_90px_110px_110px_90px_130px] py-2 text-start"
+              className="data-row h-auto min-h-16 w-full grid-cols-[minmax(220px,1.6fr)_minmax(140px,1fr)_90px_110px_110px_90px_130px] py-2 text-start"
             >
               <span className="min-w-0">
                 <span className="block truncate text-[15px] font-medium">{r.name}</span>

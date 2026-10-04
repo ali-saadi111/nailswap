@@ -178,9 +178,10 @@ export function BookingDetail({
         </Notice>
       )}
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
         <div className="min-w-0">
           <KeyValueList
+            className="dashboard-card"
             items={[
               { label: tb("service"), value: `${b.serviceName} · ${durationLabel(b.durationMin, locale)}` },
               ...(b.design
@@ -238,7 +239,7 @@ export function BookingDetail({
           />
 
           {b.tryonImageUrl && (
-            <section className="mt-10">
+            <section className="dashboard-card mt-10">
               <h2 className="text-[15px] font-semibold">{t("lookRequested")}</h2>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -250,13 +251,13 @@ export function BookingDetail({
           )}
 
           {b.clientNotes && (
-            <section className="mt-10">
+            <section className="dashboard-card mt-10">
               <h2 className="text-[15px] font-semibold">{t("clientNotes")}</h2>
               <p className="mt-2 text-[15px] leading-6">{b.clientNotes}</p>
             </section>
           )}
 
-          <section className="mt-10">
+          <section className="dashboard-card mt-10">
             <Label htmlFor="staff-notes">{t("staffNotes")}</Label>
             <Textarea
               id="staff-notes"
@@ -275,9 +276,9 @@ export function BookingDetail({
           </section>
 
           {canEdit && live && (
-            <section className="mt-10 max-w-[520px]">
+            <section className="dashboard-card mt-10 max-w-[520px]">
               <h2 className="font-display text-2xl">{tb("reschedule")}</h2>
-              <div className="mt-4 grid grid-cols-3 gap-4">
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div>
                   <Label htmlFor="mv-day">{tc("date")}</Label>
                   <Input
@@ -323,7 +324,7 @@ export function BookingDetail({
             </section>
           )}
 
-          <section className="mt-10">
+          <section className="dashboard-card mt-10">
             <h2 className="text-[15px] font-semibold">{t("history")}</h2>
             <ol className="mt-2">
               {b.events.map((e) => (
@@ -345,7 +346,7 @@ export function BookingDetail({
         </div>
 
         {b.client && (
-          <aside className="border-border lg:border-s lg:ps-8">
+          <aside className="dashboard-card">
             <div className="flex items-center gap-4">
               <Avatar name={b.client.name} size={56} serif />
               <div className="min-w-0">
@@ -359,7 +360,7 @@ export function BookingDetail({
               <div dir="ltr">{prettyPhone(b.client.phone)}</div>
               {b.client.email && <div>{b.client.email}</div>}
             </div>
-            <div className="mt-3 flex flex-wrap gap-x-6">
+            <div className="mt-3 flex flex-wrap gap-2">
               <a
                 href={`https://wa.me/${b.client.phone.replace(/\D/g, "")}`}
                 target="_blank"

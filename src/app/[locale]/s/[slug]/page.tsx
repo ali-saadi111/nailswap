@@ -20,6 +20,7 @@ import { money, fmtDay } from "@/lib/format";
 import { openState, summarizeHours, hhmm } from "@/lib/hours";
 import { Avatar, StatusDot, EmptyState, Notice } from "@/components/ui/primitives";
 import { ButtonLink } from "@/components/ui/button";
+import { NailHeroRow } from "@/components/nails/nail";
 import { BackButton, PhoneHeader } from "@/components/shell/phone-header";
 import { StickyAction } from "@/components/shell/consumer-shell";
 import { TrackView } from "@/components/track-view";
@@ -73,6 +74,7 @@ export default async function SalonPage({
   if (!data) notFound();
   const { salon, hours, staff, services, designs, reviews } = data;
   const t = await getTranslations("ui.salon");
+  const tTabs = await getTranslations("ui.tabs");
   const tc = await getTranslations("common");
   const sp = await searchParams;
 
@@ -89,9 +91,9 @@ export default async function SalonPage({
     (["designs", "services", "reviews", "about"] as const).find((x) => x === sp.tab) ?? "designs";
 
   const designsPanel = designs.length ? (
-    <div className="grid gap-5 sm:grid-cols-2">
+    <div className="grid grid-cols-2 gap-3">
       {designs.map((d) => (
-        <article key={d.id} className="border-border overflow-hidden rounded-2xl border bg-white">
+        <article key={d.id} className="bg-surface overflow-hidden rounded-[26px]">
           <Link href={`/s/${salon.slug}/try?designId=${d.id}`}>
             {d.coverUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -99,28 +101,30 @@ export default async function SalonPage({
                 src={d.coverUrl}
                 alt={d.name}
                 loading="lazy"
-                className="aspect-square w-full object-cover"
+                className="aspect-[4/5] w-full object-cover"
               />
             ) : (
-              <div className="bg-surface-2 flex aspect-square items-center justify-center">
+              <div className="bg-surface-2 flex aspect-[4/5] items-center justify-center">
                 <Sparkles className="text-accent size-10" />
               </div>
             )}
           </Link>
-          <div className="p-4">
-            <h3 className="font-semibold">{d.name}</h3>
-            {d.description && <p className="text-muted mt-2 text-sm leading-relaxed">{d.description}</p>}
-            <div className="mt-3 flex flex-wrap gap-3">
+          <div className="p-3">
+            <h3 className="truncate text-[15px] font-extrabold">{d.name}</h3>
+            {d.description && (
+              <p className="text-muted mt-1 line-clamp-2 text-[13px] leading-snug">{d.description}</p>
+            )}
+            <div className="mt-2 flex flex-wrap gap-x-3">
               <Link
                 href={`/s/${salon.slug}/try?designId=${d.id}`}
-                className="text-accent inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold"
+                className="text-accent inline-flex min-h-10 items-center gap-1 text-[13px] font-bold"
               >
                 <Sparkles className="size-4" />
                 {feedText("tryPhoto")}
               </Link>
               <Link
                 href={`/s/${salon.slug}/book?designId=${d.id}`}
-                className="inline-flex min-h-11 items-center text-sm font-semibold"
+                className="inline-flex min-h-10 items-center text-[13px] font-bold"
               >
                 {feedText("bookLook")}
               </Link>
@@ -134,16 +138,16 @@ export default async function SalonPage({
   );
 
   const servicesPanel = (
-    <div>
+    <div className="bg-surface rounded-[26px] px-4">
       {services.map((s) => (
         <Link
           key={s.id}
           href={`/s/${salon.slug}/book?serviceId=${s.id}`}
-          className="border-border hover:text-accent flex min-h-12 items-center gap-3 border-b py-2"
+          className="border-border hover:text-accent flex min-h-[60px] items-center gap-3 border-b py-2 last:border-b-0"
         >
-          <span className="flex-1 text-[15px]">{s.name}</span>
-          <span className="text-muted text-[13px]">{tc("min", { count: s.duration_min })}</span>
-          <span className="w-12 text-end text-[15px] font-semibold">
+          <span className="flex-1 text-[15px] font-bold">{s.name}</span>
+          <span className="text-muted text-[13px] font-semibold">{tc("min", { count: s.duration_min })}</span>
+          <span className="w-14 text-end text-[15px] font-extrabold">
             {money(s.price, salon.currency, locale)}
           </span>
         </Link>
@@ -154,7 +158,7 @@ export default async function SalonPage({
   const reviewsPanel = reviews.length ? (
     <div>
       {reviews.map((r) => (
-        <article key={r.id} className="border-border border-b py-4">
+        <article key={r.id} className="bg-surface mb-2.5 rounded-[24px] p-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <Avatar name={r.authorName} size={32} />
@@ -170,7 +174,7 @@ export default async function SalonPage({
           </div>
           {r.body && <p className="mt-2 text-[15px] leading-6">{r.body}</p>}
           {r.salonReply && (
-            <div className="border-border mt-3 border-s ps-4">
+            <div className="bg-surface-2/60 mt-3 rounded-2xl p-3">
               <div className="text-muted text-[13px]">{t("replyFrom", { salon: salon.name })}</div>
               <p className="mt-1 text-[14px] leading-5">{r.salonReply}</p>
             </div>
@@ -191,11 +195,11 @@ export default async function SalonPage({
   const waNumber = salon.whatsapp_number ?? salon.phone;
 
   const aboutPanel = (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {salon.description && <p className="text-[15px] leading-6">{salon.description}</p>}
-      <section>
-        <h3 className="text-[15px] font-semibold">{t("hours")}</h3>
-        <dl className="mt-2">
+      <section className="bg-surface rounded-[26px] px-4 pt-4 pb-2">
+        <h3 className="text-[15px] font-extrabold">{t("hours")}</h3>
+        <dl className="mt-1">
           {[1, 2, 3, 4, 5, 6, 0].map((wd) => {
             const h = hours.find((x) => x.weekday === wd);
             const closed = !h || h.is_closed || !h.open_time || !h.close_time;
@@ -222,7 +226,7 @@ export default async function SalonPage({
               href={mapsUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:text-foreground mt-1 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+              className="text-accent hover:text-foreground mt-1 inline-flex min-h-11 items-center gap-1.5 text-[15px] font-bold"
             >
               <MapPin className="size-5" strokeWidth={1.75} />
               {t("directions")}
@@ -230,13 +234,13 @@ export default async function SalonPage({
           )}
         </section>
       )}
-      <section className="flex flex-wrap gap-x-7">
+      <section className="flex flex-wrap gap-2">
         {waNumber && (
           <a
             href={`https://wa.me/${waNumber.replace(/\D/g, "")}`}
             target="_blank"
             rel="noreferrer"
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
           >
             <MessageCircle className="size-5" strokeWidth={1.75} />
             {t("whatsapp")}
@@ -245,7 +249,7 @@ export default async function SalonPage({
         {salon.phone && (
           <a
             href={`tel:+${salon.phone.replace(/\D/g, "")}`}
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
           >
             <Phone className="size-5" strokeWidth={1.75} />
             {t("call")}
@@ -256,7 +260,7 @@ export default async function SalonPage({
             href={`https://instagram.com/${salon.instagram.replace(/^@/, "")}`}
             target="_blank"
             rel="noreferrer"
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
           >
             <AtSign className="size-5" strokeWidth={1.75} />
             {t("instagram")}
@@ -267,7 +271,7 @@ export default async function SalonPage({
             href={salon.website}
             target="_blank"
             rel="noreferrer"
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
           >
             <Globe className="size-5" strokeWidth={1.75} />
             {t("website")}
@@ -293,69 +297,84 @@ export default async function SalonPage({
   return (
     <div
       style={accentStyle(salon.brand_color)}
-      className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col px-6 pt-3"
+      className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col px-6"
     >
       <TrackView salonId={salon.id} />
-      <PhoneHeader
-        leading={<BackButton fallback="/" label={t("back")} />}
-        center={<span className="text-sm font-semibold">{feedText("salonPage")}</span>}
-        trailing={<ShareSalonButton salonId={salon.id} name={salon.name} />}
-      />
+
+      {/* Hero: cover photo (or the salon's nails) full-bleed, salon facts on a frosted card. */}
+      <section className="bg-hero relative -mx-6 flex min-h-[400px] flex-col overflow-hidden rounded-b-[36px] sm:mx-0 sm:mt-3 sm:rounded-[36px]">
+        {salon.coverUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={salon.coverUrl} alt={salon.name} className="absolute inset-0 size-full object-cover" />
+        ) : (
+          <div aria-hidden className="absolute inset-x-0 top-20 flex justify-center px-10">
+            <NailHeroRow size={50} gap={12} className="max-w-[330px] flex-1 -rotate-6" />
+          </div>
+        )}
+        <PhoneHeader
+          className="relative mx-0 px-3 pt-2"
+          leading={<BackButton fallback="/" label={t("back")} />}
+          trailing={<ShareSalonButton salonId={salon.id} name={salon.name} />}
+        />
+        <div className="flex-1" />
+        <div className="glass relative m-3 rounded-[28px] p-4">
+          <div className="flex items-center gap-3.5">
+            <Avatar name={salon.name} src={salon.logoUrl} size={56} />
+            <div className="min-w-0 flex-1">
+              <h1 className="font-display text-[28px] leading-tight break-words">{salon.name}</h1>
+              <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-sm font-semibold">
+                {salon.rating_count > 0 && (
+                  <>
+                    <Star className="text-accent size-3.5 fill-current" strokeWidth={1.5} />
+                    <b className="font-extrabold">{Number(salon.rating_avg).toFixed(1)}</b>
+                    <span className="text-muted">{t("reviewCount", { count: salon.rating_count })}</span>
+                    <span className="text-muted">·</span>
+                  </>
+                )}
+                <span className="text-muted truncate">{salon.area ?? salon.city}</span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            {state.open ? (
+              <StatusDot tone="success" className="font-bold">
+                {t("open")}
+              </StatusDot>
+            ) : state.opensAt ? (
+              <StatusDot tone="hollow" className="font-bold">
+                {t("opensAt", { time: state.opensAt })}
+              </StatusDot>
+            ) : (
+              <StatusDot tone="hollow" className="font-bold">
+                {state.closedToday ? t("closedToday") : t("closed")}
+              </StatusDot>
+            )}
+            <span className="text-muted text-[13px] font-semibold" dir="ltr">
+              {hoursLine}
+            </span>
+          </div>
+        </div>
+      </section>
 
       {salon.status === "pending" && (
-        <Notice className="mt-3" icon={<Lock />}>
+        <Notice className="mt-4" icon={<Lock />}>
           {t("previewBanner")}
         </Notice>
       )}
 
-      {salon.coverUrl && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={salon.coverUrl} alt={salon.name} className="mt-3 h-44 w-full rounded-3xl object-cover" />
-      )}
-      <div className="mt-4 flex items-center gap-4">
-        <Avatar name={salon.name} src={salon.logoUrl} size={64} serif />
-        <div className="min-w-0 flex-1">
-          <h1 className="font-display truncate text-[28px] leading-8">{salon.name}</h1>
-          <div className="mt-1 flex items-center gap-1.5 text-sm">
-            {salon.rating_count > 0 && (
-              <>
-                <Star className="text-accent size-3.5 fill-current" strokeWidth={1.5} />
-                <b className="font-semibold">{Number(salon.rating_avg).toFixed(1)}</b>
-                <span className="text-muted">{t("reviewCount", { count: salon.rating_count })}</span>
-                <span className="text-muted">·</span>
-              </>
-            )}
-            <span className="text-muted truncate">{salon.area ?? salon.city}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-4 flex flex-wrap items-center gap-x-2.5 gap-y-1">
-        {state.open ? (
-          <StatusDot tone="success">{t("open")}</StatusDot>
-        ) : state.opensAt ? (
-          <StatusDot tone="hollow">{t("opensAt", { time: state.opensAt })}</StatusDot>
-        ) : (
-          <StatusDot tone="hollow">{state.closedToday ? t("closedToday") : t("closed")}</StatusDot>
-        )}
-        <span className="text-muted text-[13px]" dir="ltr">
-          {hoursLine}
-        </span>
-      </div>
-
-      <div className="mt-1 flex items-center gap-6">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         <Link
           href={`/s/${salon.slug}/try`}
-          className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+          className="bg-foreground text-background inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
         >
-          <Sparkles className="size-5" strokeWidth={1.75} />
+          <Sparkles className="size-[18px]" strokeWidth={2} />
           {t("tryDesigns")}
         </Link>
         <Link
           href={`/s/${salon.slug}/book`}
-          className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+          className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
         >
-          <CalendarDays className="size-5" strokeWidth={1.75} />
+          <CalendarDays className="size-[18px]" strokeWidth={2} />
           {t("book")}
         </Link>
       </div>
@@ -369,25 +388,27 @@ export default async function SalonPage({
             {designsPanel}
             {services.length > 0 && (
               <>
-                <div className="mt-5 flex h-11 items-center justify-between">
-                  <h2 className="text-[15px] font-semibold">{t("services")}</h2>
+                <div className="mt-6 flex h-11 items-center justify-between">
+                  <h2 className="text-lg font-extrabold">{t("services")}</h2>
                   <Link
                     href={`/s/${salon.slug}?tab=services`}
-                    className="text-accent hover:text-foreground inline-flex min-h-11 items-center text-sm font-medium"
+                    className="text-accent hover:text-foreground inline-flex min-h-11 items-center text-sm font-bold"
                   >
                     {t("allServices", { count: services.length })}
                   </Link>
                 </div>
-                <div>
+                <div className="bg-surface rounded-[26px] px-4">
                   {services.slice(0, 3).map((s) => (
                     <Link
                       key={s.id}
                       href={`/s/${salon.slug}/book?serviceId=${s.id}`}
-                      className="border-border hover:text-accent flex min-h-12 items-center gap-3 border-b py-2"
+                      className="border-border hover:text-accent flex min-h-[60px] items-center gap-3 border-b py-2 last:border-b-0"
                     >
-                      <span className="flex-1 text-[15px]">{s.name}</span>
-                      <span className="text-muted text-[13px]">{tc("min", { count: s.duration_min })}</span>
-                      <span className="w-12 text-end text-[15px] font-semibold">
+                      <span className="flex-1 text-[15px] font-bold">{s.name}</span>
+                      <span className="text-muted text-[13px] font-semibold">
+                        {tc("min", { count: s.duration_min })}
+                      </span>
+                      <span className="w-14 text-end text-[15px] font-extrabold">
                         {money(s.price, salon.currency, locale)}
                       </span>
                     </Link>
@@ -408,15 +429,21 @@ export default async function SalonPage({
         className="mt-8"
         summary={
           minPrice !== null ? (
-            <span className="text-muted text-[13px]">
+            <span className="text-muted text-[13px] font-semibold">
               {t("services")} · {tc("from").toLowerCase()} {money(minPrice, salon.currency, locale)}
             </span>
           ) : undefined
         }
       >
-        <ButtonLink href={`/s/${salon.slug}/book`} size="lg" className="w-full">
-          {approval ? t("requestAppointment") : t("bookAppointment")}
-        </ButtonLink>
+        <div className="flex gap-2">
+          <ButtonLink href={`/s/${salon.slug}/try`} variant="secondary" size="lg" className="px-5">
+            <Sparkles className="size-[18px]" strokeWidth={2} />
+            {tTabs("tryOn")}
+          </ButtonLink>
+          <ButtonLink href={`/s/${salon.slug}/book`} size="lg" className="flex-1 px-4">
+            {approval ? t("requestAppointment") : t("bookAppointment")}
+          </ButtonLink>
+        </div>
       </StickyAction>
       {!salon.remove_branding && (
         <p className="text-muted mt-3 pb-6 text-center text-[12px]">

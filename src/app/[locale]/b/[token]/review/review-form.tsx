@@ -66,17 +66,18 @@ export function ReviewForm({
   }
 
   const shell = (children: React.ReactNode) => (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col px-6 pt-3">
+    <div className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col px-6 pt-3 pb-4">
       <PhoneHeader
         leading={<CloseButton href={`/b/${token}`} />}
         trailing={
-          <span className="text-muted pe-3 text-[13px]" dir="ltr">
+          <span className="text-muted max-w-[250px] py-2 text-end text-[13px]">
             {fmtDay(booking.startsAt, locale, salon.timezone)}
             {booking.staff ? ` · ${booking.staff.displayName}` : ""}
           </span>
         }
       />
-      {children}
+      <div className="bg-hero -mx-6 mt-2 h-16 rounded-t-[36px] sm:mx-0" aria-hidden />
+      <div className="bg-hero -mx-6 rounded-b-[36px] px-6 pb-6 sm:mx-0">{children}</div>
     </div>
   );
 
@@ -130,7 +131,11 @@ export function ReviewForm({
       </h1>
       <p className="text-muted mt-1.5 text-sm">{title}</p>
 
-      <div role="radiogroup" aria-label={t("rating")} className="-ms-[7px] mt-3 flex items-center">
+      <div
+        role="radiogroup"
+        aria-label={t("rating")}
+        className="bg-surface mt-5 flex flex-wrap items-center justify-center gap-y-2 rounded-[24px] p-3"
+      >
         {[1, 2, 3, 4, 5].map((n) => (
           <button
             key={n}
@@ -147,11 +152,13 @@ export function ReviewForm({
             />
           </button>
         ))}
-        <span className="ms-2 text-[15px] font-semibold">{t(`ratingLabels.${rating}` as never)}</span>
+        <span className="w-full text-center text-[15px] font-bold">
+          {t(`ratingLabels.${rating}` as never)}
+        </span>
       </div>
 
       <div className="text-muted mt-4 text-[13px]">{t("stoodOut")}</div>
-      <div className="flex flex-wrap gap-x-[22px]">
+      <div className="mt-2 flex flex-wrap gap-2">
         {TAGS.map((k) => (
           <FilterToggle
             key={k}
@@ -163,13 +170,13 @@ export function ReviewForm({
         ))}
       </div>
 
-      <div className="mt-3.5">
+      <div className="mt-5">
         <Label htmlFor="review-body">{t("yourReview")}</Label>
         <Textarea
           id="review-body"
           value={body}
           onChange={(e) => setBody(e.target.value.slice(0, MAX))}
-          className="min-h-[82px]"
+          className="min-h-[140px]"
         />
         <div className="text-muted mt-1.5 text-end text-[12px] tabular-nums">
           {t("chars", { count: body.length, max: MAX })}

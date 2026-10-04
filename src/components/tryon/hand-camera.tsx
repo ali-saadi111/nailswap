@@ -89,7 +89,7 @@ export function HandCamera({ onCapture, onClose }: { onCapture: (blob: Blob) => 
       role="dialog"
       aria-modal="true"
       aria-labelledby="hand-camera-title"
-      className="fixed inset-0 z-[100] overflow-y-auto bg-[#231e1b] p-4 text-white"
+      className="fixed inset-0 z-[100] overflow-y-auto bg-[radial-gradient(circle_at_50%_30%,#7c5650_0%,#3a2622_70%)] p-4 text-white"
       onKeyDown={(event) => {
         if (event.key === "Escape") onClose();
         if (event.key === "Tab") {
@@ -109,20 +109,20 @@ export function HandCamera({ onCapture, onClose }: { onCapture: (blob: Blob) => 
     >
       <div className="mx-auto max-w-[430px]">
         <div className="flex items-center justify-between">
-          <h2 id="hand-camera-title" className="text-xl font-semibold">
+          <h2 id="hand-camera-title" className="text-xl font-extrabold">
             {t("title")}
           </h2>
           <button
             ref={closeButton}
             onClick={onClose}
             aria-label={t("close")}
-            className="flex size-11 items-center justify-center"
+            className="flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur"
           >
             <X />
           </button>
         </div>
         <p className="mb-3 text-sm text-white/75">{t("guide")}</p>
-        <div className="relative mx-auto aspect-[3/4] max-h-[65dvh] overflow-hidden rounded-3xl bg-black">
+        <div className="relative mx-auto aspect-[3/4] max-h-[65dvh] overflow-hidden rounded-[32px] bg-black">
           <video
             ref={video}
             autoPlay
@@ -152,7 +152,7 @@ export function HandCamera({ onCapture, onClose }: { onCapture: (blob: Blob) => 
               {status === "loading" ? t("loading") : t("denied")}
             </div>
           )}
-          <span className="absolute inset-x-3 bottom-3 rounded-xl bg-black/60 px-3 py-2 text-center text-xs">
+          <span className="glass-dark absolute inset-x-3 bottom-3 rounded-2xl px-3 py-2 text-center text-xs font-semibold">
             {t("nailsUp")}
           </span>
         </div>
@@ -166,7 +166,7 @@ export function HandCamera({ onCapture, onClose }: { onCapture: (blob: Blob) => 
               setFacing((f) => (f === "user" ? "environment" : "user"));
             }}
             aria-label={t("switchCamera")}
-            className="flex size-11 items-center justify-center"
+            className="flex size-11 items-center justify-center rounded-full bg-white/15 backdrop-blur"
           >
             <SwitchCamera />
           </button>

@@ -101,18 +101,18 @@ export function ImpersonationForm({
         </Notice>
       )}
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
-        <div className="border-border lg:border-e lg:pe-12">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+        <div className="dashboard-card">
           <label className="relative block">
             <Search
-              className="text-muted pointer-events-none absolute start-0 top-3.5 size-5"
+              className="text-muted pointer-events-none absolute start-3.5 top-3.5 size-5"
               strokeWidth={1.75}
             />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={ta("searchSalonsUsers")}
-              className="field h-12 ps-8 text-lg"
+              className="field h-12 ps-11 text-lg"
               aria-label={tc("search")}
               autoFocus
             />
@@ -152,7 +152,7 @@ export function ImpersonationForm({
           )}
         </div>
 
-        <div>
+        <div className="dashboard-card">
           {selected ? (
             <>
               <div className="flex items-center gap-5">
@@ -223,8 +223,8 @@ export function ImpersonationForm({
         </div>
       </div>
 
-      <section className="mt-14">
-        <div className="flex items-end justify-between">
+      <section className="dashboard-card mt-14">
+        <div className="flex flex-wrap items-end justify-between gap-y-2">
           <h2 className="text-[17px] font-semibold">{ta("recentSessions")}</h2>
           <Link
             href="/admin/settings#audit"
@@ -233,7 +233,7 @@ export function ImpersonationForm({
             {t("audit")}
           </Link>
         </div>
-        <div className="mt-2 overflow-x-auto">
+        <div className="dashboard-table mt-2">
           <div className="min-w-[800px]">
             <div className="table-head grid-cols-[180px_200px_minmax(200px,1fr)_170px_100px_120px]">
               <span>{ta("admin")}</span>
@@ -255,7 +255,7 @@ export function ImpersonationForm({
               return (
                 <div
                   key={s.id}
-                  className="table-row h-16 grid-cols-[180px_200px_minmax(200px,1fr)_170px_100px_120px]"
+                  className="data-row h-16 grid-cols-[180px_200px_minmax(200px,1fr)_170px_100px_120px]"
                 >
                   <span className="flex items-center gap-3 text-[15px]">
                     <Avatar name={s.adminName} size={32} />

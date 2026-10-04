@@ -70,7 +70,7 @@ export function ModerationQueue({ items }: { items: ModerationItem[] }) {
     <>
       <PageHeader context={ta("moderationSub")} title={t("moderation")} />
       <div
-        className={cn("grid grid-cols-1 gap-12", selected && "xl:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]")}
+        className={cn("grid grid-cols-1 gap-6", selected && "xl:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]")}
       >
         <div className="min-w-0">
           <Tabs
@@ -81,7 +81,7 @@ export function ModerationQueue({ items }: { items: ModerationItem[] }) {
               { value: "resolved", label: ta("resolved") },
             ]}
           />
-          <div className="mt-2 flex flex-wrap gap-x-6">
+          <div className="mt-2 flex flex-wrap gap-2">
             <FilterToggle pressed={kind === "all"} onClick={() => setKind("all")}>
               {tc("all")}
             </FilterToggle>
@@ -92,7 +92,7 @@ export function ModerationQueue({ items }: { items: ModerationItem[] }) {
               </FilterToggle>
             ))}
           </div>
-          <ul className="mt-2">
+          <ul className="dashboard-card mt-3">
             {list.map((i) => {
               const active = i.id === selected?.id;
               return (
@@ -141,7 +141,7 @@ export function ModerationQueue({ items }: { items: ModerationItem[] }) {
         </div>
 
         {selected && (
-          <aside className="border-border xl:border-s xl:ps-12">
+          <aside className="dashboard-card">
             <div className="flex items-center justify-between gap-4">
               <span className="text-muted inline-flex items-center gap-3 text-[15px]">
                 {kindLabel(selected.kind)}

@@ -111,25 +111,25 @@ export function Result({
 
   return (
     <>
-      <div className="-mx-3 flex h-11 items-center justify-end">
+      <div className="flex h-11 items-center justify-end gap-2">
         {after && (
           <a
             href={after}
             download="nailswap-look.jpg"
-            className="text-foreground hover:text-accent inline-flex size-11 items-center justify-center"
+            className="bg-surface text-foreground hover:text-accent inline-flex size-11 items-center justify-center rounded-full shadow-sm"
             aria-label={t("download")}
           >
             <Download className="size-5" strokeWidth={1.75} />
           </a>
         )}
-        <IconButton aria-label={t("share")} onClick={share}>
+        <IconButton aria-label={t("share")} tone="surface" onClick={share}>
           <Share />
         </IconButton>
       </div>
 
       <div
         ref={areaRef}
-        className="rounded-media bg-surface-2 relative mt-2 h-[296px] touch-none overflow-hidden select-none"
+        className="rounded-media bg-latte relative -mx-3 mt-2 h-[52dvh] min-h-[340px] touch-none overflow-hidden select-none"
         onPointerDown={(e) => {
           dragging.current = true;
           setFromPointer(e.clientX);
@@ -161,13 +161,13 @@ export function Result({
           <>
             <div
               aria-hidden
-              className="bg-background absolute inset-y-0 w-0.5"
+              className="absolute inset-y-0 w-0.5 bg-[#fff8f5]"
               style={{ insetInlineStart: `calc(${split}% - 1px)` }}
             />
             <button
               type="button"
               aria-label={t("compare")}
-              className="bg-background text-accent absolute top-1/2 inline-flex size-11 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full"
+              className="text-accent absolute top-1/2 inline-flex size-11 -translate-y-1/2 cursor-ew-resize items-center justify-center rounded-full bg-[#fff8f5] shadow-lg"
               style={{ insetInlineStart: `calc(${split}% - 22px)` }}
               onKeyDown={(e) => {
                 if (e.key === "ArrowLeft") setSplit((s) => Math.max(4, s - 4));
@@ -179,9 +179,11 @@ export function Result({
           </>
         )}
       </div>
-      <div className="text-muted mt-2.5 flex justify-between text-[13px]">
-        <span>{t("before")}</span>
-        <span>{t("after", { design: designLabel })}</span>
+      <div className="mt-2.5 flex justify-between gap-3 text-[13px] font-bold">
+        <span className="bg-surface rounded-full px-3 py-1">{t("before")}</span>
+        <span className="bg-foreground text-background truncate rounded-full px-3 py-1">
+          {t("after", { design: designLabel })}
+        </span>
       </div>
 
       {job.results.length > 1 && (
@@ -194,8 +196,8 @@ export function Result({
         </div>
       )}
 
-      <h1 className="font-display mt-4 text-[30px] leading-[1.1]">{t("ready")}</h1>
-      <p className="text-muted mt-1 text-sm">{designLabel}</p>
+      <h1 className="font-display mt-5 text-[30px] leading-[1.1]">{t("ready")}</h1>
+      <p className="text-muted mt-1 text-sm font-semibold">{designLabel}</p>
 
       <div className="mt-5">
         <Label htmlFor="look-title">{t("lookName")}</Label>
@@ -215,38 +217,40 @@ export function Result({
       )}
       {!user && <Notice className="mt-3">{t("signInToSave")}</Notice>}
 
-      <div className="bg-background sticky bottom-0 -mx-6 mt-auto px-6 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="mb-1.5 flex items-center justify-between">
-          {bookHref ? (
-            <Link
-              href={bookHref}
-              onClick={() => track("book_click", { salonId: job.salonId, designId: job.designId })}
-              className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+      <div className="sticky bottom-0 z-30 -mx-3 mt-auto pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="glass rounded-[28px] p-2.5 shadow-lg">
+          <div className="mb-1.5 flex items-center justify-between px-2">
+            {bookHref ? (
+              <Link
+                href={bookHref}
+                onClick={() => track("book_click", { salonId: job.salonId, designId: job.designId })}
+                className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-bold"
+              >
+                {t("bookAt", { salon: salon?.name ?? design?.salonName ?? "" })}
+                <ArrowRight className="size-5 rtl:-scale-x-100" strokeWidth={1.75} />
+              </Link>
+            ) : (
+              <Link
+                href="/explore"
+                className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-bold"
+              >
+                {t("chooseSalon")}
+                <ArrowRight className="size-5 rtl:-scale-x-100" strokeWidth={1.75} />
+              </Link>
+            )}
+            <button
+              type="button"
+              onClick={onTryAnother}
+              className="text-foreground hover:text-accent min-h-11 text-[15px] font-bold"
             >
-              {t("bookAt", { salon: salon?.name ?? design?.salonName ?? "" })}
-              <ArrowRight className="size-5 rtl:-scale-x-100" strokeWidth={1.75} />
-            </Link>
-          ) : (
-            <Link
-              href="/explore"
-              className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
-            >
-              {t("chooseSalon")}
-              <ArrowRight className="size-5 rtl:-scale-x-100" strokeWidth={1.75} />
-            </Link>
-          )}
-          <button
-            type="button"
-            onClick={onTryAnother}
-            className="text-foreground hover:text-accent min-h-11 text-[15px] font-medium"
-          >
-            {t("tryAnother")}
-          </button>
+              {t("tryAnother")}
+            </button>
+          </div>
+          <Button size="lg" className="w-full" onClick={save} loading={saving} disabled={saved}>
+            <Bookmark className="size-5" strokeWidth={1.75} />
+            {saved ? t("saved") : t("saveLook")}
+          </Button>
         </div>
-        <Button size="lg" className="w-full" onClick={save} loading={saving} disabled={saved}>
-          <Bookmark className="size-5" strokeWidth={1.75} />
-          {saved ? t("saved") : t("saveLook")}
-        </Button>
       </div>
     </>
   );

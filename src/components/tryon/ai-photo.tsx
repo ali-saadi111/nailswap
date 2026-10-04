@@ -123,7 +123,10 @@ export function AiPhoto({
 
   return (
     <>
-      <ol aria-label="Steps" className="mt-1 flex h-11 items-center gap-3 text-sm font-medium">
+      <ol
+        aria-label="Steps"
+        className="bg-surface mt-1 flex h-11 items-center gap-3 self-start rounded-full px-4 text-[13px] font-bold"
+      >
         {steps.map((s, i) => (
           <React.Fragment key={s.label}>
             {i > 0 && <ChevronRight className="text-muted-2 size-3.5 rtl:-scale-x-100" aria-hidden />}
@@ -160,7 +163,7 @@ export function AiPhoto({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="text-accent min-h-11 self-end text-sm font-semibold"
+        className="text-accent hover:text-foreground min-h-11 self-end text-sm font-bold"
       >
         {cameraText("upload")}
       </button>
@@ -174,20 +177,28 @@ export function AiPhoto({
       />
 
       {photoUrl ? (
-        <div className="rounded-media bg-surface-2 relative mt-1 h-[320px] overflow-hidden">
+        <div className="rounded-media bg-latte relative -mx-3 mt-1 h-[48dvh] min-h-[340px] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={photoUrl} alt="" className="size-full object-cover" />
+          {design && (
+            <span className="glass absolute start-3 bottom-3 inline-flex h-9 max-w-[75%] items-center gap-2 truncate rounded-full px-3.5 text-[13px] font-bold">
+              <NailGroup shape={design.shape} fill={fillForDesign(design)} size={8} gap={2} />
+              {design.name}
+            </span>
+          )}
         </div>
       ) : (
         <button
           type="button"
           onClick={() => setCameraOpen(true)}
-          className="rounded-media bg-surface-2 text-muted hover:text-foreground mt-1 flex h-[320px] w-full flex-col items-center justify-center gap-3 px-8 text-center"
+          className="rounded-media bg-hero text-muted hover:text-foreground relative -mx-3 mt-1 flex h-[48dvh] min-h-[340px] flex-col items-center justify-center gap-3 overflow-hidden px-8 text-center"
         >
-          <Camera className="text-accent size-8" strokeWidth={1.5} />
-          <span className="text-foreground text-[15px] font-medium">{t("takePhoto")}</span>
-          <span className="text-[13px]">{t("photoHint")}</span>
-          <span className="text-muted-2 text-[12px]">{t("dropHint")}</span>
+          <span className="bg-accent text-accent-contrast inline-flex size-[72px] items-center justify-center rounded-full shadow-[0_0_0_8px_rgb(255_248_245/0.5)]">
+            <Camera className="size-8" strokeWidth={1.75} />
+          </span>
+          <span className="text-foreground mt-2 text-[19px] font-extrabold">{t("takePhoto")}</span>
+          <span className="text-foreground/80 text-[14px] font-semibold">{t("photoHint")}</span>
+          <span className="glass mt-1 rounded-full px-3 py-1 text-[12px] font-semibold">{t("dropHint")}</span>
         </button>
       )}
 
@@ -195,7 +206,7 @@ export function AiPhoto({
         {photo.kind === "ok" && (
           <>
             <Check className="text-success size-4" strokeWidth={2.2} />
-            <span className="text-success flex-1">{t("photoChecked")}</span>
+            <span className="text-success flex-1 font-bold">{t("photoChecked")}</span>
           </>
         )}
         {photo.kind === "checking" && <span className="text-muted flex-1">{t("checkingPhoto")}</span>}
@@ -205,15 +216,15 @@ export function AiPhoto({
           <button
             type="button"
             onClick={() => setCameraOpen(true)}
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-sm font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-10 items-center gap-1.5 rounded-full px-3.5 text-sm font-bold"
           >
-            <Camera className="size-[18px]" strokeWidth={1.75} />
+            <Camera className="size-[18px]" strokeWidth={2} />
             {t("retake")}
           </button>
         )}
       </div>
 
-      <div className="border-border flex min-h-16 items-center gap-3.5 border-b">
+      <div className="bg-surface flex min-h-[72px] items-center gap-3.5 rounded-[24px] ps-4 pe-2">
         {design ? (
           <>
             <NailGroup
@@ -224,7 +235,7 @@ export function AiPhoto({
               className="w-11 justify-center"
             />
             <div className="min-w-0 flex-1">
-              <div className="truncate text-base font-semibold">{design.name}</div>
+              <div className="truncate text-base font-extrabold">{design.name}</div>
               <div className="text-muted mt-0.5 text-[13px]">
                 {[
                   t(`shapes.${look.shape}`),
@@ -236,7 +247,7 @@ export function AiPhoto({
           </>
         ) : (
           <div className="min-w-0 flex-1">
-            <div className="text-base font-semibold">{t("custom")}</div>
+            <div className="text-base font-extrabold">{t("custom")}</div>
             <div className="text-muted mt-0.5 truncate text-[13px]">
               {[
                 t(`shapes.${look.shape}`),
@@ -252,13 +263,13 @@ export function AiPhoto({
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
-          className="text-accent hover:text-foreground min-h-11 text-sm font-medium"
+          className="bg-accent-soft text-accent hover:bg-accent hover:text-accent-contrast inline-flex min-h-10 items-center rounded-full px-4 text-sm font-bold transition-colors"
         >
           {t("change")}
         </button>
       </div>
 
-      <label className="mt-1.5 flex min-h-[60px] cursor-pointer items-center gap-3.5">
+      <label className="mt-2 flex min-h-[60px] cursor-pointer items-center gap-3.5 px-1">
         <input
           type="checkbox"
           checked={consent}
@@ -266,7 +277,7 @@ export function AiPhoto({
           className="size-5 shrink-0"
         />
         <span>
-          <span className="block text-[15px] font-medium">{t("deleteAfter")}</span>
+          <span className="block text-[15px] font-bold">{t("deleteAfter")}</span>
           <span className="text-muted mt-0.5 block text-[13px]">{t("deleteAfterHint")}</span>
         </span>
       </label>
@@ -278,18 +289,20 @@ export function AiPhoto({
       )}
       {!consent && <Notice className="mt-2">{t("consentRequired")}</Notice>}
 
-      <div className="bg-background sticky bottom-0 -mx-6 mt-auto px-6 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <div className="text-muted mb-3 text-center text-[13px]">{t("free")}</div>
-        <Button
-          size="lg"
-          className="w-full"
-          disabled={!ready}
-          loading={busy}
-          onClick={() => photo.kind === "ok" && onGenerate(photo.capture)}
-        >
-          <Sparkles className="size-5" strokeWidth={1.75} />
-          {t("generateLook")}
-        </Button>
+      <div className="sticky bottom-0 z-30 -mx-3 mt-auto pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="glass rounded-[28px] p-2.5 shadow-lg">
+          <div className="text-muted pt-1 pb-2.5 text-center text-[13px] font-semibold">{t("free")}</div>
+          <Button
+            size="lg"
+            className="w-full"
+            disabled={!ready}
+            loading={busy}
+            onClick={() => photo.kind === "ok" && onGenerate(photo.capture)}
+          >
+            <Sparkles className="size-5" strokeWidth={1.75} />
+            {t("generateLook")}
+          </Button>
+        </div>
       </div>
 
       <Dialog open={pickerOpen} onClose={() => setPickerOpen(false)} title={t("pickDesign")} sheet>
@@ -298,7 +311,7 @@ export function AiPhoto({
             <div className="text-muted text-[13px]">
               {salon ? t("designsAt", { salon: salon.name }) : t("designs")}
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-x-4 gap-y-4">
+            <div className="mt-2 grid grid-cols-3 gap-2.5">
               {designs.map((d) => (
                 <button
                   key={d.id}
@@ -309,8 +322,8 @@ export function AiPhoto({
                   }}
                   className={
                     d.id === look.designId
-                      ? "text-accent text-start"
-                      : "text-foreground hover:text-accent text-start"
+                      ? "bg-accent-soft text-accent rounded-2xl p-2.5 text-start"
+                      : "bg-background text-foreground hover:text-accent rounded-2xl p-2.5 text-start"
                   }
                 >
                   <NailGroup shape={d.shape} fill={fillForDesign(d)} size={16} gap={4} className="h-[26px]" />
@@ -357,7 +370,7 @@ export function AiPhoto({
               </FilterToggle>
             ))}
           </div>
-          <div role="radiogroup" aria-label={t("length")} className="flex items-center gap-3.5">
+          <div role="radiogroup" aria-label={t("length")} className="mt-2 flex flex-wrap items-center gap-2">
             <span className="text-muted w-14 shrink-0 text-[13px]">{t("length")}</span>
             {LENGTHS.map((l) => (
               <FilterToggle

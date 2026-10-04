@@ -1,0 +1,356 @@
+[
+  {
+    "path": "/en",
+    "name": "home",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "See it on your hand before you book.",
+    "errors": []
+  },
+  {
+    "path": "/en/s/glow-beirut",
+    "name": "s-glow-beirut",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/s/glow-beirut",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Glow Nails Beirut",
+    "errors": []
+  },
+  {
+    "path": "/en/try",
+    "name": "try",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/try",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "errors": []
+  },
+  {
+    "path": "/en/s/glow-beirut/book",
+    "name": "s-glow-beirut-book",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/s/glow-beirut/book",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Choose a service",
+    "errors": []
+  },
+  {
+    "path": "/en/login",
+    "name": "login",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/login",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Sign in",
+    "errors": []
+  },
+  {
+    "path": "/en/for-salons",
+    "name": "for-salons",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/for-salons",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Let clients try your designs before they book.",
+    "errors": []
+  },
+  {
+    "path": "/en/legal/terms",
+    "name": "legal-terms",
+    "fixture": false,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/legal/terms",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Terms of Service",
+    "errors": []
+  },
+  {
+    "path": "/en/legal/privacy",
+    "name": "legal-privacy",
+    "fixture": false,
+    "status": 500,
+    "url": "http://127.0.0.1:3002/en/legal/privacy",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "errors": [
+      {
+        "message": "Manifest file is empty",
+        "stack": "Error: Manifest file is empty\n    at evalManifest (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\load-manifest.external.js:83:37)\n    at loadManifestFromRelativePath (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\load-manifest.external.js:109:16)\n    at AppPageRouteModule.loadManifests (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\compiled\\next-server\\app-page.runtime.dev.js:216:47411)\n    at AppPageRouteModule.prepare (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\compiled\\next-server\\app-page.runtime.dev.js:216:52923)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Module.handler (webpack-internal:///(rsc)/./node_modules/.pnpm/next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6/node_modules/next/dist/build/templates/app-page-runtime.js:165:31)\n    at async DevServer.renderToResponseWithComponentsImpl (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\base-server.js:1537:9)\n    at async DevServer.renderPageComponent (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\base-server.js:1589:24)\n    at async DevServer.renderToResponseImpl (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\base-server.js:1639:32)\n    at async DevServer.pipeImpl (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\base-server.js:1088:25)\n    at async NextNodeServer.handleCatchallRenderRequest (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\next-server.js:338:17)\n    at async DevServer.handleRequestImpl (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\base-server.js:979:17)\n    at async (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\dev\\next-dev-server.js:426:20)\n    at async Span.traceAsyncFn (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\trace\\trace.js:164:20)\n    at async DevServer.handleRequest (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\dev\\next-dev-server.js:422:24)\n    at async invokeRender (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\lib\\router-server.js:306:21)\n    at async handleRequest (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\lib\\router-server.js:508:24)\n    at async requestHandlerImpl (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\lib\\router-server.js:565:13)\n    at async Server.requestListener (file://C:\\Users\\admin\\Desktop\\nailswap\\node_modules\\.pnpm\\next@16.3.6_@babel+core@7.2_2afe163054ec35153cb0ddecdda7bac6\\node_modules\\next\\dist\\server\\lib\\start-server.js:225:13)"
+      }
+    ],
+    "recheck": {
+      "status": 200,
+      "errors": []
+    }
+  },
+  {
+    "path": "/en/blush-review?view=profile",
+    "name": "fixture-profile-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=profile",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Profile",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=profile&rtl=1",
+    "name": "fixture-profile-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=profile&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "حسابي",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=bookings",
+    "name": "fixture-bookings-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=bookings",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Bookings",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=bookings&rtl=1",
+    "name": "fixture-bookings-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=bookings&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "حجوزاتي",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=looks",
+    "name": "fixture-looks-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=looks",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Saved looks",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=looks&rtl=1",
+    "name": "fixture-looks-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=looks&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "إطلالاتي المحفوظة",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=manage",
+    "name": "fixture-manage-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=manage",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Hi Leila, here's your booking",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=manage&rtl=1",
+    "name": "fixture-manage-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=manage&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "مرحباً Leila، إليك حجزك",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=review",
+    "name": "fixture-review-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=review",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "How was your visit to Glow Nails Beirut?",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=review&rtl=1",
+    "name": "fixture-review-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=review&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "كيف كانت تجربتك في Glow Nails Beirut؟",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=dashboard",
+    "name": "fixture-dashboard-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=dashboard",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Bookings",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=dashboard&rtl=1",
+    "name": "fixture-dashboard-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=dashboard&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Bookings",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=staff",
+    "name": "fixture-staff-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=staff",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Staff",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=staff&rtl=1",
+    "name": "fixture-staff-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=staff&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Staff",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=admin-salons",
+    "name": "fixture-admin-salons-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-salons",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Salons",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=admin-salons&rtl=1",
+    "name": "fixture-admin-salons-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-salons&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Salons",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=admin-settings",
+    "name": "fixture-admin-settings-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-settings",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Settings",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=admin-settings&rtl=1",
+    "name": "fixture-admin-settings-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-settings&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Settings",
+    "errors": [
+      {
+        "message": "Invalid or unexpected token",
+        "stack": ""
+      }
+    ],
+    "recheck": {
+      "status": 200,
+      "errors": [
+        "Invalid or unexpected token"
+      ]
+    }
+  },
+  {
+    "path": "/en/blush-review?view=admin-moderation",
+    "name": "fixture-admin-moderation-en",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-moderation",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Moderation",
+    "errors": []
+  },
+  {
+    "path": "/en/blush-review?view=admin-moderation&rtl=1",
+    "name": "fixture-admin-moderation-ar",
+    "fixture": true,
+    "status": 200,
+    "url": "http://127.0.0.1:3002/en/blush-review?view=admin-moderation&rtl=1",
+    "viewport": 390,
+    "scroll": 390,
+    "overflow": [],
+    "h1": "Moderation",
+    "errors": []
+  }
+]

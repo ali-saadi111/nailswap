@@ -153,16 +153,19 @@ export function ClientsView({
         }
       />
 
-      <div className={cn("grid grid-cols-1 gap-12", selected && "xl:grid-cols-[minmax(0,1fr)_380px]")}>
+      <div className={cn("grid grid-cols-1 gap-6", selected && "xl:grid-cols-[minmax(0,1fr)_380px]")}>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
             <label className="relative inline-flex items-center">
-              <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+              <Search
+                className="text-muted pointer-events-none absolute start-3.5 size-5"
+                strokeWidth={1.75}
+              />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={td("nameOrPhone")}
-                className="field h-11 w-64 ps-7 text-base"
+                className="field h-11 w-64 ps-10 text-base"
                 aria-label={tc("search")}
               />
             </label>
@@ -179,7 +182,7 @@ export function ClientsView({
             </div>
           </div>
 
-          <div className="mt-2 overflow-x-auto">
+          <div className="dashboard-table mt-2">
             <div className="min-w-[720px]">
               <div className="table-head grid-cols-[minmax(200px,1.6fr)_80px_110px_90px_80px_100px]">
                 <span>{td("client")}</span>
@@ -198,7 +201,7 @@ export function ClientsView({
                     type="button"
                     onClick={() => setSelectedId(c.id)}
                     className={cn(
-                      "table-row h-auto min-h-[72px] w-full grid-cols-[minmax(200px,1.6fr)_80px_110px_90px_80px_100px] py-2 text-start",
+                      "data-row h-auto min-h-[72px] w-full grid-cols-[minmax(200px,1.6fr)_80px_110px_90px_80px_100px] py-2 text-start",
                       active && "bg-surface-2",
                     )}
                   >
@@ -379,7 +382,7 @@ function ClientPane({
             : tb("cancelledStatus");
 
   return (
-    <aside className="border-border min-w-0 xl:border-s xl:ps-8">
+    <aside className="dashboard-card min-w-0">
       <div className="flex items-start gap-4">
         <Avatar name={client.name} size={64} serif />
         <div className="min-w-0 flex-1">
@@ -392,7 +395,7 @@ function ClientPane({
           </div>
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap gap-x-6">
+      <div className="mt-3 flex flex-wrap gap-2">
         <a
           href={`https://wa.me/${client.phone.replace(/\D/g, "")}`}
           target="_blank"

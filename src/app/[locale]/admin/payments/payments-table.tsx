@@ -71,7 +71,7 @@ export function PaymentsTable({ rows }: { rows: PaymentRow[] }) {
   return (
     <>
       <PageHeader context={ta("manualPaymentsSub")} title={t("payments")} />
-      <div className="flex flex-wrap gap-x-14 gap-y-8">
+      <div className="flex flex-wrap gap-3">
         <Kpi value={pending.length} label={ta("awaitingConfirmation")} />
         <Kpi
           value={money(
@@ -92,7 +92,7 @@ export function PaymentsTable({ rows }: { rows: PaymentRow[] }) {
           { value: "all", label: tc("all"), count: rows.length },
         ]}
       />
-      <div className="mt-4 overflow-x-auto">
+      <div className="dashboard-table mt-4">
         <div className="min-w-[900px]">
           <div className="table-head grid-cols-[minmax(180px,1.4fr)_110px_120px_110px_minmax(120px,1fr)_150px_120px_180px]">
             <span>{ta("salon")}</span>
@@ -107,7 +107,7 @@ export function PaymentsTable({ rows }: { rows: PaymentRow[] }) {
           {list.map((r) => (
             <div
               key={r.id}
-              className="table-row h-auto min-h-16 grid-cols-[minmax(180px,1.4fr)_110px_120px_110px_minmax(120px,1fr)_150px_120px_180px] py-2"
+              className="data-row h-auto min-h-16 grid-cols-[minmax(180px,1.4fr)_110px_120px_110px_minmax(120px,1fr)_150px_120px_180px] py-2"
             >
               <span className="min-w-0">
                 <span className="block truncate text-[15px] font-medium">{r.salonName}</span>

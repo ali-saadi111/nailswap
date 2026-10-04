@@ -62,12 +62,12 @@ export function JobProgress({
   return (
     <>
       <div className="flex h-11 items-center justify-end">
-        <span className="text-muted inline-flex items-center gap-1.5 text-[13px]">
+        <span className="bg-surface text-muted inline-flex h-9 items-center gap-1.5 rounded-full px-3.5 text-[13px] font-semibold">
           <Lock className="size-[15px]" strokeWidth={1.75} />
           {t("processedPrivately")}
         </span>
       </div>
-      <div className="rounded-media bg-surface-2 relative mt-2 h-[200px] overflow-hidden">
+      <div className="rounded-media bg-latte relative -mx-3 mt-2 h-[280px] overflow-hidden">
         {photoUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={photoUrl} alt="" className="size-full object-cover" />
@@ -99,7 +99,7 @@ export function JobProgress({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={pct}
-        className="bg-border relative mt-3.5 h-[3px] rounded-full"
+        className="bg-border relative mt-3.5 h-1.5 rounded-full"
       >
         <span
           className="bg-accent absolute inset-y-0 start-0 rounded-full transition-[width] duration-700"
@@ -107,7 +107,7 @@ export function JobProgress({
         />
       </div>
 
-      <ol aria-label="Progress steps" className="mt-3.5">
+      <ol aria-label="Progress steps" className="bg-surface mt-4 rounded-[24px] px-4 py-1.5">
         {STEPS.map((key, i) => {
           const done = i < current;
           const active = i === current;
@@ -117,7 +117,7 @@ export function JobProgress({
                 {done ? (
                   <Check className="text-success size-[18px]" strokeWidth={2.2} />
                 ) : active ? (
-                  <span className="bg-accent size-[9px] rounded-full shadow-[0_0_0_4px_rgb(107_63_42/0.16)]" />
+                  <span className="bg-accent size-[9px] rounded-full shadow-[0_0_0_4px_rgb(158_90_85/0.18)]" />
                 ) : (
                   <Dot tone="hollow" className="size-[9px]" />
                 )}
@@ -144,8 +144,8 @@ export function JobProgress({
         {t("jobRef", { id: job.id.slice(0, 8) })} · {designName}
       </div>
 
-      <div className="bg-background sticky bottom-0 -mx-6 mt-auto flex justify-center px-6 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <Button variant="ghost" size="lg" onClick={onCancel}>
+      <div className="sticky bottom-0 -mx-6 mt-auto flex justify-center px-6 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <Button variant="secondary" size="lg" onClick={onCancel}>
           {t("cancel")}
         </Button>
       </div>

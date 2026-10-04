@@ -93,7 +93,7 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
         context={`${fmtLongDate(now, locale)} · ${fmtTime(now, locale)} Beirut`}
         title={ta("overview")}
       />
-      <div className="grid grid-cols-2 gap-x-12 gap-y-10 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-5">
         <Kpi
           label={ta("activeSalons")}
           value={num(active, locale)}
@@ -123,23 +123,23 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
         />
       </div>
 
-      <div className="mt-14 grid grid-cols-1 gap-x-16 gap-y-14 xl:grid-cols-2">
-        <section>
-          <div className="flex items-end justify-between">
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <section className="dashboard-card">
+          <div className="flex flex-wrap items-end justify-between gap-y-2">
             <h2 className="text-[17px] font-semibold">{ta("systemHealth")}</h2>
             <span className="text-muted text-sm">{ta("lastDays", { days: 7 })}</span>
           </div>
           <ul className="mt-2">
-            <li className="border-border grid h-14 grid-cols-[1fr_1fr_1fr] items-center border-b text-[15px]">
+            <li className="border-border grid min-h-16 grid-cols-1 gap-2 border-b py-4 text-sm sm:grid-cols-3">
               <StatusDot tone="success" className="text-[15px]">
                 {ta("database")}
               </StatusDot>
               <span>{ta("operational")}</span>
-              <span className="text-muted text-end text-sm">
+              <span className="text-muted text-sm sm:text-end">
                 {ta("salonsCount", { count: active + pending })}
               </span>
             </li>
-            <li className="border-border grid h-14 grid-cols-[1fr_1fr_1fr] items-center border-b text-[15px]">
+            <li className="border-border grid min-h-16 grid-cols-1 gap-2 border-b py-4 text-sm sm:grid-cols-3">
               <StatusDot
                 tone={jobsToday && jobsFailed / jobsToday > 0.1 ? "pending" : "success"}
                 className="text-[15px]"
@@ -147,9 +147,9 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
                 {ta("aiQueue")}
               </StatusDot>
               <span>{jobsToday && jobsFailed / jobsToday > 0.1 ? ta("degraded") : ta("healthy")}</span>
-              <span className="text-muted text-end text-sm">{ta("jobsToday", { count: jobsToday })}</span>
+              <span className="text-muted text-sm sm:text-end">{ta("jobsToday", { count: jobsToday })}</span>
             </li>
-            <li className="border-border grid h-14 grid-cols-[1fr_1fr_1fr] items-center border-b text-[15px]">
+            <li className="border-border grid min-h-16 grid-cols-1 gap-2 border-b py-4 text-sm sm:grid-cols-3">
               <StatusDot
                 tone={deliveryRate === null ? "hollow" : deliveryRate > 0.95 ? "success" : "pending"}
                 className="text-[15px]"
@@ -159,13 +159,13 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
               <span>
                 {deliveryRate === null ? "–" : deliveryRate > 0.95 ? ta("operational") : ta("degraded")}
               </span>
-              <span className="text-muted text-end text-sm">
+              <span className="text-muted text-sm sm:text-end">
                 {deliveryRate === null ? "" : ta("delivered", { pct: pct(deliveryRate, locale, 1) })}
               </span>
             </li>
           </ul>
 
-          <div className="mt-12 flex items-end justify-between">
+          <div className="mt-12 flex flex-wrap items-end justify-between gap-y-2">
             <h2 className="text-[17px] font-semibold">
               {ta("waitingApproval")} <span className="text-muted font-normal">· {pending}</span>
             </h2>
@@ -178,7 +178,10 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
           </div>
           <ul className="mt-2">
             {(queue ?? []).map((s) => (
-              <li key={s.id} className="border-border flex h-[72px] items-center gap-4 border-b text-[15px]">
+              <li
+                key={s.id}
+                className="border-border flex min-h-[72px] flex-wrap items-center gap-3 border-b py-3 text-[15px]"
+              >
                 <span className="min-w-0 flex-1 truncate">
                   {s.name} <span className="text-muted">· {s.area ?? s.city ?? ""}</span>
                 </span>
@@ -199,8 +202,8 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
           </ul>
         </section>
 
-        <section>
-          <div className="flex items-end justify-between">
+        <section className="dashboard-card">
+          <div className="flex flex-wrap items-end justify-between gap-y-2">
             <h2 className="text-[17px] font-semibold">{ta("recentActivity")}</h2>
             <Link
               href="/admin/settings#audit"
@@ -213,7 +216,7 @@ export default async function AdminOverview({ params }: { params: Promise<{ loca
             {(audit ?? []).map((a) => (
               <li
                 key={a.id}
-                className="border-border flex min-h-[72px] items-center gap-4 border-b text-[15px]"
+                className="border-border flex min-h-[72px] flex-wrap items-center gap-3 border-b py-3 text-[15px]"
               >
                 <span className="min-w-0 flex-1">
                   <b className="font-semibold">{a.profiles?.full_name ?? "Admin"}</b>{" "}

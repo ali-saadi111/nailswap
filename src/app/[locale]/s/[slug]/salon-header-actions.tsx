@@ -27,7 +27,7 @@ export function ShareSalonButton({ salonId, name }: { salonId: string; name: str
     }
   }
   return (
-    <IconButton aria-label={t("share")} onClick={share}>
+    <IconButton aria-label={t("share")} tone="surface" onClick={share}>
       <Share />
     </IconButton>
   );

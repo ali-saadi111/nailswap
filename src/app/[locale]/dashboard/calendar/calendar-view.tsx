@@ -156,12 +156,15 @@ export function CalendarView({
         actions={
           <>
             <label className="relative inline-flex items-center">
-              <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+              <Search
+                className="text-muted pointer-events-none absolute start-3.5 size-5"
+                strokeWidth={1.75}
+              />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={tc("search")}
-                className="field h-11 w-44 ps-7 text-sm"
+                className="field h-11 w-44 ps-10 text-sm"
                 aria-label={tc("search")}
               />
             </label>
@@ -245,7 +248,7 @@ export function CalendarView({
         </div>
       </div>
 
-      <div className="mt-6 overflow-x-auto">
+      <div className="dashboard-table mt-6">
         <div
           className="min-w-[640px]"
           style={{

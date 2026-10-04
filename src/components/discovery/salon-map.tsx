@@ -115,10 +115,10 @@ export function SalonMap({
     if (position && ready) map.current?.setView([position.lat, position.lng], 12);
   }, [position, ready]);
   return (
-    <div className="relative h-full min-h-[360px] overflow-hidden rounded-3xl bg-[#e9e6dd]">
+    <div className="bg-surface-2 relative h-full min-h-[360px] overflow-hidden rounded-[32px]">
       <div ref={container} className="relative z-0 h-full min-h-[360px] w-full" aria-label={t("mapLabel")} />
       {failed && (
-        <p role="status" className="absolute start-12 top-3 z-[500] rounded-xl bg-white p-3 text-sm shadow">
+        <p role="status" className="glass absolute start-12 top-3 z-[500] rounded-2xl p-3 text-sm shadow-lg">
           {t("mapError")}
         </p>
       )}

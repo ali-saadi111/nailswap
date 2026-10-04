@@ -166,14 +166,14 @@ export function PhoneOtpForm({
     <div>
       <form onSubmit={sendCode} className="mt-7">
         <Label htmlFor="otp-phone">{t("phone")}</Label>
-        <div className="flex items-end gap-4">
+        <div className="flex items-end gap-2">
           <span className="relative w-24 shrink-0">
             <select
               aria-label={t("countryCode")}
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               disabled={step === "code"}
-              className="field cursor-pointer appearance-none pe-5 text-base"
+              className="field cursor-pointer appearance-none pe-3 text-base font-bold"
             >
               {COUNTRIES.map((c) => (
                 <option key={c.code} value={c.code}>
@@ -232,7 +232,7 @@ export function PhoneOtpForm({
                 setStep("phone");
                 setError(null);
               }}
-              className="text-accent hover:text-foreground text-sm font-medium"
+              className="text-accent hover:text-foreground text-sm font-bold"
             >
               {t("edit")}
             </button>
@@ -261,7 +261,7 @@ export function PhoneOtpForm({
               <button
                 type="button"
                 onClick={() => void sendCode()}
-                className="text-accent hover:text-foreground font-medium"
+                className="text-accent hover:text-foreground font-bold"
               >
                 {t("resend")}
               </button>

@@ -7,8 +7,7 @@ import { IconButton } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /**
- * 44px header row (DESIGN.md §6 Phone screen): leading icon · centre (wordmark / step label) ·
- * trailing action. Icons hang 12px into the gutter so their glyphs align with the text column.
+ * Header row (Blush DESIGN.md §6): round surface buttons at the edges · centre label.
  */
 export function PhoneHeader({
   leading,
@@ -22,14 +21,16 @@ export function PhoneHeader({
   className?: string;
 }) {
   return (
-    <header className={cn("relative -mx-3 flex h-11 items-center justify-between", className)}>
-      <div className="flex min-w-11 items-center">{leading}</div>
+    <header
+      className={cn("relative -mx-1 flex min-h-14 shrink-0 items-center justify-between gap-2", className)}
+    >
+      <div className="relative z-10 flex min-w-11 shrink-0 items-center">{leading}</div>
       {center && (
-        <div className="absolute start-1/2 top-0 flex h-11 -translate-x-1/2 items-center rtl:translate-x-1/2">
+        <div className="absolute inset-x-14 top-0 flex min-h-14 items-center justify-center text-center">
           {center}
         </div>
       )}
-      <div className="flex min-w-11 items-center justify-end">{trailing}</div>
+      <div className="relative z-10 flex min-w-11 items-center justify-end">{trailing}</div>
     </header>
   );
 }
@@ -39,6 +40,7 @@ export function BackButton({ fallback = "/", label = "Back" }: { fallback?: stri
   return (
     <IconButton
       aria-label={label}
+      tone="surface"
       onClick={() => {
         if (typeof window !== "undefined" && window.history.length > 1) router.back();
         else router.push(fallback);
@@ -60,7 +62,7 @@ export function CloseButton({
 }) {
   const router = useRouter();
   return (
-    <IconButton aria-label={label} onClick={onClick ?? (() => router.push(href))}>
+    <IconButton aria-label={label} tone="surface" onClick={onClick ?? (() => router.push(href))}>
       <X />
     </IconButton>
   );

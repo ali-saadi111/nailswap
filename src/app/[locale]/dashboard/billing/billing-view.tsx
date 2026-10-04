@@ -135,8 +135,8 @@ export function BillingView({
         }
       />
 
-      <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)]">
-        <section>
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.2fr)]">
+        <section className="dashboard-card">
           <div className="text-muted text-[15px]">{t("currentPlan")}</div>
           <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
             <span className="font-display text-[56px] leading-none">{current?.name ?? t("trial")}</span>
@@ -179,7 +179,7 @@ export function BillingView({
         </section>
 
         {q && (
-          <section>
+          <section className="dashboard-card">
             <div className="flex items-baseline justify-between">
               <span className="text-muted text-[15px]">{td("usageCycle")}</span>
               <span className="text-muted text-[15px]">
@@ -216,24 +216,24 @@ export function BillingView({
         )}
       </div>
 
-      <div className="mt-14 grid grid-cols-1 gap-x-16 gap-y-14 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <section>
-          <div className="flex items-end justify-between">
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <section className="dashboard-card">
+          <div className="flex flex-wrap items-end justify-between gap-y-2">
             <h2 className="font-display text-[28px] leading-none">{t("plans")}</h2>
             <span className="text-muted text-[15px]">{td("pricesPerMonth")}</span>
           </div>
-          <div className="mt-8 grid gap-10 sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 min-[1500px]:grid-cols-3">
             {data.plans.map((p) => {
               const isCurrent = p.code === sub?.plan_code;
               const upgrade = !isCurrent && p.price_usd > (current?.price_usd ?? 0);
               return (
-                <div key={p.code} className="min-w-0">
+                <div key={p.code} className="bg-background min-w-0 rounded-[24px] p-4">
                   <div className="flex items-center gap-2.5 text-[17px] font-semibold">
                     {isCurrent && <Dot tone="accent" />}
                     {p.name}
                     {isCurrent && <span className="text-muted text-sm font-normal">{t("current")}</span>}
                   </div>
-                  <div className="font-display mt-3 text-[40px] leading-none">
+                  <div className="font-display mt-3 text-[36px] leading-tight break-words">
                     {money(p.price_usd, "USD", locale)}
                     <span className="text-muted font-sans text-base"> {t("perMonth")}</span>
                   </div>
@@ -282,9 +282,9 @@ export function BillingView({
           </div>
         </section>
 
-        <section className="border-border xl:border-s xl:ps-12">
+        <section className="dashboard-card">
           <h2 className="font-display text-[28px] leading-none">{t("invoices")}</h2>
-          <div className="mt-6">
+          <div className="dashboard-table mt-6">
             <div className="table-head grid-cols-[minmax(0,1fr)_90px_110px_44px]">
               <span>{td("dateNumber")}</span>
               <span className="text-end">{td("amount")}</span>
@@ -294,7 +294,7 @@ export function BillingView({
             {data.invoices.map((inv) => (
               <div
                 key={inv.id}
-                className="table-row h-auto min-h-[64px] grid-cols-[minmax(0,1fr)_90px_110px_44px] py-2"
+                className="data-row h-auto min-h-[64px] grid-cols-[minmax(0,1fr)_90px_110px_44px] py-2"
               >
                 <div className="min-w-0">
                   <div className="text-[15px]" dir="ltr">

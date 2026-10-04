@@ -168,7 +168,7 @@ export function Avatar({
   );
 }
 
-/* ── Filter toggle (text + 6px dot when pressed) ─────────────────────────── */
+/* ── Filter chip (surface pill; pressed = ink pill) ──────────────────────── */
 export function FilterToggle({
   pressed,
   onClick,
@@ -191,13 +191,14 @@ export function FilterToggle({
       onClick={onClick}
       {...ariaProps}
       className={cn(
-        "inline-flex h-11 shrink-0 items-center gap-1.5 bg-transparent font-medium whitespace-nowrap transition-colors",
-        size === "sm" ? "text-[13px]" : "text-sm",
-        pressed ? "text-accent" : "text-muted hover:text-foreground",
+        "inline-flex shrink-0 items-center gap-1.5 rounded-full font-bold whitespace-nowrap transition-colors",
+        size === "sm" ? "h-9 px-3.5 text-[13px]" : "h-10 px-4 text-sm",
+        pressed
+          ? "bg-foreground text-background"
+          : "bg-surface text-foreground hover:text-accent shadow-[inset_0_0_0_1px_var(--border)]",
         className,
       )}
     >
-      <span aria-hidden className={cn("size-1.5 rounded-full", pressed ? "bg-accent" : "bg-transparent")} />
       {children}
     </button>
   );
@@ -249,16 +250,19 @@ export function Dialog({
       }}
       aria-labelledby={title ? titleId : undefined}
       className={cn(
-        "bg-overlay text-foreground open:animate-slide-up p-0 shadow-lg backdrop:bg-[rgb(43_33_28/0.4)] backdrop:backdrop-blur-[2px]",
+        "bg-overlay text-foreground open:animate-slide-up p-0 shadow-lg backdrop:bg-[rgb(51_33_31/0.42)] backdrop:backdrop-blur-[3px]",
         sheet
-          ? "mx-auto mt-auto mb-0 w-full max-w-none rounded-t-3xl sm:m-auto sm:w-[calc(100%-2rem)] sm:rounded-2xl"
-          : "m-auto w-[calc(100%-2rem)] rounded-2xl",
+          ? "mx-auto mt-auto mb-0 w-full max-w-none rounded-t-[32px] sm:m-auto sm:w-[calc(100%-2rem)] sm:rounded-[28px]"
+          : "m-auto w-[calc(100%-2rem)] rounded-[28px]",
         sizes[size],
         className,
       )}
     >
       {sheet && (
-        <span aria-hidden className="bg-border-strong mx-auto mt-2 block h-1 w-9 rounded-full sm:hidden" />
+        <span
+          aria-hidden
+          className="bg-border-strong mx-auto mt-2.5 block h-[5px] w-10 rounded-full sm:hidden"
+        />
       )}
       <div className="max-h-[85dvh] overflow-y-auto px-6 pt-5 pb-6">
         {(title || description) && (
@@ -275,7 +279,7 @@ export function Dialog({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="text-muted hover:text-foreground -me-3 -mt-2 inline-flex size-11 items-center justify-center"
+              className="bg-surface-2/60 text-foreground hover:text-accent -me-2 -mt-1 inline-flex size-10 items-center justify-center rounded-full"
             >
               <X className="size-5" />
             </button>
@@ -287,7 +291,7 @@ export function Dialog({
   );
 }
 
-/* ── Tabs (text + underline) ─────────────────────────────────────────────── */
+/* ── Tabs (pill chips; selected = ink pill) ──────────────────────────────── */
 export function Tabs<T extends string>({
   value,
   onChange,
@@ -305,7 +309,7 @@ export function Tabs<T extends string>({
     <div
       role="tablist"
       aria-label={label}
-      className={cn("no-scrollbar flex gap-6 overflow-x-auto", className)}
+      className={cn("no-scrollbar flex gap-2 overflow-x-auto", className)}
     >
       {items.map((it) => (
         <button
@@ -317,7 +321,7 @@ export function Tabs<T extends string>({
           className="tab-link"
         >
           {it.label}
-          {it.count !== undefined && <span className="text-muted font-normal">{it.count}</span>}
+          {it.count !== undefined && <span className="font-semibold opacity-70">{it.count}</span>}
         </button>
       ))}
     </div>
@@ -401,8 +405,8 @@ export function Kpi({
   className?: string;
 }) {
   return (
-    <div className={cn("min-w-0", className)}>
-      <div className="font-display text-[40px] leading-none tabular-nums">{value}</div>
+    <div className={cn("kpi min-w-0", className)}>
+      <div className="kpi-value font-display text-[40px] leading-none tabular-nums">{value}</div>
       <div className="text-muted mt-2 text-[13px]">{label}</div>
       {(delta || hint) && (
         <div
@@ -461,7 +465,11 @@ export function Steps({ total, current, labels }: { total: number; current: numb
             aria-current={state === "current" ? "step" : undefined}
             className={cn(
               "flex items-center gap-1.5 text-sm font-medium",
-              state === "current" ? "text-accent" : state === "done" ? "text-foreground" : "text-muted",
+              state === "current"
+                ? "text-accent font-bold"
+                : state === "done"
+                  ? "text-foreground"
+                  : "text-muted",
             )}
           >
             <span

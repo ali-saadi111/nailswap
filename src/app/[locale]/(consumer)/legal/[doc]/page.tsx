@@ -33,7 +33,7 @@ export default async function LegalPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       <PhoneHeader leading={<BackButton fallback="/" />} center={<Wordmark />} />
-      <div role="tablist" aria-label={t("documents")} className="mt-2 flex gap-6">
+      <div role="tablist" aria-label={t("documents")} className="mt-2 flex flex-wrap gap-2">
         <Link href="/legal/terms" role="tab" aria-selected={doc === "terms"} className="tab-link">
           {t("terms")}
         </Link>
@@ -41,23 +41,27 @@ export default async function LegalPage({ params }: { params: Promise<{ locale: 
           {t("privacy")}
         </Link>
       </div>
-      <h1 className="font-display mt-6 text-[34px] leading-10">
-        {doc === "privacy" ? t("privacyTitle") : t("termsTitle")}
-      </h1>
-      <p className="text-muted mt-1.5 text-[13px]">
-        {t("updated", { date: updated, minutes: content.minutes })}
-      </p>
+      <header className="bg-hero mt-5 rounded-[28px] p-6">
+        <h1 className="font-display text-[34px] leading-tight">
+          {doc === "privacy" ? t("privacyTitle") : t("termsTitle")}
+        </h1>
+        <p className="text-muted mt-1.5 text-[13px]">
+          {t("updated", { date: updated, minutes: content.minutes })}
+        </p>
+      </header>
 
-      <nav aria-label={t("contents")} className="mt-6">
-        <h2 className="text-muted text-[13px]">{t("contents")}</h2>
-        <ol className="mt-1">
+      <nav aria-label={t("contents")} className="bg-surface mt-5 rounded-[26px] p-5">
+        <h2 className="text-muted text-[13px] font-bold">{t("contents")}</h2>
+        <ol className="mt-2">
           {content.sections.map((s, i) => (
-            <li key={s.id}>
+            <li key={s.id} className="border-border border-b last:border-b-0">
               <a
                 href={`#${s.id}`}
-                className="text-foreground hover:text-accent flex h-11 items-center gap-3 text-[15px]"
+                className="text-foreground hover:text-accent flex min-h-12 items-center gap-3 py-3 text-[15px] font-semibold"
               >
-                <span className="text-muted w-4">{i + 1}</span>
+                <span className="bg-background text-muted flex size-8 shrink-0 items-center justify-center rounded-full text-xs">
+                  {i + 1}
+                </span>
                 {s.title}
               </a>
             </li>
@@ -65,9 +69,9 @@ export default async function LegalPage({ params }: { params: Promise<{ locale: 
         </ol>
       </nav>
 
-      <article className="legal mt-1 max-w-[640px]">
+      <article className="legal mt-5 max-w-[640px] space-y-4">
         {content.sections.map((s, i) => (
-          <section key={s.id} id={s.id} className="scroll-mt-6">
+          <section key={s.id} id={s.id} className="bg-surface scroll-mt-6 rounded-[26px] p-5 sm:p-6">
             <h2>
               {i + 1}. {s.title}
             </h2>

@@ -20,9 +20,9 @@ export function ConsumerShell({
   return (
     <div
       className={cn(
-        "mx-auto flex min-h-dvh w-full flex-col px-6",
+        "consumer-shell mx-auto flex min-h-dvh w-full min-w-0 flex-col px-6",
         wide ? "max-w-[1200px]" : "max-w-[640px]",
-        tabBar ? "pb-28 md:pb-16" : "pb-10",
+        tabBar ? "pb-[calc(8rem+env(safe-area-inset-bottom,0px))] md:pb-16" : "pb-10",
         className,
       )}
     >
@@ -34,7 +34,7 @@ export function ConsumerShell({
   );
 }
 
-/** Pinned bottom action for flow steps (one pill, optional summary line above, no bar background). */
+/** Pinned bottom action for flow steps: a floating frosted panel with one pill and an optional summary. */
 export function StickyAction({
   children,
   summary,
@@ -47,12 +47,18 @@ export function StickyAction({
   return (
     <div
       className={cn(
-        "bg-background sticky bottom-0 z-30 -mx-6 mt-auto px-6 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]",
+        "sticky-action sticky bottom-0 z-30 -mx-3 mt-auto shrink-0 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
         className,
       )}
     >
-      {summary && <div className="mb-3.5 flex items-center justify-between gap-4">{summary}</div>}
-      {children}
+      <div className="glass rounded-[28px] p-2.5 shadow-lg">
+        {summary && (
+          <div className="flex min-w-0 flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 pt-1.5 pb-2.5">
+            {summary}
+          </div>
+        )}
+        {children}
+      </div>
     </div>
   );
 }

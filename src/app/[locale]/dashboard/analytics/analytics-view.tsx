@@ -154,7 +154,7 @@ export function AnalyticsView({
       />
 
       {!data ? (
-        <div className="grid grid-cols-2 gap-14 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i}>
               <Skeleton className="h-10 w-24" />
@@ -164,7 +164,7 @@ export function AnalyticsView({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 gap-x-14 gap-y-10 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <Kpi
               value={num(data.bookings.total, locale)}
               label={t("bookingsCount")}
@@ -195,9 +195,9 @@ export function AnalyticsView({
             />
           </div>
 
-          <div className="mt-14 grid grid-cols-1 gap-x-16 gap-y-14 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-            <section>
-              <div className="flex items-end justify-between gap-4">
+          <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+            <section className="dashboard-card">
+              <div className="flex flex-wrap items-end justify-between gap-4 gap-y-2">
                 <h2 className="font-display text-[28px] leading-none">{td("bookingsPerDay")}</h2>
                 <span className="flex items-center gap-4 text-sm">
                   <span className="inline-flex items-center gap-2">
@@ -240,7 +240,7 @@ export function AnalyticsView({
                 </span>
               </div>
 
-              <div className="mt-14 flex items-end justify-between">
+              <div className="mt-14 flex flex-wrap items-end justify-between gap-y-2">
                 <h2 className="font-display text-[28px] leading-none">{t("topDesigns")}</h2>
                 <Link
                   href="/dashboard/catalog"
@@ -249,7 +249,7 @@ export function AnalyticsView({
                   {td("openCatalog")}
                 </Link>
               </div>
-              <div className="mt-4 overflow-x-auto">
+              <div className="dashboard-table dashboard-table mt-4">
                 <div className="table-head grid-cols-[32px_minmax(140px,1fr)_minmax(120px,1fr)_minmax(120px,1fr)_70px]">
                   <span>#</span>
                   <span>{td("design")}</span>
@@ -263,7 +263,7 @@ export function AnalyticsView({
                   return (
                     <div
                       key={d.design_id}
-                      className="table-row h-14 grid-cols-[32px_minmax(140px,1fr)_minmax(120px,1fr)_minmax(120px,1fr)_70px]"
+                      className="data-row h-14 grid-cols-[32px_minmax(140px,1fr)_minmax(120px,1fr)_minmax(120px,1fr)_70px]"
                     >
                       <span className="text-muted">{i + 1}</span>
                       <span className="truncate text-[15px]">{d.name}</span>
@@ -297,8 +297,8 @@ export function AnalyticsView({
               </div>
             </section>
 
-            <section>
-              <div className="flex items-end justify-between">
+            <section className="dashboard-card">
+              <div className="flex flex-wrap items-end justify-between gap-y-2">
                 <h2 className="font-display text-[28px] leading-none">{td("funnel")}</h2>
                 <span className="text-muted text-sm">{td("lastDays", { days: Number(range) })}</span>
               </div>
@@ -376,7 +376,7 @@ export function AnalyticsView({
               </ul>
 
               <h2 className="font-display mt-14 text-[28px] leading-none">{t("tryons")}</h2>
-              <div className="mt-6 grid grid-cols-3 gap-6">
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <Kpi value={num(data.tryon.ar_sessions, locale)} label={t("ar")} />
                 <Kpi value={num(data.tryon.ai_jobs, locale)} label={t("ai")} />
                 <Kpi value={money(data.tryon.ai_cost_usd, "USD", locale)} label={td("aiCost")} />

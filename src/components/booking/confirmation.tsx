@@ -60,11 +60,16 @@ export function Confirmation({
       <div className="-mx-3 flex h-11 items-center justify-end">
         <CloseButton href={`/s/${salon.slug}`} />
       </div>
-      <Check
-        className={pending ? "text-pending mt-1 size-[34px]" : "text-success mt-1 size-[34px]"}
-        strokeWidth={1.75}
+      <span
         aria-hidden
-      />
+        className={
+          pending
+            ? "bg-pending-soft text-pending mt-1 inline-flex size-16 items-center justify-center rounded-full"
+            : "bg-success-soft text-success mt-1 inline-flex size-16 items-center justify-center rounded-full"
+        }
+      >
+        <Check className="size-8" strokeWidth={2.4} />
+      </span>
       <h1 className="font-display mt-3 text-[34px] leading-[1.1]">
         {pending ? t("requested") : first ? t("bookedName", { name: first }) : t("booked")}
       </h1>
@@ -79,7 +84,7 @@ export function Confirmation({
       </p>
 
       <KeyValueList
-        className="mt-5"
+        className="bg-surface mt-5 rounded-[26px] px-4 py-1.5"
         items={[
           { label: t("salon"), value: salon.name },
           { label: t("service"), value: booking.service?.name ?? "" },
@@ -130,11 +135,11 @@ export function Confirmation({
         ]}
       />
 
-      <div className="mt-2 flex flex-wrap items-center gap-x-7">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         <a
           href={icsFor(booking)}
           download="nailswap-booking.ics"
-          className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+          className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
         >
           <CalendarPlus className="size-5" strokeWidth={1.75} />
           {t("addToCalendar")}
@@ -144,7 +149,7 @@ export function Confirmation({
             href={mapsUrl}
             target="_blank"
             rel="noreferrer"
-            className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-[15px] font-medium"
+            className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold"
           >
             <Navigation className="size-5" strokeWidth={1.75} />
             {t("directions")}

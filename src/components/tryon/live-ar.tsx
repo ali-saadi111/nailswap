@@ -201,19 +201,19 @@ export function LiveAr({
 
   return (
     <>
-      <div className="rounded-media relative -mx-2 mt-2 h-[52dvh] min-h-[320px] overflow-hidden bg-[#3b2f29]">
+      <div className="rounded-media relative -mx-2 mt-2 h-[52dvh] min-h-[320px] overflow-hidden bg-[#7c5650]">
         <video ref={videoRef} playsInline muted className="hidden" />
         <canvas ref={canvasRef} className="size-full object-cover" aria-label={t("liveAr")} />
         {status === "ready" && (
           <StatusDot
             tone={tracked > 0 ? "success" : "hollow"}
-            className="absolute start-5 top-[18px] text-[#f7f3ef]"
+            className="absolute start-5 top-[18px] text-[#fff8f5]"
           >
             {tracked > 0 ? t("tracked", { count: tracked }) : t("noHand")}
           </StatusDot>
         )}
         {status !== "ready" && (
-          <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-[15px] text-[#f7f3ef]">
+          <div className="absolute inset-0 flex items-center justify-center p-6 text-center text-[15px] text-[#fff8f5]">
             {status === "starting" && t("loadingTracker")}
             {status === "denied" && t("cameraDenied")}
             {status === "unsupported" && t("arUnsupported")}
@@ -223,7 +223,7 @@ export function LiveAr({
         <IconButton
           aria-label={t("flip")}
           onClick={() => setFacing((f) => (f === "user" ? "environment" : "user"))}
-          className="absolute end-2 top-2 text-[#f7f3ef] hover:text-[#e7cdbe]"
+          className="absolute end-2 top-2 text-[#fff8f5] hover:text-[#efcfc8]"
         >
           <SwitchCamera />
         </IconButton>

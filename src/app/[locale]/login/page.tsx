@@ -57,7 +57,9 @@ export default async function LoginPage({
         <Wordmark />
       </div>
       <main className="mx-auto flex w-full max-w-[380px] flex-1 flex-col pt-4 lg:pt-8">
-        <NailHeroRow size={20} className="w-[132px]" />
+        <div aria-hidden className="bg-hero flex h-44 items-end justify-center rounded-[32px] pb-7">
+          <NailHeroRow size={36} gap={10} className="w-[240px] -rotate-6" />
+        </div>
         <h1 className="font-display mt-6 text-[40px] leading-[1.05] lg:text-[44px]">{t("signIn")}</h1>
         <p className="text-muted mt-2 text-[15px]">{t("subtitle")}</p>
         {nextPath && (

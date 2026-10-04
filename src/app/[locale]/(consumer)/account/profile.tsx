@@ -89,14 +89,19 @@ export function Profile({
 
   return (
     <>
-      <header className="flex h-[52px] items-center justify-between">
-        <h1 className="font-display text-[34px] leading-none">{t("profile")}</h1>
+      <header className="flex min-h-[52px] flex-wrap items-center justify-between gap-2 py-2">
+        <h1 className="font-display text-[34px] leading-tight">{t("profile")}</h1>
       </header>
 
-      <div className="mt-5 flex items-start gap-4">
-        <Avatar name={user.fullName ?? user.phone} src={user.avatarUrl} size={64} serif />
+      <div className="bg-surface mt-5 flex items-center gap-4 rounded-[28px] p-4">
+        <Avatar
+          name={user.fullName ?? user.phone}
+          src={user.avatarUrl}
+          size={64}
+          className="shadow-[0_0_0_3px_var(--surface),0_0_0_5px_var(--accent)]"
+        />
         <div className="min-w-0 flex-1">
-          <div className="text-lg leading-6 font-semibold">{user.fullName ?? t("noName")}</div>
+          <div className="text-lg leading-6 font-extrabold">{user.fullName ?? t("noName")}</div>
           <div className="mt-1 flex flex-wrap items-center gap-3 text-sm leading-5">
             <span dir="ltr">{prettyPhone(user.phone)}</span>
             <StatusDot tone="success">{t("verified")}</StatusDot>
@@ -107,7 +112,7 @@ export function Profile({
           <button
             type="button"
             onClick={() => setEditing(true)}
-            className="text-accent hover:text-foreground -mt-2.5 min-h-11 text-sm font-medium"
+            className="bg-accent-soft text-accent hover:text-foreground inline-flex min-h-10 items-center rounded-full px-4 text-sm font-bold"
           >
             {t("edit")}
           </button>
@@ -151,10 +156,10 @@ export function Profile({
         </form>
       )}
 
-      <div className="mt-8">
+      <div className="bg-surface mt-8 rounded-[26px] px-4">
         <Link
           href="/account/looks"
-          className="border-border hover:text-accent flex min-h-13 items-center gap-3.5 border-b text-[15px]"
+          className="border-border hover:text-accent flex min-h-[60px] items-center gap-3.5 border-b text-[15px] font-bold last:border-b-0"
         >
           <Bookmark className="text-accent size-5" strokeWidth={1.75} />
           <span className="flex-1">{t("savedLooks")}</span>
@@ -163,7 +168,7 @@ export function Profile({
         </Link>
         <Link
           href="/account/bookings"
-          className="border-border hover:text-accent flex min-h-13 items-center gap-3.5 border-b text-[15px]"
+          className="border-border hover:text-accent flex min-h-[60px] items-center gap-3.5 border-b text-[15px] font-bold last:border-b-0"
         >
           <CalendarDays className="text-accent size-5" strokeWidth={1.75} />
           <span className="flex-1">{t("bookings")}</span>
@@ -172,9 +177,9 @@ export function Profile({
         </Link>
         <a
           href="mailto:help@nailswap.app"
-          className="border-border hover:text-accent flex min-h-13 items-center gap-3.5 border-b text-[15px]"
+          className="border-border hover:text-accent flex min-h-[60px] items-center gap-3.5 border-b text-[15px] font-bold last:border-b-0"
         >
-          <HelpCircle className="text-accent size-5" strokeWidth={1.75} />
+          <HelpCircle className="text-accent size-5" strokeWidth={2} />
           <span className="flex-1">{t("help")}</span>
           <ChevronRight className="text-muted size-[18px] rtl:-scale-x-100" strokeWidth={1.75} />
         </a>

@@ -101,7 +101,7 @@ export function StaffView({
         }
       />
 
-      <div className="flex flex-wrap gap-x-16 gap-y-8">
+      <div className="flex flex-wrap gap-3">
         <Kpi
           value={durationLabel(totals.bookedMin, locale)}
           label={td("bookedThisWeek")}
@@ -123,7 +123,7 @@ export function StaffView({
         {t("seatsUsed", { used: staff.filter((s) => s.userId).length, seats })}
       </p>
 
-      <div className="mt-8 overflow-x-auto">
+      <div className="dashboard-table mt-8">
         <div className="min-w-[900px]">
           <div className="table-head grid-cols-[minmax(200px,1.3fr)_180px_minmax(160px,1.2fr)_150px_90px_110px_44px]">
             <span>{td("member")}</span>
@@ -140,7 +140,7 @@ export function StaffView({
             return (
               <div
                 key={s.id}
-                className="table-row h-auto min-h-[88px] grid-cols-[minmax(200px,1.3fr)_180px_minmax(160px,1.2fr)_150px_90px_110px_44px] py-3"
+                className="data-row h-auto min-h-[88px] grid-cols-[minmax(200px,1.3fr)_180px_minmax(160px,1.2fr)_150px_90px_110px_44px] py-3"
               >
                 <button
                   type="button"
@@ -199,8 +199,8 @@ export function StaffView({
         </div>
       </div>
 
-      <section className="mt-14">
-        <div className="flex items-end justify-between">
+      <section className="dashboard-card mt-14">
+        <div className="flex flex-wrap items-end justify-between gap-y-2">
           <h2 className="font-display text-[28px] leading-none">
             {td("weekHours")}{" "}
             <span className="text-muted font-sans text-[15px]">
@@ -208,7 +208,7 @@ export function StaffView({
             </span>
           </h2>
         </div>
-        <div className="mt-4 overflow-x-auto">
+        <div className="dashboard-table mt-4">
           <div className="min-w-[800px]">
             <div className="table-head grid-cols-[180px_repeat(7,1fr)]">
               <span />
@@ -217,7 +217,7 @@ export function StaffView({
               ))}
             </div>
             {active.map((s) => (
-              <div key={s.id} className="table-row h-14 grid-cols-[180px_repeat(7,1fr)]">
+              <div key={s.id} className="data-row h-14 grid-cols-[180px_repeat(7,1fr)]">
                 <span className="truncate text-[15px]">{s.name}</span>
                 {WEEK.map((wd) => {
                   const work = s.rules.filter((r) => r.weekday === wd && r.kind === "work");

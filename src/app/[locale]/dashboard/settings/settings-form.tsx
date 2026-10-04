@@ -246,7 +246,7 @@ export function SettingsForm({
         </Notice>
       )}
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[200px_minmax(0,1fr)]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[200px_minmax(0,1fr)]">
         <nav className="hidden lg:block">
           <ul className="sticky top-9 space-y-1">
             {SECTIONS.map((s) => (
@@ -264,8 +264,8 @@ export function SettingsForm({
           </ul>
         </nav>
 
-        <div className="grid grid-cols-1 gap-x-16 gap-y-14 xl:grid-cols-2">
-          <section id="profile" className="scroll-mt-8 space-y-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <section id="profile" className="dashboard-card scroll-mt-8 space-y-6">
             <div>
               <h2 className="font-display text-[28px] leading-none">{td("salonProfile")}</h2>
               <p className="text-muted mt-2 text-[15px]">{td("salonProfileSub")}</p>
@@ -328,8 +328,8 @@ export function SettingsForm({
                 maxLength={400}
               />
             </div>
-            <div className="grid grid-cols-[1fr_1fr_1fr] gap-6">
-              <div className="col-span-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="sm:col-span-3">
                 <Label htmlFor="st-address">{to("address")}</Label>
                 <Input
                   id="st-address"
@@ -466,18 +466,21 @@ export function SettingsForm({
             )}
           </section>
 
-          <section className="space-y-6">
+          <section className="dashboard-card space-y-6">
             <div id="public" className="scroll-mt-8">
               <h2 className="font-display text-[28px] leading-none">{td("publicPage")}</h2>
             </div>
             <div>
               <div className="text-muted text-[13px]">{to("slug")}</div>
-              <div className="border-border-strong flex h-12 items-center border-b text-base" dir="ltr">
+              <div
+                className="bg-background flex min-h-12 flex-wrap items-center rounded-2xl px-4 py-3 text-base break-all"
+                dir="ltr"
+              >
                 <span className="font-medium">{salon.slug}</span>
                 <span className="text-muted ms-auto">.{host.split(".").slice(1).join(".")}</span>
               </div>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center gap-4">
               <Avatar name={salon.name} src={logoUrl} size={64} serif />
               <div className="flex-1">
                 <div className="text-[15px] font-medium">{to("logo")}</div>
@@ -494,7 +497,7 @@ export function SettingsForm({
                 />
               </label>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center gap-4">
               <div className="rounded-media bg-nude h-20 w-[150px] shrink-0 overflow-hidden">
                 {coverUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -574,7 +577,7 @@ export function SettingsForm({
             </div>
 
             <div id="team" className="scroll-mt-8 pt-8">
-              <div className="flex items-end justify-between">
+              <div className="flex flex-wrap items-end justify-between gap-y-2">
                 <h2 className="font-display text-[28px] leading-none">{t("team")}</h2>
                 {owner && (
                   <button

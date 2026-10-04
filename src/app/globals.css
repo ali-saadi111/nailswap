@@ -2,32 +2,36 @@
 @plugin "@tailwindcss/typography";
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   NailSwap · 06 Nude Clinic (simplified) — design tokens
-   One warm ground, no cards. Hierarchy comes from type, whitespace and hairlines.
-   See design/nailswap-06/DESIGN.md.
+   NailSwap · Blush Immersive — design tokens
+   Blush ground, soft-white surfaces, rose-clay accent, frosted glass over imagery.
+   Try-on first: media goes full-bleed, controls float on glass. See design/blush/DESIGN.md.
    ──────────────────────────────────────────────────────────────────────────── */
 :root {
-  /* Ground — everything sits on ONE warm ground; --surface equals --background on purpose. */
-  --background: #f7f3ef;
-  --surface: #f7f3ef;
-  --surface-2: #efe8e1;
-  --overlay: #fbf8f5;
+  /* Ground + surfaces */
+  --background: #f6eae6; /* blush ground */
+  --surface: #fff8f5; /* cards, fields, nav */
+  --surface-2: #efdcd6; /* quiet fill: skeletons, media placeholders, hovered rows */
+  --overlay: #fff8f5; /* dialogs, sheets, menus, toasts */
+  --glass: rgb(255 248 245 / 0.74); /* frosted panels over imagery (with backdrop-blur) */
+  --glass-dark: rgb(51 33 31 / 0.4); /* dark frosted chips over camera / photos */
 
   /* Text */
-  --foreground: #2b211c;
-  --muted: #6f6259;
-  --muted-2: #8a7c72;
+  --foreground: #33211f; /* 13.6:1 on ground */
+  --muted: #765d58; /* 4.9:1 on ground, 5.6:1 on surface */
+  --muted-2: #9c8580; /* placeholders and disabled only */
 
   /* Lines */
-  --border: #e9e0d7;
-  --border-strong: #d9cec4;
+  --border: #ead8d2;
+  --border-strong: #dcc3bc;
 
-  /* Accent — cocoa. A salon page may override --accent at runtime. */
-  --accent: #6b3f2a;
-  --accent-hover: #58321f;
+  /* Accent — rose clay. A salon page may override --accent at runtime (keep ≥ 4.5:1 with white). */
+  --accent: #9e5a55; /* 5.2:1 with white */
+  --accent-hover: #874a46;
   --accent-contrast: #ffffff;
-  --accent-soft: #e7cdbe;
-  --nude: #e7cdbe;
+  --accent-soft: #efcfc8; /* blush pink: avatars, chips, selected tints */
+  --nude: #efcfc8;
+  --latte: #ddbba8; /* hero / media backdrops */
+  --hero: #e7c7bc; /* full-bleed hero panel */
 
   /* Status */
   --success: #4f6d4c;
@@ -38,36 +42,43 @@
   --danger: #a33a2c;
   --info: #3f5f7a;
 
-  /* Shape */
-  --radius: 1rem;
-  --radius-media: 1.5rem;
-  --radius-block: 0.625rem;
+  /* Shape — generous, pillowy corners */
+  --radius: 1.25rem;
+  --radius-media: 2rem;
+  --radius-block: 0.75rem;
 
-  /* Elevation — none on the page. Only overlays float. */
-  --shadow-sm: none;
-  --shadow: none;
-  --shadow-lg: 0 24px 48px -16px rgb(43 33 28 / 0.22), 0 2px 6px rgb(43 33 28 / 0.06);
+  /* Elevation — surfaces sit flat; floating things (nav, sticky bars, overlays) get a rose shadow. */
+  --shadow-sm: 0 1px 2px rgb(74 46 43 / 0.05);
+  --shadow: 0 10px 30px -18px rgb(74 46 43 / 0.35);
+  --shadow-lg: 0 24px 48px -18px rgb(74 46 43 / 0.38), 0 2px 6px rgb(74 46 43 / 0.06);
 
   --ring: color-mix(in oklab, var(--accent) 60%, transparent);
+
+  /* Display titles use the same family (Urbanist 800, see .font-display). */
+  --font-display: var(--font-sans);
 }
 
-/* Dark mode — derived from the light palette, not yet designed. */
+/* Dark mode — derived (rose-espresso), not yet designed. Review before shipping. */
 :root:not([data-theme="light"]) {
   @media (prefers-color-scheme: dark) {
-    --background: #1b1613;
-    --surface: #1b1613;
-    --surface-2: #241e1a;
-    --overlay: #2a231f;
-    --foreground: #f3ece6;
-    --muted: #b3a69c;
-    --muted-2: #8c7f76;
-    --border: #342b26;
-    --border-strong: #4a3f38;
-    --accent: #c48a68;
-    --accent-hover: #d39b79;
-    --accent-contrast: #1b1613;
-    --accent-soft: #4a362b;
-    --nude: #4a362b;
+    --background: #1d1514;
+    --surface: #2a1f1d;
+    --surface-2: #33262a;
+    --overlay: #2a1f1d;
+    --glass: rgb(42 31 29 / 0.72);
+    --glass-dark: rgb(20 14 13 / 0.5);
+    --foreground: #f6eae6;
+    --muted: #c4aaa4;
+    --muted-2: #8f7772;
+    --border: #3a2c29;
+    --border-strong: #4f3c38;
+    --accent: #e3a59f;
+    --accent-hover: #efb7b1;
+    --accent-contrast: #2a1715;
+    --accent-soft: #4a3130;
+    --nude: #4a3130;
+    --latte: #4a3a33;
+    --hero: #3a2a29;
     --success: #8fb08b;
     --success-soft: #2c3529;
     --pending: #c49a74;
@@ -75,24 +86,28 @@
     --warning: #d9a46a;
     --danger: #e07a6b;
     --info: #8fb0cc;
-    --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.55);
   }
 }
 :root[data-theme="dark"] {
-  --background: #1b1613;
-  --surface: #1b1613;
-  --surface-2: #241e1a;
-  --overlay: #2a231f;
-  --foreground: #f3ece6;
-  --muted: #b3a69c;
-  --muted-2: #8c7f76;
-  --border: #342b26;
-  --border-strong: #4a3f38;
-  --accent: #c48a68;
-  --accent-hover: #d39b79;
-  --accent-contrast: #1b1613;
-  --accent-soft: #4a362b;
-  --nude: #4a362b;
+  --background: #1d1514;
+  --surface: #2a1f1d;
+  --surface-2: #33262a;
+  --overlay: #2a1f1d;
+  --glass: rgb(42 31 29 / 0.72);
+  --glass-dark: rgb(20 14 13 / 0.5);
+  --foreground: #f6eae6;
+  --muted: #c4aaa4;
+  --muted-2: #8f7772;
+  --border: #3a2c29;
+  --border-strong: #4f3c38;
+  --accent: #e3a59f;
+  --accent-hover: #efb7b1;
+  --accent-contrast: #2a1715;
+  --accent-soft: #4a3130;
+  --nude: #4a3130;
+  --latte: #4a3a33;
+  --hero: #3a2a29;
   --success: #8fb08b;
   --success-soft: #2c3529;
   --pending: #c49a74;
@@ -100,7 +115,7 @@
   --warning: #d9a46a;
   --danger: #e07a6b;
   --info: #8fb0cc;
-  --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 24px 48px -16px rgb(0 0 0 / 0.55);
 }
 
 @theme inline {
@@ -118,6 +133,10 @@
   --color-accent-contrast: var(--accent-contrast);
   --color-accent-soft: var(--accent-soft);
   --color-nude: var(--nude);
+  --color-latte: var(--latte);
+  --color-hero: var(--hero);
+  --color-glass: var(--glass);
+  --color-glass-dark: var(--glass-dark);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
   --color-pending: var(--pending);
@@ -126,7 +145,7 @@
   --color-danger: var(--danger);
   --color-info: var(--info);
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), var(--font-sans), serif;
+  --font-display: var(--font-display), var(--font-sans), sans-serif;
   --font-arabic: var(--font-arabic), var(--font-sans), sans-serif;
   --radius-xl: var(--radius);
   --radius-2xl: calc(var(--radius) * 1.5);
@@ -186,16 +205,24 @@
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
     min-height: 100dvh;
   }
-  [dir="rtl"] body {
+  [dir="rtl"] body,
+  [dir="rtl"] {
     font-family: var(--font-arabic), var(--font-sans), system-ui, sans-serif;
   }
-  /* DM Serif Display has no Arabic: serif titles fall back to Plex Arabic 600. */
+  /* Display = Urbanist heavy, tight tracking (utilities like font-normal still win). */
+  .font-display {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  /* Urbanist has no Arabic: titles fall back to Plex Arabic 700. */
   [dir="rtl"] .font-display {
+    letter-spacing: 0;
     font-family: var(--font-arabic), var(--font-sans), sans-serif;
-    font-weight: 600;
+    font-weight: 700;
   }
   ::selection {
     background: var(--accent);
@@ -238,7 +265,24 @@
   }
   .skeleton {
     background: var(--surface-2);
-    border-radius: 4px;
+    border-radius: 999px;
+  }
+  /* Frosted panels — over imagery and as floating bars. */
+  .glass {
+    background: var(--glass);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    backdrop-filter: blur(18px) saturate(1.2);
+  }
+  .glass-dark {
+    background: var(--glass-dark);
+    color: #fff8f5;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  /* Card surface (Blush allows soft cards: surface fill, no border). */
+  .surface-card {
+    background: var(--surface);
+    border-radius: 1.5rem;
   }
   .sr-only-focusable:not(:focus):not(:focus-within) {
     @apply sr-only;
@@ -255,9 +299,24 @@
 
   /* Nail shapes — swatches sit directly on the ground (width : height ≈ 0.68). */
   .nail {
+    position: relative;
     display: inline-block;
     flex: none;
-    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08);
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.06),
+      inset 0 -3px 0 rgb(0 0 0 / 0.06);
+  }
+  /* Gloss highlight */
+  .nail::after {
+    content: "";
+    position: absolute;
+    left: 24%;
+    top: 14%;
+    width: 16%;
+    height: 34%;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.5);
+    pointer-events: none;
   }
   .nail-almond {
     border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
@@ -278,9 +337,9 @@
     clip-path: polygon(50% 0, 100% 72%, 100% 100%, 0 100%, 0 72%);
   }
 
-  /* Underline field (DESIGN.md §4) */
+  /* Filled field (Blush DESIGN.md §4): surface fill, 16px corners, accent ring on focus */
   .field {
-    @apply border-border-strong text-foreground placeholder:text-muted-2 focus:border-accent h-12 w-full rounded-none border-0 border-b bg-transparent px-0 text-base focus:border-b-2 focus-visible:outline-none disabled:opacity-60;
+    @apply bg-surface text-foreground placeholder:text-muted-2 focus:border-accent h-12 w-full rounded-2xl border border-transparent px-4 text-base focus-visible:outline-none disabled:opacity-60;
   }
   .field-error {
     @apply border-danger;
@@ -289,18 +348,18 @@
     @apply appearance-none pe-7;
   }
 
-  /* Text tabs */
+  /* Pill tabs: surface chip, selected = ink pill */
   .tab-link {
-    @apply text-muted hover:text-foreground flex h-11 items-center gap-1.5 border-b-2 border-transparent text-[15px] font-medium whitespace-nowrap;
+    @apply bg-surface text-foreground hover:text-accent flex h-10 shrink-0 items-center gap-1.5 rounded-full px-4 text-[14px] font-bold whitespace-nowrap shadow-[inset_0_0_0_1px_var(--border)] transition-colors;
   }
   .tab-link[aria-selected="true"],
   .tab-link[aria-current="page"] {
-    @apply border-foreground text-foreground;
+    @apply bg-foreground text-background hover:text-background shadow-none;
   }
 
-  /* Sidebar nav item: muted text, active = foreground + 6px cocoa dot before it */
+  /* Dashboard navigation uses filled pills and keeps long labels inside the sidebar. */
   .nav-item {
-    @apply text-muted hover:text-foreground flex h-[38px] items-center gap-2.5 text-[15px] font-medium;
+    @apply text-muted hover:bg-background hover:text-foreground flex min-h-11 w-full items-center gap-2.5 rounded-full px-3 py-2 text-start text-[14px] font-bold;
   }
   .nav-item::before {
     content: "";
@@ -311,18 +370,36 @@
     flex: none;
   }
   .nav-item[aria-current="page"] {
-    @apply text-foreground;
+    @apply bg-foreground text-background;
   }
   .nav-item[aria-current="page"]::before {
-    background: var(--accent);
+    background: currentColor;
   }
 
   /* Grid table rows (DESIGN.md §6 Tables) */
   .table-head {
-    @apply text-muted border-border grid h-9 items-center gap-x-4 border-b text-xs font-medium;
+    @apply text-muted border-border grid min-h-11 items-center gap-x-4 border-b py-2 text-xs font-bold;
   }
-  .table-row {
-    @apply border-border hover:bg-surface-2 grid h-13 items-center gap-x-4 border-b text-sm;
+  .data-row {
+    @apply border-border hover:bg-surface-2 grid min-h-13 items-center gap-x-4 border-b py-2 text-sm last:border-b-0;
+  }
+
+  .dashboard-card {
+    @apply bg-surface min-w-0 rounded-[26px] p-5 sm:p-6;
+  }
+  .dashboard-table {
+    @apply bg-surface max-w-full min-w-0 overflow-x-auto rounded-[26px] px-4 py-3 sm:px-6;
+  }
+  .dashboard-table > .table-head,
+  .dashboard-table > .data-row {
+    min-width: 640px;
+  }
+  .dashboard-shell .kpi {
+    @apply bg-surface rounded-[24px] p-4 sm:p-5;
+  }
+  .dashboard-shell .field {
+    max-width: 100%;
+    min-width: 0;
   }
 
   /* Calendar block */
@@ -332,10 +409,50 @@
 
   /* Prose for legal pages */
   .legal h2 {
-    @apply font-display mt-7 text-[22px] leading-tight;
+    @apply font-display text-[22px] leading-tight;
   }
   .legal p {
-    @apply mt-2 text-[15px] leading-6 text-[#3d312a] dark:text-[color:var(--foreground)];
+    @apply text-foreground mt-3 text-[15px] leading-7;
+  }
+}
+
+/* Context overrides belong with utilities so filled fields and Arabic titles win
+   over the reusable components' bg-surface / font-display utilities. */
+@layer utilities {
+  .consumer-shell:has(.consumer-tabs) .sticky-action {
+    bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  @media (min-width: 768px) {
+    .consumer-shell:has(.consumer-tabs) .sticky-action {
+      bottom: 0;
+    }
+  }
+  .bg-hero.text-muted,
+  .bg-hero .text-muted,
+  .glass .text-muted {
+    color: var(--foreground);
+  }
+  .bg-hero > header .text-accent {
+    color: var(--foreground);
+  }
+  [dir="rtl"] .font-display {
+    font-family: var(--font-arabic), var(--font-sans), sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .dashboard-card .field,
+  .dashboard-card .dashboard-card {
+    background-color: var(--background);
+  }
+  .dashboard-shell .kpi-value {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    overflow-wrap: anywhere;
+  }
+  .tab-link[aria-selected="true"] .text-muted,
+  .tab-link[aria-current="page"] .text-muted,
+  button[aria-pressed="true"].bg-foreground .text-muted,
+  button[aria-checked="true"].bg-foreground .text-muted {
+    color: inherit;
   }
 }
 
@@ -360,18 +477,18 @@
   height: 40px;
   border-radius: 50% 50% 50% 6px;
   background: #fff;
-  color: #39291f;
+  color: #33211f;
   border: 2px solid #fff;
-  box-shadow: 0 3px 14px #39291f30;
+  box-shadow: 0 3px 14px #4a2e2b33;
   font: 700 12px/1.2 sans-serif;
 }
 .salon-map-pin.is-selected {
-  background: #68462f;
+  background: #9e5a55;
   border-color: #fff;
   color: #fff;
   transform: scale(1.06);
 }
 .salon-marker:focus-visible {
-  outline: 3px solid #68462f;
+  outline: 3px solid #9e5a55;
   border-radius: 22px;
 }

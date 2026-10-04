@@ -33,11 +33,11 @@ function NavList({ groups, onNavigate }: { groups: NavGroup[]; onNavigate?: () =
   const isActive = (it: NavItem) =>
     it.exact ? pathname === it.href : pathname === it.href || pathname.startsWith(it.href + "/");
   return (
-    <nav className="flex flex-col gap-5">
+    <nav className="flex flex-col gap-6">
       {groups.map((g, gi) => (
         <div key={gi}>
-          {g.label && <div className="text-muted mb-1 text-[13px]">{g.label}</div>}
-          <ul>
+          {g.label && <div className="text-muted mb-2 px-3 text-xs font-bold">{g.label}</div>}
+          <ul className="space-y-1">
             {g.items.map((it) => (
               <li key={it.href}>
                 <Link
@@ -46,9 +46,11 @@ function NavList({ groups, onNavigate }: { groups: NavGroup[]; onNavigate?: () =
                   aria-current={isActive(it) ? "page" : undefined}
                   className="nav-item"
                 >
-                  <span className="flex-1">{it.label}</span>
+                  <span className="min-w-0 flex-1">{it.label}</span>
                   {it.count !== undefined && it.count !== 0 && (
-                    <span className="text-muted text-sm tabular-nums">{it.count}</span>
+                    <span className="bg-background text-foreground rounded-full px-2 py-0.5 text-xs tabular-nums">
+                      {it.count}
+                    </span>
                   )}
                 </Link>
               </li>
@@ -66,7 +68,7 @@ function SalonSwitcher({ ctx }: { ctx: SidebarContext }) {
   if (!ctx.salon) return null;
   const many = (ctx.salons?.length ?? 0) > 1;
   return (
-    <div className="mt-7">
+    <div className="bg-background mt-6 rounded-[24px] p-4">
       {many ? (
         <div className="relative">
           <button
@@ -74,7 +76,7 @@ function SalonSwitcher({ ctx }: { ctx: SidebarContext }) {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-haspopup="listbox"
-            className="hover:text-accent inline-flex min-h-11 items-center gap-1.5 text-start text-[17px] font-medium"
+            className="hover:text-accent inline-flex min-h-11 items-center gap-1.5 text-start text-[17px] font-bold"
           >
             <span className="truncate">{ctx.salon.name}</span>
             <ChevronDown className="text-muted size-4 shrink-0" />
@@ -112,9 +114,9 @@ function SalonSwitcher({ ctx }: { ctx: SidebarContext }) {
           )}
         </div>
       ) : (
-        <div className="min-h-11 pt-2.5 text-[17px] font-medium">{ctx.salon.name}</div>
+        <div className="min-h-11 pt-2.5 text-[17px] font-bold">{ctx.salon.name}</div>
       )}
-      <div className="text-muted mt-0.5 text-[13px]">
+      <div className="text-muted mt-0.5 text-[13px] break-words">
         {ctx.salon.planLabel} · <span dir="ltr">{ctx.salon.host}</span>
       </div>
     </div>
@@ -144,9 +146,8 @@ function SidebarBody({
 }
 
 /**
- * Dashboard / admin shell (DESIGN.md §6): 240px sidebar with no background or border, content
- * with 48px padding (24px next to the sidebar). On phones the sidebar becomes a top row with a
- * menu that opens the same navigation in a sheet.
+ * Blush dashboard: surface sidebar and pill navigation on a blush ground.
+ * On phones, a glass header opens the same navigation in a rounded sheet.
  */
 export function DashboardShell({
   groups,
@@ -163,18 +164,18 @@ export function DashboardShell({
   const t = useTranslations("nav");
 
   return (
-    <div className="min-h-dvh">
+    <div className="dashboard-shell bg-background min-h-dvh">
       {banner}
-      <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)]">
-        <aside className="hidden lg:block">
-          <div className="no-scrollbar sticky top-0 h-dvh overflow-y-auto px-12 py-9">
+      <div className="lg:grid lg:grid-cols-[280px_minmax(0,1fr)]">
+        <aside className="hidden p-4 lg:block">
+          <div className="bg-surface no-scrollbar sticky top-4 h-[calc(100dvh-2rem)] overflow-y-auto rounded-[28px] px-5 py-6">
             <SidebarBody groups={groups} ctx={ctx} />
           </div>
         </aside>
 
-        <div className="flex h-14 items-center justify-between px-6 lg:hidden">
+        <div className="glass sticky top-0 z-40 flex min-h-16 items-center justify-between gap-3 px-5 py-2 lg:hidden">
           <Wordmark suffix={ctx.variant === "admin" ? t("admin") : undefined} />
-          <IconButton aria-label={t("menu")} onClick={() => setOpen(true)} className="-me-3">
+          <IconButton aria-label={t("menu")} onClick={() => setOpen(true)} tone="surface">
             <Menu />
           </IconButton>
         </div>
@@ -192,7 +193,7 @@ export function DashboardShell({
               className="absolute inset-0 bg-[rgb(43_33_28/0.4)]"
               onClick={() => setOpen(false)}
             />
-            <div className="bg-overlay absolute inset-y-0 start-0 w-[300px] max-w-[85vw] overflow-y-auto px-8 py-6 shadow-lg">
+            <div className="bg-overlay absolute inset-y-3 start-3 w-[300px] max-w-[85vw] overflow-y-auto rounded-[28px] px-5 py-6 shadow-lg">
               <div className="-me-3 mb-2 flex justify-end">
                 <IconButton aria-label={t("menu")} onClick={() => setOpen(false)}>
                   <X />
@@ -203,7 +204,7 @@ export function DashboardShell({
           </div>
         )}
 
-        <main id="main" className="min-w-0 px-6 py-6 lg:py-9 lg:ps-6 lg:pe-12">
+        <main id="main" className="min-w-0 px-5 py-6 lg:py-9 lg:ps-4 lg:pe-8">
           {children}
         </main>
       </div>
@@ -211,7 +212,7 @@ export function DashboardShell({
   );
 }
 
-/** Page header: muted context line + serif title on the start; text links + one pill on the end. */
+/** Hero header: muted context, heavy title, and wrapping page actions. */
 export function PageHeader({
   context,
   title,
@@ -224,12 +225,19 @@ export function PageHeader({
   className?: string;
 }) {
   return (
-    <div className={cn("mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-4", className)}>
+    <div
+      className={cn(
+        "bg-hero mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 rounded-[28px] p-5 sm:p-6",
+        className,
+      )}
+    >
       <div className="min-w-0">
         {context && <div className="text-muted text-[15px]">{context}</div>}
-        <h1 className="font-display mt-1 text-[32px] leading-[1.1] lg:text-[38px]">{title}</h1>
+        <h1 className="font-display mt-1 text-[32px] leading-tight break-words lg:text-[38px]">{title}</h1>
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-x-6 gap-y-2">{actions}</div>}
+      {actions && (
+        <div className="flex max-w-full min-w-0 flex-wrap items-center gap-x-4 gap-y-2">{actions}</div>
+      )}
     </div>
   );
 }

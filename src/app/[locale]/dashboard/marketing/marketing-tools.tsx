@@ -88,7 +88,7 @@ export function MarketingTools({
     <>
       <PageHeader context={`${salon.name} · ${td("turnTryons")}`} title={t("title")} />
 
-      <div className="grid grid-cols-1 gap-12 xl:grid-cols-[320px_minmax(0,1fr)_300px]">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[320px_minmax(0,1fr)_300px]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${qrBase}&format=png&size=640`}
@@ -98,7 +98,7 @@ export function MarketingTools({
           className="rounded-media bg-surface-2 w-full max-w-[320px]"
         />
 
-        <div className="min-w-0">
+        <div className="dashboard-card">
           <div className="text-muted text-[15px]" dir="ltr">
             {td("salonQr")} · {salon.host}
           </div>
@@ -138,7 +138,7 @@ export function MarketingTools({
 
           <div className="mt-8">
             <div className="text-muted text-[13px]">{td("campaignLink")}</div>
-            <div className="border-border-strong flex h-12 items-center gap-3 border-b">
+            <div className="bg-background flex min-h-12 items-center gap-3 rounded-2xl px-4">
               <span className="min-w-0 flex-1 truncate text-base" dir="ltr">
                 {salon.host}/try?src=<b className="text-accent font-medium">{src}</b>
               </span>
@@ -177,7 +177,7 @@ export function MarketingTools({
         </div>
 
         <div>
-          <div className="rounded-media bg-[#efe3da] px-6 py-7 text-center">
+          <div className="rounded-media bg-hero px-6 py-7 text-center">
             <div className="text-[13px] font-medium">
               NailSwap <span className="text-muted">×</span> {salon.name}
             </div>
@@ -212,7 +212,7 @@ export function MarketingTools({
         </div>
       </div>
 
-      <section className="mt-14">
+      <section className="dashboard-card mt-14">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="font-display text-[28px] leading-none">{tbp("leadsTitle")}</h2>
@@ -228,7 +228,7 @@ export function MarketingTools({
             ]}
           />
         </div>
-        <div className="mt-4 overflow-x-auto">
+        <div className="dashboard-table mt-4">
           <div className="min-w-[860px]">
             <div className="table-head grid-cols-[minmax(220px,1.4fr)_minmax(160px,1fr)_minmax(140px,1fr)_120px_120px_120px]">
               <span>{td("lead")}</span>
@@ -241,7 +241,7 @@ export function MarketingTools({
             {filtered.map((l) => (
               <div
                 key={l.id}
-                className="table-row h-[72px] grid-cols-[minmax(220px,1.4fr)_minmax(160px,1fr)_minmax(140px,1fr)_120px_120px_120px]"
+                className="data-row h-[72px] grid-cols-[minmax(220px,1.4fr)_minmax(160px,1fr)_minmax(140px,1fr)_120px_120px_120px]"
               >
                 <span className="flex items-center gap-3">
                   <Avatar name={l.name ?? l.phone ?? "?"} size={40} />

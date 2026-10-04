@@ -132,12 +132,15 @@ export function CatalogView({
         actions={
           <>
             <label className="relative inline-flex items-center">
-              <Search className="text-muted pointer-events-none absolute start-0 size-5" strokeWidth={1.75} />
+              <Search
+                className="text-muted pointer-events-none absolute start-3.5 size-5"
+                strokeWidth={1.75}
+              />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={td("searchDesigns")}
-                className="field h-11 w-56 ps-7 text-base"
+                className="field h-11 w-56 ps-10 text-base"
                 aria-label={tc("search")}
               />
             </label>
@@ -161,7 +164,7 @@ export function CatalogView({
 
       {tab === "designs" && (
         <>
-          <div className="mt-2 flex flex-wrap gap-x-6">
+          <div className="mt-2 flex flex-wrap gap-2">
             <FilterToggle pressed={filter === "all"} onClick={() => setFilter("all")}>
               {tc("all")}
             </FilterToggle>
@@ -174,13 +177,13 @@ export function CatalogView({
               <span className="text-muted font-normal">· {designs.filter((d) => !d.is_visible).length}</span>
             </FilterToggle>
           </div>
-          <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-9 md:grid-cols-3 xl:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
             {dList.map((d) => (
               <button
                 key={d.id}
                 type="button"
                 onClick={() => setEditing({ kind: "designs", id: d.id })}
-                className="group min-w-0 text-start"
+                className="bg-surface group min-w-0 rounded-[24px] p-3 text-start"
               >
                 {d.coverUrl ? (
                   <span className="rounded-media bg-surface-2 block aspect-[4/3] overflow-hidden">
@@ -231,7 +234,7 @@ export function CatalogView({
       )}
 
       {tab === "polishes" && (
-        <div className="mt-4">
+        <div className="dashboard-table mt-4">
           <div className="table-head grid-cols-[44px_minmax(0,1.3fr)_minmax(0,1fr)_110px_90px_100px]">
             <span />
             <span>{t("shadeName")}</span>
@@ -245,7 +248,7 @@ export function CatalogView({
               key={p.id}
               type="button"
               onClick={() => setEditing({ kind: "polishes", id: p.id })}
-              className="table-row h-14 w-full grid-cols-[44px_minmax(0,1.3fr)_minmax(0,1fr)_110px_90px_100px] text-start"
+              className="data-row h-14 w-full grid-cols-[44px_minmax(0,1.3fr)_minmax(0,1fr)_110px_90px_100px] text-start"
             >
               <Nail
                 fill={fillForPolish({ hexColor: p.hex_color, finish: p.finish })}
@@ -271,7 +274,7 @@ export function CatalogView({
       )}
 
       {tab === "services" && (
-        <div className="mt-4">
+        <div className="dashboard-table mt-4">
           <div className="table-head grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_100px_100px_90px_100px]">
             <span>{t("serviceName")}</span>
             <span>{t("serviceCategory")}</span>
@@ -285,7 +288,7 @@ export function CatalogView({
               key={s.id}
               type="button"
               onClick={() => setEditing({ kind: "services", id: s.id })}
-              className="table-row h-14 w-full grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_100px_100px_90px_100px] text-start"
+              className="data-row h-14 w-full grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_100px_100px_90px_100px] text-start"
             >
               <span className="truncate text-[15px] font-medium">{s.name}</span>
               <span className="text-muted">{tsc(s.category as never)}</span>

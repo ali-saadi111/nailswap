@@ -39,8 +39,8 @@ function startOfWeek(date: string) {
 }
 
 /**
- * Week strip (selected day = filled cocoa circle) + times grouped Morning / Afternoon / Evening
- * (selected = cocoa pill, unavailable = struck-through). Fetches availability for the visible
+ * Week strip of pill columns (selected = ink pill) + times as chips grouped Morning / Afternoon /
+ * Evening (selected = rose pill, unavailable = struck-through). Fetches availability for the visible
  * fortnight and the slots of the selected day.
  */
 export function SlotPicker(props: SlotPickerProps) {
@@ -148,9 +148,9 @@ export function SlotPicker(props: SlotPickerProps) {
         <div
           role="radiogroup"
           aria-label={t("with")}
-          className="no-scrollbar mt-3 flex items-center gap-4 overflow-x-auto"
+          className="no-scrollbar mt-4 flex items-center gap-2 overflow-x-auto"
         >
-          <span className="text-muted w-10 shrink-0 text-[13px]">{t("with")}</span>
+          <span className="text-muted w-10 shrink-0 text-[13px] font-bold">{t("with")}</span>
           <FilterToggle role="radio" pressed={staffId === null} onClick={() => onStaffChange(null)}>
             {t("any")}
           </FilterToggle>
@@ -168,8 +168,8 @@ export function SlotPicker(props: SlotPickerProps) {
       )}
 
       <div className="-me-3 mt-4 flex items-center justify-between">
-        <h2 className="text-[15px] font-semibold">
-          {monthLabel} <span className="text-muted text-sm font-normal">· {rangeLabel}</span>
+        <h2 className="text-lg font-extrabold">
+          {monthLabel} <span className="text-muted text-sm font-semibold">· {rangeLabel}</span>
         </h2>
         <div className="flex">
           <button
@@ -193,7 +193,7 @@ export function SlotPicker(props: SlotPickerProps) {
         </div>
       </div>
 
-      <div role="radiogroup" aria-label={t("dayLabel")} className="-mx-1.5 mt-1 grid grid-cols-7">
+      <div role="radiogroup" aria-label={t("dayLabel")} className="mt-2 grid grid-cols-7 gap-1.5">
         {week.map((d) => {
           const info = days[d];
           const past = d < today;
@@ -210,24 +210,27 @@ export function SlotPicker(props: SlotPickerProps) {
               aria-disabled={closed}
               disabled={past || beyond}
               onClick={() => !closed && setDate(d)}
-              className="flex h-[70px] flex-col items-center gap-1.5 bg-transparent"
+              className={cn(
+                "flex h-[76px] flex-col items-center justify-center gap-1 rounded-full transition-colors",
+                selected
+                  ? "bg-foreground text-background"
+                  : closed
+                    ? "bg-transparent"
+                    : "bg-surface text-foreground hover:text-accent",
+              )}
             >
               <span
                 className={cn(
-                  "text-xs font-medium",
-                  selected ? "text-accent" : closed ? "text-muted-2" : "text-muted",
+                  "text-[11px] font-bold",
+                  selected ? "text-background/80" : closed ? "text-muted-2" : "text-muted",
                 )}
               >
                 {new Intl.DateTimeFormat(locale, { weekday: "short", timeZone: "UTC" }).format(dt)}
               </span>
               <span
                 className={cn(
-                  "inline-flex size-10 items-center justify-center rounded-full text-base font-medium",
-                  selected
-                    ? "bg-accent text-accent-contrast"
-                    : closed
-                      ? "text-muted-2 line-through"
-                      : "text-foreground",
+                  "text-lg leading-none font-extrabold",
+                  !selected && closed && "text-muted-2 line-through",
                 )}
               >
                 {dt.getUTCDate()}
@@ -237,7 +240,7 @@ export function SlotPicker(props: SlotPickerProps) {
         })}
       </div>
 
-      <div className="text-muted mt-5 text-[13px]">
+      <div className="text-muted mt-5 text-[13px] font-bold">
         {fmtDay(`${date}T12:00:00Z`, locale, "UTC")}
         {staffId && staff.find((s) => s.id === staffId)
           ? ` · ${t("with").toLowerCase()} ${staff.find((s) => s.id === staffId)!.displayName}`
@@ -267,12 +270,12 @@ export function SlotPicker(props: SlotPickerProps) {
       )}
 
       {!loadingSlots && slots && slots.length > 0 && (
-        <div className="-me-2 mt-1.5 flex flex-col gap-1.5">
+        <div className="mt-2.5 flex flex-col gap-4">
           {(["morning", "afternoon", "evening"] as const).map((key) =>
             groups[key].length ? (
-              <div key={key} className="flex items-center">
-                <span className="text-muted w-[88px] shrink-0 text-sm">{t(key)}</span>
-                <div className="grid flex-1 grid-cols-4 gap-1.5">
+              <div key={key}>
+                <span className="mb-2 block text-[15px] font-extrabold">{t(key)}</span>
+                <div className="grid grid-cols-4 gap-2">
                   {groups[key].map((s) => {
                     const sel = value?.startsAt === s.startsAt;
                     return (
@@ -282,8 +285,10 @@ export function SlotPicker(props: SlotPickerProps) {
                         aria-pressed={sel}
                         onClick={() => onChange(sel ? null : s)}
                         className={cn(
-                          "h-11 rounded-full text-[15px] font-medium tabular-nums transition-colors",
-                          sel ? "bg-accent text-accent-contrast" : "text-foreground hover:text-accent",
+                          "h-11 rounded-full text-[15px] font-bold tabular-nums transition-colors",
+                          sel
+                            ? "bg-accent text-accent-contrast"
+                            : "bg-surface text-foreground hover:text-accent",
                         )}
                         dir="ltr"
                       >

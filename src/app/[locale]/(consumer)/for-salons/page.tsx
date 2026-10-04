@@ -38,32 +38,36 @@ export default async function ForSalonsPage({ params }: { params: Promise<{ loca
 
   return (
     <>
-      <header className="flex h-11 items-center justify-between md:hidden">
-        <Wordmark suffix={t("eyebrow").toLowerCase()} />
-        <HeaderAuthLink />
-      </header>
-      <NailHeroRow className="mt-4 w-[260px]" size={34} />
-      <p className="text-muted mt-6 text-[13px] font-medium">{t("eyebrow")}</p>
-      <h1 className="font-display mt-1 max-w-[560px] text-[32px] leading-[1.1] md:text-[44px]">
-        {t("title")}
-      </h1>
-      <p className="text-muted mt-3 max-w-[520px] text-[15px] leading-6">{t("body")}</p>
-      <div className="mt-5 flex items-center gap-6">
-        <ButtonLink href="/login?next=/dashboard/onboarding" size="lg">
-          {t("cta")}
-        </ButtonLink>
-        <Link
-          href="/login?next=/dashboard"
-          className="text-accent hover:text-foreground text-[15px] font-medium"
-        >
-          {t("signIn")}
-        </Link>
-      </div>
-      <p className="text-muted mt-2 text-[13px]">{t("trial")}</p>
+      <section className="bg-hero -mx-6 -mt-3 rounded-b-[36px] px-6 pt-3 pb-5 md:mx-0 md:mt-0 md:rounded-[36px]">
+        <header className="flex min-h-11 flex-wrap items-center justify-between gap-2 md:hidden">
+          <Wordmark suffix={t("eyebrow").toLowerCase()} />
+          <HeaderAuthLink />
+        </header>
+        <NailHeroRow className="mx-auto my-8 w-full max-w-[260px]" size={34} />
+        <div className="glass rounded-[28px] p-5">
+          <p className="text-muted mt-6 text-[13px] font-medium">{t("eyebrow")}</p>
+          <h1 className="font-display mt-1 max-w-[560px] text-[32px] leading-[1.1] md:text-[44px]">
+            {t("title")}
+          </h1>
+          <p className="text-muted mt-3 max-w-[520px] text-[15px] leading-6">{t("body")}</p>
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <ButtonLink href="/login?next=/dashboard/onboarding" size="lg">
+              {t("cta")}
+            </ButtonLink>
+            <Link
+              href="/login?next=/dashboard"
+              className="bg-surface text-foreground hover:text-accent inline-flex min-h-11 items-center rounded-full px-5 text-[15px] font-bold"
+            >
+              {t("signIn")}
+            </Link>
+          </div>
+          <p className="text-muted mt-2 text-[13px]">{t("trial")}</p>
+        </div>
+      </section>
 
-      <div className="mt-12 grid gap-10 md:grid-cols-3">
+      <div className="mt-6 grid gap-4 lg:grid-cols-3">
         {points.map((p) => (
-          <div key={p.title}>
+          <div key={p.title} className="bg-surface rounded-[26px] p-5">
             <h2 className="font-display text-2xl leading-tight">{p.title}</h2>
             <p className="text-muted mt-2 text-[15px] leading-6">{p.body}</p>
           </div>
@@ -71,13 +75,13 @@ export default async function ForSalonsPage({ params }: { params: Promise<{ loca
       </div>
 
       {plans && plans.length > 0 && (
-        <section className="mt-14">
+        <section className="mt-8">
           <h2 className="font-display text-2xl">{t("plansTitle")}</h2>
-          <div className="mt-6 grid gap-10 md:grid-cols-3">
+          <div className="mt-4 grid gap-4 lg:grid-cols-3">
             {plans.map((p) => (
-              <div key={p.code}>
+              <div key={p.code} className="bg-surface min-w-0 rounded-[26px] p-5">
                 <div className="text-[15px] font-semibold">{p.name}</div>
-                <div className="font-display mt-2 text-[40px] leading-none">
+                <div className="font-display mt-3 flex flex-wrap items-baseline gap-1 text-[36px] leading-tight">
                   {p.price_usd > 0 ? money(p.price_usd, "USD", locale) : tb("trial")}
                   {p.price_usd > 0 && (
                     <span className="text-muted font-sans text-[15px]">{tb("perMonth")}</span>

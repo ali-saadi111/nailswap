@@ -15,12 +15,13 @@ export const CATEGORY_FILLS: Record<string, string> = {
   velvet: "linear-gradient(100deg,#1a1030 0%,#5b3fa0 45%,#c9b6ff 52%,#5b3fa0 60%,#1a1030 100%)",
 };
 
+/** Hero swatches (Blush palette): chrome, French, cherry, rose jelly, latte ombré. */
 export const SAMPLE_FILLS = [
   CATEGORY_FILLS.chrome,
   CATEGORY_FILLS.french,
   CATEGORY_FILLS.seasonal,
-  CATEGORY_FILLS.art_3d,
-  CATEGORY_FILLS.velvet,
+  "linear-gradient(160deg,#efc3bd,#d99e98)",
+  CATEGORY_FILLS.ombre,
 ];
 
 /** CSS background for a design: its cover photo when available, otherwise a category gradient. */

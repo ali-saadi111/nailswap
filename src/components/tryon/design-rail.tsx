@@ -43,9 +43,22 @@ export function DesignRail({
             aria-label={d.name}
             title={d.name}
             onClick={() => onSelectDesign(d)}
-            className="flex h-[52px] w-11 shrink-0 flex-col items-center justify-start gap-[9px] bg-transparent"
+            className="flex w-20 shrink-0 flex-col items-center justify-start gap-2 bg-transparent"
           >
-            <Nail shape={d.shape ?? shape} fill={fillForDesign(d)} width={24} height={35} />
+            {d.coverUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={d.coverUrl}
+                alt={d.name}
+                className={cn(
+                  "size-16 rounded-xl object-cover",
+                  selected && "ring-accent ring-2 ring-offset-2",
+                )}
+              />
+            ) : (
+              <Nail shape={d.shape ?? shape} fill={fillForDesign(d)} width={24} height={35} />
+            )}
+            <span className="w-full truncate text-xs">{d.name}</span>
             <span
               aria-hidden
               className={cn("size-[5px] rounded-full", selected ? "bg-accent" : "bg-transparent")}

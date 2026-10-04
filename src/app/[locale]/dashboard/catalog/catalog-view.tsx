@@ -19,6 +19,7 @@ export interface DesignRow {
   id: string;
   slug: string;
   name: string;
+  description: string | null;
   category: string;
   shape: string | null;
   length: string | null;
@@ -93,10 +94,11 @@ export function CatalogView({
   services: ServiceRow[];
 }) {
   const t = useTranslations("catalog");
+  const tm = useTranslations("merchant");
   const td = useTranslations("ui.dash");
   const tc = useTranslations("common");
-  const tcat = useTranslations("explore.categories");
   const tdash = useTranslations("dashboard");
+  const tcat = useTranslations("explore.categories");
   const tfin = useTranslations("tryon.finishes");
   const tsc = useTranslations("catalog.serviceCategories");
   const tob = useTranslations("onboarding");
@@ -126,7 +128,7 @@ export function CatalogView({
     <>
       <PageHeader
         context={salon.name}
-        title={tdash("catalog")}
+        title={tm("feedServices")}
         actions={
           <>
             <label className="relative inline-flex items-center">
@@ -151,7 +153,7 @@ export function CatalogView({
         value={tab}
         onChange={setTab}
         items={[
-          { value: "designs", label: tdash("catalog"), count: designs.length },
+          { value: "designs", label: tm("feed"), count: designs.length },
           { value: "polishes", label: tdash("polishes"), count: polishes.length },
           { value: "services", label: tdash("services"), count: services.length },
         ]}
@@ -170,9 +172,6 @@ export function CatalogView({
             <FilterToggle pressed={filter === "draft"} onClick={() => setFilter("draft")}>
               {td("drafts")}{" "}
               <span className="text-muted font-normal">· {designs.filter((d) => !d.is_visible).length}</span>
-            </FilterToggle>
-            <FilterToggle pressed={filter === "ar"} onClick={() => setFilter("ar")}>
-              {td("arReady")}
             </FilterToggle>
           </div>
           <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-9 md:grid-cols-3 xl:grid-cols-4">
@@ -210,7 +209,7 @@ export function CatalogView({
                   {(d.polishIds.length > 0 || d.shape) && (
                     <span className="text-accent inline-flex items-center gap-1">
                       <Sparkles className="size-3.5" strokeWidth={1.75} />
-                      {td("arReady")}
+                      {tm("photoReady")}
                     </span>
                   )}
                 </span>
@@ -349,6 +348,7 @@ function DesignEditor({
   onClose: () => void;
 }) {
   const t = useTranslations("catalog");
+  const tm = useTranslations("merchant");
   const td = useTranslations("ui.dash");
   const tc = useTranslations("common");
   const tcat = useTranslations("explore.categories");
@@ -360,6 +360,7 @@ function DesignEditor({
   const supabase = React.useMemo(() => createClient(), []);
   const [f, setF] = React.useState({
     name: design?.name ?? "",
+    description: design?.description ?? "",
     category: design?.category ?? "minimal",
     shape: design?.shape ?? "almond",
     length: design?.length ?? "medium",
@@ -386,6 +387,7 @@ function DesignEditor({
       const row = {
         salon_id: salon.id,
         name: f.name.trim(),
+        description: f.description.trim() || null,
         category: f.category as never,
         shape: f.shape as never,
         length: f.length as never,
@@ -490,6 +492,16 @@ function DesignEditor({
               onChange={(e) => set("name", e.target.value)}
               maxLength={80}
               autoFocus={!design}
+            />
+          </div>
+          <div>
+            <Label htmlFor="de-caption">{tm("caption")}</Label>
+            <Textarea
+              id="de-caption"
+              rows={3}
+              value={f.description}
+              onChange={(e) => set("description", e.target.value)}
+              maxLength={2000}
             />
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

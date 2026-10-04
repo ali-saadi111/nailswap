@@ -36,7 +36,7 @@ export default async function CatalogPage({
     client
       .from("designs")
       .select(
-        "id, slug, name, category, shape, length, price_addon, duration_addon_min, cover_path, prompt_text, tags, is_visible, is_featured, sort_order, tryon_count, booking_count, design_services(service_id), design_polishes(polish_id)",
+        "id, slug, name, description, category, shape, length, price_addon, duration_addon_min, cover_path, prompt_text, tags, is_visible, is_featured, sort_order, tryon_count, booking_count, design_services(service_id), design_polishes(polish_id)",
       )
       .eq("salon_id", salon.id)
       .order("sort_order"),

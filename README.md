@@ -1,9 +1,8 @@
 # NailSwap
 
-AI nail try-on + booking platform for salons in Lebanon. Clients try designs on their own hands
-(live AR in the browser, or AI photo rendering), then book the look at the salon. Salons get a
-branded page on `slug.nailswap.app`, a booking engine with WhatsApp confirmations and reminders,
-a catalog/CRM dashboard and analytics. Platform admins manage plans, approvals and moderation.
+Map-first salon discovery and booking, with photo-based AI nail try-on. Clients select a salon on the map, browse its photo feed, try a look on their own hand photo, and book. The camera provides a hand-positioning outline; it does not apply live AR effects.
+
+Merchants land on bookings and manage their feed, services, salon description, map location, opening hours and staff. The local app runs at `http://localhost:3000/en`; the merchant area is `/en/dashboard`.
 
 Architecture and design decisions: [`docs/superpowers/specs/2026-09-28-nailswap-design.md`](docs/superpowers/specs/2026-09-28-nailswap-design.md).
 API contract for the front end: [`docs/api.md`](docs/api.md).
@@ -44,7 +43,7 @@ The output directory must be empty. Local demo users and OTPs are for developmen
 
 Next.js 16 (App Router, `proxy.ts`), React 19, TypeScript, Tailwind v4, next-intl (en / ar / fr, RTL),
 Supabase (Postgres, Auth phone OTP, Storage, Realtime, pg_cron), MediaPipe Hands + ONNX Runtime Web +
-Three.js for AR, fal.ai Nano Banana 2 at 1K for AI photo try-on (Seedream Lite and Kontext Pro available for comparison), WhatsApp Cloud API → Twilio SMS → Resend email,
+guided hand-photo capture, fal.ai Nano Banana 2 at 1K for AI photo try-on (Seedream Lite and Kontext Pro available for comparison), WhatsApp Cloud API → Twilio SMS → Resend email,
 MPGS hosted checkout (Areeba / BLOM / Audi) + manual payments, Upstash rate limiting, Cloudflare
 Turnstile, Sentry, Vercel.
 

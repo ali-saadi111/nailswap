@@ -350,3 +350,28 @@
     font-size: 16px;
   }
 }
+
+/* Interactive discovery pins keep labels readable on both light and dark tiles. */
+.salon-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50% 50% 50% 6px;
+  background: #fff;
+  color: #39291f;
+  border: 2px solid #fff;
+  box-shadow: 0 3px 14px #39291f30;
+  font: 700 12px/1.2 sans-serif;
+}
+.salon-map-pin.is-selected {
+  background: #68462f;
+  border-color: #fff;
+  color: #fff;
+  transform: scale(1.06);
+}
+.salon-marker:focus-visible {
+  outline: 3px solid #68462f;
+  border-radius: 22px;
+}

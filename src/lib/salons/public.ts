@@ -57,8 +57,7 @@ export async function getPublicSalon(slug: string) {
       )
       .eq("salon_id", salon.id)
       .eq("is_visible", true)
-      .order("is_featured", { ascending: false })
-      .order("sort_order"),
+      .order("created_at", { ascending: false }),
     supabase
       .from("polishes")
       .select("id, brand, collection, shade_name, shade_code, finish, hex_color, swatch_path, sort_order")

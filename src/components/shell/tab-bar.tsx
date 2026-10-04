@@ -1,6 +1,6 @@
 "use client";
 
-import { Compass, Sparkles, CalendarDays, User } from "lucide-react";
+import { MapPin, CalendarDays, User } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Wordmark } from "./wordmark";
@@ -11,10 +11,9 @@ const items = [
   {
     key: "discover",
     href: "/",
-    icon: Compass,
+    icon: MapPin,
     match: (p: string) => p === "/" || p.startsWith("/explore") || p.startsWith("/s/"),
   },
-  { key: "tryOn", href: "/try", icon: Sparkles, match: (p: string) => p.startsWith("/try") },
   {
     key: "bookings",
     href: "/account/bookings",

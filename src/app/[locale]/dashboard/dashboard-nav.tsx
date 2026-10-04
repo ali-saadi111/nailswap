@@ -30,6 +30,7 @@ export function DashboardNav({
   children: React.ReactNode;
 }) {
   const t = useTranslations("dashboard");
+  const tm = useTranslations("merchant");
   const td = useTranslations("ui.dash");
   const tn = useTranslations("nav");
   const tcommon = useTranslations("common");
@@ -38,35 +39,19 @@ export function DashboardNav({
 
   const groups: NavGroup[] = salon
     ? [
-        { items: [{ href: "/dashboard", label: t("overview"), exact: true }] },
         {
-          label: td("groupOperations"),
           items: [
-            { href: "/dashboard/calendar", label: t("calendar") },
             { href: "/dashboard/bookings", label: t("bookings"), count: pendingBookings || undefined },
-            { href: "/dashboard/clients", label: t("clients") },
+            { href: "/dashboard/calendar", label: t("calendar") },
+            ...(manager
+              ? [
+                  { href: "/dashboard/catalog", label: tm("feed") },
+                  { href: "/dashboard/profile", label: tm("profile") },
+                  { href: "/dashboard/staff", label: t("staff") },
+                ]
+              : []),
           ],
         },
-        ...(manager
-          ? [
-              {
-                label: td("groupBusiness"),
-                items: [
-                  { href: "/dashboard/analytics", label: t("analytics") },
-                  { href: "/dashboard/marketing", label: t("marketing") },
-                  { href: "/dashboard/billing", label: t("billing") },
-                ],
-              },
-              {
-                label: td("groupSetup"),
-                items: [
-                  { href: "/dashboard/catalog", label: t("catalog") },
-                  { href: "/dashboard/staff", label: t("staff") },
-                  { href: "/dashboard/settings", label: t("settings") },
-                ],
-              },
-            ]
-          : []),
       ]
     : [{ items: [{ href: "/dashboard/onboarding", label: td("setUp") }] }];
 

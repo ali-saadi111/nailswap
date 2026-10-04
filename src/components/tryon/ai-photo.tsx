@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, Dot, FilterToggle, Notice } from "@/components/ui/primitives";
 import { Input, Label, Textarea } from "@/components/ui/input";
 import { NailGroup, fillForDesign } from "@/components/nails/nail";
+import { HandCamera } from "./hand-camera";
 import { DesignRail } from "./design-rail";
 import { checkPhoto, loadImage } from "@/lib/client/tryon";
 import type { Capture } from "./live-ar";
@@ -49,6 +50,8 @@ export function AiPhoto({
   error: string | null;
 }) {
   const t = useTranslations("ui.tryon");
+  const cameraText = useTranslations("capture");
+  const [cameraOpen, setCameraOpen] = React.useState(false);
   const [photo, setPhoto] = React.useState<PhotoState>(() =>
     initialCapture
       ? initialCapture.hands.length
@@ -145,11 +148,26 @@ export function AiPhoto({
         ))}
       </ol>
 
+      {cameraOpen && (
+        <HandCamera
+          onClose={() => setCameraOpen(false)}
+          onCapture={(blob) => {
+            setCameraOpen(false);
+            void analyse(blob, URL.createObjectURL(blob));
+          }}
+        />
+      )}
+      <button
+        type="button"
+        onClick={() => inputRef.current?.click()}
+        className="text-accent min-h-11 self-end text-sm font-semibold"
+      >
+        {cameraText("upload")}
+      </button>
       <input
         ref={inputRef}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/heic"
-        capture="environment"
         onChange={onFile}
         className="sr-only"
         tabIndex={-1}
@@ -163,7 +181,7 @@ export function AiPhoto({
       ) : (
         <button
           type="button"
-          onClick={() => inputRef.current?.click()}
+          onClick={() => setCameraOpen(true)}
           className="rounded-media bg-surface-2 text-muted hover:text-foreground mt-1 flex h-[320px] w-full flex-col items-center justify-center gap-3 px-8 text-center"
         >
           <Camera className="text-accent size-8" strokeWidth={1.5} />
@@ -186,7 +204,7 @@ export function AiPhoto({
         {photo.kind !== "empty" && (
           <button
             type="button"
-            onClick={() => inputRef.current?.click()}
+            onClick={() => setCameraOpen(true)}
             className="text-accent hover:text-foreground inline-flex min-h-11 items-center gap-1.5 text-sm font-medium"
           >
             <Camera className="size-[18px]" strokeWidth={1.75} />

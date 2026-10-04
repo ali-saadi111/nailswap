@@ -21,7 +21,7 @@ export function ConsumerShell({
     <div
       className={cn(
         "mx-auto flex min-h-dvh w-full flex-col px-6",
-        wide ? "max-w-[960px]" : "max-w-[640px]",
+        wide ? "max-w-[1200px]" : "max-w-[640px]",
         tabBar ? "pb-28 md:pb-16" : "pb-10",
         className,
       )}

@@ -3,18 +3,16 @@
 import * as React from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Tabs } from "@/components/ui/primitives";
-import { PhoneHeader, BackButton, CloseButton } from "@/components/shell/phone-header";
+import { PhoneHeader, CloseButton } from "@/components/shell/phone-header";
 import { TrackView } from "@/components/track-view";
-import { LiveAr, type Capture } from "./live-ar";
+import type { Capture } from "./live-ar";
 import { AiPhoto } from "./ai-photo";
 import { JobProgress } from "./job-progress";
 import { Result } from "./result";
 import { api, isApiError } from "@/lib/client/api";
-import { defaultLookFor, fetchJob, startSession, styleForLook, uploadTryOn } from "@/lib/client/tryon";
+import { defaultLookFor, fetchJob, startSession, uploadTryOn } from "@/lib/client/tryon";
 import type { JobView, Look, TryonDesign, TryonPolish, TryonSalon } from "./types";
 
-type Mode = "ar" | "ai";
 type Stage = "photo" | "progress" | "result";
 
 export function TryonScreen({
@@ -37,7 +35,6 @@ export function TryonScreen({
   const router = useRouter();
   const initialDesign = designs.find((d) => d.id === initialDesignId) ?? (salon ? designs[0] : null) ?? null;
   const [look, setLook] = React.useState<Look>(() => defaultLookFor(initialDesign));
-  const [mode, setMode] = React.useState<Mode>(initialJobId ? "ai" : "ar");
   const [stage, setStage] = React.useState<Stage>(initialJobId ? "progress" : "photo");
   const [capture, setCapture] = React.useState<Capture | null>(null);
   const [job, setJob] = React.useState<JobView | null>(null);
@@ -46,7 +43,6 @@ export function TryonScreen({
   const sessionId = React.useRef<string | null>(null);
 
   const design = designs.find((d) => d.id === look.designId) ?? null;
-  const style = React.useMemo(() => styleForLook(look, design, polishes), [look, design, polishes]);
   const contextSalonId = salon?.id ?? design?.salonId ?? null;
   const designLabel = design
     ? `${design.name} · ${t(`shapes.${look.shape}`)} · ${t(`lengths.${look.length}`).toLowerCase()}`
@@ -86,22 +82,34 @@ export function TryonScreen({
     if (stage !== "progress" || !job) return;
     const terminal = ["succeeded", "failed", "rejected"];
     if (terminal.includes(job.status)) return;
-    const id = setTimeout(async () => {
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
+    async function poll() {
       try {
-        const j = await fetchJob(job.id);
+        const j = await fetchJob(job!.id);
+        if (cancelled) return;
         setJob(j);
-        if (j.status === "succeeded") setStage("result");
-        else if (j.status === "failed" || j.status === "rejected") {
+        if (j.status === "succeeded") {
+          setStage("result");
+          return;
+        }
+        if (j.status === "failed" || j.status === "rejected") {
           setError(errorMessage(j.errorCode, j.status === "rejected"));
           setStage("photo");
+          return;
         }
       } catch {
-        /* keep polling */
+        /* Retry temporary network failures while this screen is mounted. */
       }
-    }, 2000);
-    return () => clearTimeout(id);
+      if (!cancelled) timer = setTimeout(poll, 1500);
+    }
+    timer = setTimeout(poll, 1000);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stage, job?.id, job?.status, job?.progress]);
+  }, [stage, job?.id]);
 
   function errorMessage(code: string | null | undefined, rejected = false) {
     switch (code) {
@@ -150,14 +158,8 @@ export function TryonScreen({
     }));
   }
 
-  function onCapture(c: Capture) {
-    setCapture(c);
-    setMode("ai");
-    setStage("photo");
-    setError(null);
-  }
-
   async function generate(c: Capture) {
+    setCapture(c);
     setBusy(true);
     setError(null);
     try {
@@ -199,75 +201,19 @@ export function TryonScreen({
 
   function tryAnother() {
     setJob(null);
-    setCapture(null);
     setStage("photo");
-    setMode("ar");
     if (initialJobId) router.replace(closeHref.includes("/s/") ? `${closeHref}/try` : "/try");
   }
-
-  const bookHref =
-    contextSalonId && (salon?.slug ?? design?.salonSlug)
-      ? `/s/${salon?.slug ?? design!.salonSlug}/book${design ? `?designId=${design.id}` : ""}`
-      : null;
-
-  const showTabs = stage === "photo";
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col px-6 pt-3">
       <TrackView salonId={contextSalonId} designId={look.designId} payload={{ screen: "tryon" }} />
-      {showTabs && (
-        <PhoneHeader
-          leading={
-            mode === "ar" ? (
-              <CloseButton href={closeHref} label={t("close")} />
-            ) : (
-              <BackButton fallback={closeHref} label={t("back")} />
-            )
-          }
-          center={
-            <Tabs
-              value={mode}
-              onChange={(m) => {
-                setMode(m);
-                setError(null);
-              }}
-              label={t("mode")}
-              items={[
-                { value: "ar", label: t("liveAr") },
-                { value: "ai", label: t("aiPhoto") },
-              ]}
-            />
-          }
-          trailing={<span className="w-11" />}
-        />
-      )}
-      {!showTabs && stage === "result" && (
-        <div className="-mx-3 -mb-11 flex h-11 items-center">
-          <CloseButton href={closeHref} label={t("close")} />
-        </div>
-      )}
+      <PhoneHeader
+        leading={<CloseButton href={closeHref} label={t("close")} />}
+        center={<span className="text-sm font-semibold">{t("aiPhoto")}</span>}
+      />
 
-      {mode === "ar" && stage === "photo" && (
-        <LiveAr
-          salon={salon}
-          designs={designs}
-          polishes={polishes}
-          look={look}
-          design={design}
-          style={style}
-          onLookChange={(p) => setLook((l) => ({ ...l, ...p }))}
-          onSelectDesign={selectDesign}
-          onSelectPolish={selectPolish}
-          onCapture={onCapture}
-          onUnsupported={() => {
-            setMode("ai");
-            setError(t("arUnsupported"));
-          }}
-          bookHref={bookHref}
-        />
-      )}
-
-      {mode === "ai" && stage === "photo" && (
+      {stage === "photo" && (
         <AiPhoto
           salon={salon}
           designs={designs}

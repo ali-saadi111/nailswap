@@ -15,13 +15,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ApiError } from "@/lib/api";
 import { getPublicSalon } from "@/lib/salons/public";
-import { publicEnv } from "@/lib/env";
 import { contrastText, luminance } from "@/lib/utils";
 import { money, fmtDay } from "@/lib/format";
 import { openState, summarizeHours, hhmm } from "@/lib/hours";
 import { Avatar, StatusDot, EmptyState, Notice } from "@/components/ui/primitives";
 import { ButtonLink } from "@/components/ui/button";
-import { NailGroup, fillForDesign } from "@/components/nails/nail";
 import { BackButton, PhoneHeader } from "@/components/shell/phone-header";
 import { StickyAction } from "@/components/shell/consumer-shell";
 import { TrackView } from "@/components/track-view";
@@ -84,28 +82,51 @@ export default async function SalonPage({
     (i) => tc(`weekdaysShort.${i}` as never),
     t("closed").toLowerCase(),
   );
-  const host = `${salon.slug}.${publicEnv.rootDomain}`;
+  const feedText = await getTranslations("merchant");
   const approval = salon.booking_mode === "approval";
   const minPrice = services.length ? Math.min(...services.map((s) => Number(s.price))) : null;
   const initialTab =
     (["designs", "services", "reviews", "about"] as const).find((x) => x === sp.tab) ?? "designs";
 
   const designsPanel = designs.length ? (
-    <div className="grid grid-cols-3 gap-x-4 gap-y-5">
+    <div className="grid gap-5 sm:grid-cols-2">
       {designs.map((d) => (
-        <Link
-          key={d.id}
-          href={`/s/${salon.slug}/try?designId=${d.id}`}
-          className="text-foreground hover:text-accent min-w-0"
-        >
-          <NailGroup shape={d.shape} fill={fillForDesign(d)} size={18} gap={5} className="h-[30px]" />
-          <span className="mt-2 block truncate text-[13px] font-medium">{d.name}</span>
-          <span className="text-muted mt-0.5 block text-[13px]">
-            {d.priceAddon > 0
-              ? t("addon", { price: money(d.priceAddon, salon.currency, locale) })
-              : t("included")}
-          </span>
-        </Link>
+        <article key={d.id} className="border-border overflow-hidden rounded-2xl border bg-white">
+          <Link href={`/s/${salon.slug}/try?designId=${d.id}`}>
+            {d.coverUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={d.coverUrl}
+                alt={d.name}
+                loading="lazy"
+                className="aspect-square w-full object-cover"
+              />
+            ) : (
+              <div className="bg-surface-2 flex aspect-square items-center justify-center">
+                <Sparkles className="text-accent size-10" />
+              </div>
+            )}
+          </Link>
+          <div className="p-4">
+            <h3 className="font-semibold">{d.name}</h3>
+            {d.description && <p className="text-muted mt-2 text-sm leading-relaxed">{d.description}</p>}
+            <div className="mt-3 flex flex-wrap gap-3">
+              <Link
+                href={`/s/${salon.slug}/try?designId=${d.id}`}
+                className="text-accent inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold"
+              >
+                <Sparkles className="size-4" />
+                {feedText("tryPhoto")}
+              </Link>
+              <Link
+                href={`/s/${salon.slug}/book?designId=${d.id}`}
+                className="inline-flex min-h-11 items-center text-sm font-semibold"
+              >
+                {feedText("bookLook")}
+              </Link>
+            </div>
+          </div>
+        </article>
       ))}
     </div>
   ) : (
@@ -276,13 +297,8 @@ export default async function SalonPage({
     >
       <TrackView salonId={salon.id} />
       <PhoneHeader
-        leading={<BackButton fallback="/explore" label={t("back")} />}
-        center={
-          <span className="text-muted flex items-center gap-1.5 text-[13px]" dir="ltr">
-            <Lock className="size-[13px]" strokeWidth={2} />
-            {host}
-          </span>
-        }
+        leading={<BackButton fallback="/" label={t("back")} />}
+        center={<span className="text-sm font-semibold">{feedText("salonPage")}</span>}
         trailing={<ShareSalonButton salonId={salon.id} name={salon.name} />}
       />
 
@@ -292,6 +308,10 @@ export default async function SalonPage({
         </Notice>
       )}
 
+      {salon.coverUrl && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={salon.coverUrl} alt={salon.name} className="mt-3 h-44 w-full rounded-3xl object-cover" />
+      )}
       <div className="mt-4 flex items-center gap-4">
         <Avatar name={salon.name} src={salon.logoUrl} size={64} serif />
         <div className="min-w-0 flex-1">
@@ -341,6 +361,7 @@ export default async function SalonPage({
       </div>
 
       <SalonTabs
+        key={initialTab}
         initial={initialTab}
         reviewCount={salon.rating_count}
         designs={

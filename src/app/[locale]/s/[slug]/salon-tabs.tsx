@@ -23,6 +23,7 @@ export function SalonTabs({
   initial?: SalonTab;
 }) {
   const t = useTranslations("ui.salon");
+  const tm = useTranslations("merchant");
   const [tab, setTab] = React.useState<SalonTab>(initial);
   const panels: Record<SalonTab, React.ReactNode> = { designs, services, reviews, about };
   return (
@@ -32,7 +33,7 @@ export function SalonTabs({
         onChange={setTab}
         className="mt-3"
         items={[
-          { value: "designs", label: t("designs") },
+          { value: "designs", label: tm("feed") },
           { value: "services", label: t("services") },
           { value: "reviews", label: t("reviews"), count: reviewCount || undefined },
           { value: "about", label: t("about") },

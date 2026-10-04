@@ -10,5 +10,5 @@ export default async function ConsumerLayout({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <ConsumerShell>{children}</ConsumerShell>;
+  return <ConsumerShell wide>{children}</ConsumerShell>;
 }
